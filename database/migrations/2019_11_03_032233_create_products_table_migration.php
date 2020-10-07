@@ -15,15 +15,15 @@ class CreateProductsTableMigration extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('name');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('product_category_id');
-            $table->unsignedDecimal('price', 10, 2);
+            $table->unsignedDecimal('price', 10, 0);
             $table->unsignedinteger('stock')->default(0);
-            $table->unsignedinteger('stock_defective')->default(0);
+
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('product_category_id')->references('id')->on('product_categories');
         });
     }
 

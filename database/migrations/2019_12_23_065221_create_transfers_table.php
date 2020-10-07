@@ -15,15 +15,15 @@ class CreateTransfersTable extends Migration
     {
         Schema::create('transfers', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('title')->nullable();
             $table->unsignedBigInteger('sender_method_id');
             $table->unsignedBigInteger('receiver_method_id');
             $table->decimal('sended_amount', 10, 2);
             $table->decimal('received_amount', 10, 2);
             $table->string('reference')->nullable();
+
             $table->timestamps();
-            $table->foreign('sender_method_id')->references('id')->on('payment_methods');
-            $table->foreign('receiver_method_id')->references('id')->on('payment_methods');
         });
     }
 
