@@ -15,8 +15,10 @@ class CreatePaymentMethodsTableMigration extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('name');
             $table->text('description')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

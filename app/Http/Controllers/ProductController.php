@@ -6,56 +6,39 @@ use App\Product;
 use App\ProductCategory;
 use App\Http\Requests\ProductRequest;
 
-class ProductController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $products = Product::paginate(25);
+class ProductController extends Controller{
+
+    private $productModel;
+    private $categoryModel;
+
+    public function __construct(Product $productModel, ProductCategory $categoryModel){
+        $this->productModel = $productModel;
+        $this->categoryModel = $categoryModel;
+    }
+
+    public function index(){
+
+        $products = $this->productModel->paginate(25);
 
         return view('inventory.products.index', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $categories = ProductCategory::all();
+    public function create(){
+
+        $categories = $this->categoryModel->pluck('name','id');
 
         return view('inventory.products.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  App\Http\Requests\ProductRequest  $request
-     * @param  App\Product  $model
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ProductRequest $request, Product $model)
-    {
-        $model->create($request->all());
+    public function store(ProductRequest $request){
 
-        return redirect()
-            ->route('products.index')
-            ->withStatus('Product successfully registered.');
+        $this->productModel->create($request->all());
+
+        return redirect()->route('products.index')->withStatus('Producto agregado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
+    public function show(Product $product){
+
         $solds = $product->solds()->latest()->limit(25)->get();
 
         $receiveds = $product->receiveds()->latest()->limit(25)->get();
@@ -63,47 +46,24 @@ class ProductController extends Controller
         return view('inventory.products.show', compact('product', 'solds', 'receiveds'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        $categories = ProductCategory::all();
+    public function edit(Product $product){
+
+        $categories = $this->categoryModel->pluck('name','id');
 
         return view('inventory.products.edit', compact('product', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ProductRequest $request, Product $product)
-    {
+    public function update(ProductRequest $request, Product $product){
+
         $product->update($request->all());
 
-        return redirect()
-            ->route('products.index')
-            ->withStatus('Product updated successfully.');
+        return redirect()->route('products.index')->withStatus('Producto actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
-    {
+    public function destroy(Product $product){
+
         $product->delete();
 
-        return redirect()
-            ->route('products.index')
-            ->withStatus('Product removed successfully.');
+        return redirect()->route('products.index')->withStatus('Producto eliminado correctamente.');
     }
 }

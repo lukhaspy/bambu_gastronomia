@@ -10,21 +10,22 @@ class Product extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'description', 'product_category_id', 'price', 'stock', 'stock_defective'
+        'name',
+        'description',
+        'product_category_id',
+        'price',
+        'stock'
     ];
 
-    public function category()
-    {
+    public function category(){
         return $this->belongsTo('App\ProductCategory', 'product_category_id')->withTrashed();
     }
 
-    public function solds()
-    {
+    public function solds(){
         return $this->hasMany('App\SoldProduct');
     }
 
-    public function receiveds()
-    {
+    public function receiveds(){
         return $this->hasMany('App\ReceivedProduct');
     }
 }
