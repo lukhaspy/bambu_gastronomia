@@ -42,8 +42,8 @@ class ClientController extends Controller
     public function store(ClientRequest $request, Client $client)
     {
         $client->create($request->all());
-        
-        return redirect()->route('clients.index')->withStatus('Successfully registered customer.');
+
+        return redirect()->route('clients.index')->withStatus('Cliente Agregado Correctamente');
     }
 
     /**
@@ -81,7 +81,7 @@ class ClientController extends Controller
 
         return redirect()
             ->route('clients.index')
-            ->withStatus('Successfully modified customer.');
+            ->withStatus('Cliente actualizado correctamente');
     }
 
     /**
@@ -96,13 +96,13 @@ class ClientController extends Controller
 
         return redirect()
             ->route('clients.index')
-            ->withStatus('Customer successfully removed.');
+            ->withStatus('Cliente Eliminado Correctamente');
     }
 
     public function addtransaction(Client $client)
     {
         $payment_methods = PaymentMethod::all();
 
-        return view('clients.transactions.add', compact('client','payment_methods'));
+        return view('clients.transactions.add', compact('client', 'payment_methods'));
     }
 }

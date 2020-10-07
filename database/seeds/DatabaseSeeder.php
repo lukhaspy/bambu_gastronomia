@@ -5,17 +5,17 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
-class DatabaseSeeder extends Seeder{
+class DatabaseSeeder extends Seeder
+{
 
-    public function run(){
+    public function run()
+    {
 
-        Role::truncate();
 
         Role::create(['name' => 'super-admin']);
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'normal']);
 
-        User::truncate();
         User::create([
             'name' => 'SitiosPy',
             'email' => 'sitiospy@sitiospy.com',

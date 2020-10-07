@@ -15,8 +15,7 @@ class ProviderController extends Controller
      */
     public function index(Provider $model)
     {
-        $providers = Provider::paginate(25);
-
+        $providers = Provider::withTrashed()->paginate(25);
         return view('providers.index', compact('providers'));
     }
 
@@ -43,7 +42,7 @@ class ProviderController extends Controller
 
         return redirect()
             ->route('providers.index')
-            ->withStatus('Successfully Registered Vendor.');
+            ->withStatus('Proveedor registrado correctamente');
     }
 
     /**
@@ -86,7 +85,7 @@ class ProviderController extends Controller
 
         return redirect()
             ->route('providers.index')
-            ->withStatus('Provider updated successfully.');
+            ->withStatus('Proveedor actualizado correctamente');
     }
 
     /**
@@ -101,6 +100,6 @@ class ProviderController extends Controller
 
         return redirect()
             ->route('providers.index')
-            ->withStatus('Provider removed successfully.');
+            ->withStatus('Proveedor eliminado correctamente');
     }
 }
