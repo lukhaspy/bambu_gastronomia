@@ -20,7 +20,7 @@
                     @include('alerts.success')
 
                     <div class="">
-                        <table class="table tablesorter " id="">
+                        <table class="table tablesorter table-responsive" " id="">
                             <thead class=" text-primary">
                                 <th>Date</th>
                                 <th>Type</th>

@@ -140,7 +140,7 @@
             </div>
             <div class="card-body">
        
-                    <table class="table tablesorter " id="">
+                    <table class="table tablesorter table-responsive" " id="">
                         <thead class=" text-primary">
                             <th scope="col">Fecha</th>
                             <th scope="col">Título</th>
