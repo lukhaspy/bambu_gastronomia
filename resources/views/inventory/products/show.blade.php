@@ -8,7 +8,7 @@
                 <h4 class="card-title">Info del Producto</h4>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>ID</th>
                         <th>Categoría</th>
@@ -44,7 +44,7 @@
                 <h4 class="card-title">Últ. Ventas</h4>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>Fecha</th>
                         <th>ID</th>
@@ -82,7 +82,7 @@
                 <h4 class="card-title">Últ. Compras</h4>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>Fecha</th>
                         <th>ID</th>

@@ -8,7 +8,7 @@
                 <h4 class="card-title">Por Cantidad (TOP 15)</h4>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>ID</th>
                         <th>Categoría</th>
@@ -50,7 +50,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <th>ID</th>
                             <th>Categoría</th>
@@ -81,7 +81,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <th>ID</th>
                             <th>Categoría</th>

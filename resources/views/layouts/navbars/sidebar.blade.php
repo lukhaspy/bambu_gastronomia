@@ -22,12 +22,12 @@
                                 <p>Estatísticas</p>
                             </a>
                         </li>
-                        <li @if ($pageSlug=='transactions' ) class="active " @endif>
+                       <!-- <li @if ($pageSlug=='transactions' ) class="active " @endif>
                             <a href="{{ route('transactions.index')  }}">
                                 <i class="tim-icons icon-bullet-list-67"></i>
                                 <p>Todas</p>
                             </a>
-                        </li>
+                        </li>-->
                         <li @if ($pageSlug=='sales' ) class="active " @endif>
                             <a href="{{ route('sales.index')  }}">
                                 <i class="tim-icons icon-bag-16"></i>

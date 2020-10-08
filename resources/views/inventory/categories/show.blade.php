@@ -8,7 +8,7 @@
                 <h4 class="card-title">Info Categoría</h4>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>ID</th>
                         <th>Nombre</th>
@@ -37,7 +37,7 @@
                 <h4 class="card-title">Productos: {{ $products->count() }}</h4>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>ID</th>
                         <th>Nombre</th>

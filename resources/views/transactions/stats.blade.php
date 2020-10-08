@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>Mes</th>
                         <th>Cant.</th>
@@ -63,7 +63,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <th>Cliente</th>
                             <th>Compras</th>
@@ -116,7 +116,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <th>Método</th>
                             <th>Transacciones {{ $date->year }}</th>
@@ -158,7 +158,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead class="bg-light">
                         <th>Periodo</th>
                         <th>Ventas</th>

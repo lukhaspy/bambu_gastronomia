@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>ID</th>
                         <th>Fecha</th>
@@ -83,7 +83,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>Categoría</th>
                         <th>Producto</th>

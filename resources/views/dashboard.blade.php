@@ -103,7 +103,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th>
@@ -153,7 +153,7 @@
                 <div class="row">
                     <div class="col-7">
                         <h4 class="card-title">Últ. Transacciones</h4>
-                    </div>
+                    </div
                     <div class="col-5 text-right">
                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#transactionModal">
                             Nuevas Transacciones
@@ -163,7 +163,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th>

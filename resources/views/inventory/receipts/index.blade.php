@@ -16,7 +16,7 @@
         </div>
         <div class="card-body">
             <div class="">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>Fecha</th>
                         <th>Título</th>

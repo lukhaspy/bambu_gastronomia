@@ -9,7 +9,7 @@
                 <h4 class="card-title">Info Cliente</h4>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>Nombre y Cédula</th>
 
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>ID</th>
                         <th>Fecha</th>
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <th>ID</th>
                         <th>Fecha</th>
