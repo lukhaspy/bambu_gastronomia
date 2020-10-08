@@ -15,12 +15,9 @@ class CreateReceivedProductsTable extends Migration
     {
         Schema::create('received_products', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->unsignedBigInteger('receipt_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('stock');
-            $table->integer('stock_defective');
-
             $table->timestamps();
         });
     }

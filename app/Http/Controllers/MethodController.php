@@ -17,7 +17,7 @@ class MethodController extends Controller
     public function index()
     {
         return view('methods.index', [
-            'methods' => PaymentMethod::paginate(15), 
+            'methods' => PaymentMethod::paginate(15),
             'month' => Carbon::now()->month
         ]);
     }
@@ -44,7 +44,7 @@ class MethodController extends Controller
 
         return redirect()
             ->route('methods.index')
-            ->withStatus('Payment method successfully created.');
+            ->withStatus('Método registrado.');
     }
 
     /**
@@ -59,18 +59,18 @@ class MethodController extends Controller
         Carbon::setWeekEndsAt(Carbon::SATURDAY);
 
         $transactionname = [
-            'income' => 'Income',
-            'payment' => 'Payment',
-            'expense' => 'Expense',
-            'transfer' => 'Transfer'
+            'income' => 'Entrada',
+            'payment' => 'Pago',
+            'expense' => 'Salida',
+            'transferencia' => 'Transferencia'
         ];
 
         $balances = [
-            'daily' => Transaction::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->sum('amount'),
-            'weekly' => Transaction::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('amount'),
-            'quarter' => Transaction::whereBetween('created_at', [Carbon::now()->startOfQuarter(), Carbon::now()->endOfQuarter()])->sum('amount'),
-            'monthly' => Transaction::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->sum('amount'),
-            'annual' => Transaction::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->sum('amount'),
+            'diario' => Transaction::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->sum('amount'),
+            'semanal' => Transaction::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('amount'),
+            'trimestral' => Transaction::whereBetween('created_at', [Carbon::now()->startOfQuarter(), Carbon::now()->endOfQuarter()])->sum('amount'),
+            'mensual' => Transaction::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->sum('amount'),
+            'anual' => Transaction::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->sum('amount'),
         ];
 
         return view('methods.show', [
@@ -105,7 +105,7 @@ class MethodController extends Controller
 
         return redirect()
             ->route('methods.index')
-            ->withStatus('Payment method updated satisfactorily.');
+            ->withStatus('Método actualizado.');
     }
 
     /**
@@ -117,7 +117,7 @@ class MethodController extends Controller
     public function destroy(PaymentMethod $method)
     {
         $method->delete();
-        
-        return back()->withStatus('Payment method successfully removed.');
+
+        return back()->withStatus('Método eliminado.');
     }
 }

@@ -54,11 +54,11 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-7">
                         <h4 class="card-title">Últ. Transacciones</h4>
                     </div>
-                    <div class="col-4 text-right">
-                        <a href="{{ route('clients.transactions.add', $client) }}" class="btn btn-sm btn-primary">New Transaction</a>
+                    <div class="col-5 text-right">
+                        <a href="{{ route('clients.transactions.add', $client) }}" class="btn btn-sm btn-primary">Nueva Transacción</a>
                     </div>
                 </div>
             </div>

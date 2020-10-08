@@ -46,7 +46,7 @@ class TransferController extends Controller
 
         $transaction->create([
             "type" => "expense",
-            "title" => "TransferID: ".$transfer->id,
+            "title" => "TransferID: " . $transfer->id,
             "transfer_id" => $transfer->id,
             "payment_method_id" => $transfer->sender_method_id,
             "amount" => ((float) abs($transfer->sended_amount) * (-1)),
@@ -56,7 +56,7 @@ class TransferController extends Controller
 
         $transaction->create([
             "type" => "income",
-            "title" => "TransferID: ".$transfer->id,
+            "title" => "TransferID: " . $transfer->id,
             "transfer_id" => $transfer->id,
             "payment_method_id" => $transfer->receiver_method_id,
             "amount" => abs($transfer->received_amount),
@@ -66,7 +66,7 @@ class TransferController extends Controller
 
         return redirect()
             ->route('transfer.index')
-            ->withStatus('Transaction registered successfully.');
+            ->withStatus('Transacción registrada.');
     }
 
     /**

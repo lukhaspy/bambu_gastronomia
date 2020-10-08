@@ -50,7 +50,7 @@ class ReceiptController extends Controller
 
         return redirect()
             ->route('receipts.show', $receipt)
-            ->withStatus('Receipt registered successfully, you can start adding the products belonging to it.');
+            ->withStatus('Compra registrada, ahora puedes agregar productos.');
     }
 
     /**
@@ -76,7 +76,7 @@ class ReceiptController extends Controller
 
         return redirect()
             ->route('receipts.index')
-            ->withStatus('Receipt successfully removed.');
+            ->withStatus('Compra eliminada.');
     }
 
     /**
@@ -90,13 +90,12 @@ class ReceiptController extends Controller
         $receipt->finalized_at = Carbon::now()->toDateTimeString();
         $receipt->save();
 
-        foreach($receipt->products as $receivedproduct) {
+        foreach ($receipt->products as $receivedproduct) {
             $receivedproduct->product->stock += $receivedproduct->stock;
-            $receivedproduct->product->stock_defective += $receivedproduct->stock_defective;
             $receivedproduct->product->save();
         }
 
-        return back()->withStatus('Receipt successfully completed.');
+        return back()->withStatus('Compra finalizada.');
     }
 
     /**
@@ -125,7 +124,7 @@ class ReceiptController extends Controller
 
         return redirect()
             ->route('receipts.show', $receipt)
-            ->withStatus('Product added successfully.');
+            ->withStatus('Producto agregado.');
     }
 
     /**
@@ -154,7 +153,7 @@ class ReceiptController extends Controller
 
         return redirect()
             ->route('receipts.show', $receipt)
-            ->withStatus('Product edited successfully.');
+            ->withStatus('Producto actualizado.');
     }
 
     /**
@@ -169,6 +168,6 @@ class ReceiptController extends Controller
 
         return redirect()
             ->route('receipts.show', $receipt)
-            ->withStatus('Product removed successfully.');
+            ->withStatus('Producto eliminado.');
     }
 }

@@ -17,7 +17,7 @@ class CreateTransactionsTableMigration extends Migration
             $table->bigIncrements('id');
 
             $table->string('type');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('reference')->nullable();
             $table->unsignedBigInteger('client_id')->nullable();
             $table->unsignedBigInteger('sale_id')->nullable();

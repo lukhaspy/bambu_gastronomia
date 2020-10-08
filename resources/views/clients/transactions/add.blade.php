@@ -26,7 +26,7 @@
                             <div class="form-group{{ $errors->has('type') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-method">Tipo</label>
                                 <select name="type" id="input-method" class="form-control form-control-alternative{{ $errors->has('type') ? ' is-invalid' : '' }}" required>
-                                    @foreach (['income' => 'Recebimiento', 'expense' => 'Devolución'] as $type => $title)
+                                    @foreach (['income' => 'Entrada', 'expense' => 'Salida'] as $type => $title)
                                     @if($type == old('type'))
                                     <option value="{{$type}}" selected>{{ $title }}</option>
                                     @else
@@ -37,7 +37,7 @@
                                 @include('alerts.feedback', ['field' => 'payment_method_id'])
                             </div>
                             <div class="form-group{{ $errors->has('payment_method_id') ? ' has-danger' : '' }}">
-                                <label class="form-control-label" for="input-method">Método de Pago</label>
+                                <label class="form-control-label" for="input-method">Método</label>
                                 <select name="payment_method_id" id="input-method" class="form-select form-control-alternative{{ $errors->has('payment_method_id') ? ' is-invalid' : '' }}" required>
                                     @foreach ($payment_methods as $payment_method)
                                     @if($payment_method['id'] == old('payment_method_id'))
@@ -52,14 +52,14 @@
 
                             <div class="form-group{{ $errors->has('amount') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-amount">Monto</label>
-                                <input type="number" step=".01" name="amount" id="input-amount" class="form-control form-control-alternative" placeholder="Amount" value="{{ old('amount') }}" required>
+                                <input type="number" step=".01" name="amount" id="input-amount" class="form-control form-control-alternative" value="{{ old('amount') }}" required>
                                 @include('alerts.feedback', ['field' => 'amount'])
 
                             </div>
 
                             <div class="form-group{{ $errors->has('reference') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-reference">Referencia</label>
-                                <input type="text" name="reference" id="input-reference" class="form-control form-control-alternative{{ $errors->has('reference') ? ' is-invalid' : '' }}" placeholder="Reference" value="{{ old('reference') }}">
+                                <input type="text" name="reference" id="input-reference" class="form-control form-control-alternative{{ $errors->has('reference') ? ' is-invalid' : '' }}" value="{{ old('reference') }}">
                                 @include('alerts.feedback', ['field' => 'reference'])
                             </div>
 

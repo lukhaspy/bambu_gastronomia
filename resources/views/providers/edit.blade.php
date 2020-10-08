@@ -24,41 +24,41 @@
                         <div class="pl-lg-4">
                             <div class="form-group{{ $errors->has('ruc') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-description">RUC</label>
-                                <input type="text" name="ruc" id="input-ruc" class="form-control form-control-alternative{{ $errors->has('ruc') ? ' is-invalid' : '' }}" placeholder="ruc" value="{{ old('ruc', $provider->ruc) }}" required>
+                                <input type="text" name="ruc" id="input-ruc" class="form-control form-control-alternative{{ $errors->has('ruc') ? ' is-invalid' : '' }}" value="{{ old('ruc', $provider->ruc) }}" required>
                                 @include('alerts.feedback', ['field' => 'ruc'])
                             </div>
                             <div class="form-group{{ $errors->has('razon') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-razon">Razón Social</label>
-                                <input type="text" name="razon" id="input-razon" class="form-control form-control-alternative{{ $errors->has('razon') ? ' is-invalid' : '' }}" placeholder="Razon" value="{{ old('razon', $provider->razon) }}" required autofocus>
+                                <input type="text" name="razon" id="input-razon" class="form-control form-control-alternative{{ $errors->has('razon') ? ' is-invalid' : '' }}" value="{{ old('razon', $provider->razon) }}" required autofocus>
                                 @include('alerts.feedback', ['field' => 'razon'])
                             </div>
                             <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-name">Nombre Común</label>
-                                <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="Name" value="{{ old('name', $provider->name) }}" required>
+                                <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name', $provider->name) }}" required>
                                 @include('alerts.feedback', ['field' => 'name'])
                             </div>
 
                             <div class="form-group{{ $errors->has('address') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-address">Dirección</label>
-                                <input type="text" name="address" id="input-address" class="form-control form-control-alternative{{ $errors->has('address') ? ' is-invalid' : '' }}" placeholder="address" value="{{ old('address', $provider->address) }}" required>
+                                <input type="text" name="address" id="input-address" class="form-control form-control-alternative{{ $errors->has('address') ? ' is-invalid' : '' }}" value="{{ old('address', $provider->address) }}" required>
                                 @include('alerts.feedback', ['field' => 'address'])
                             </div>
 
                             <div class="form-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-phone">Teléfono</label>
-                                <input type="phone" name="phone" id="input-phone" class="form-control form-control-alternative{{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="0983..." value="{{ old('phone', $provider->phone) }}" required>
+                                <input type="phone" name="phone" id="input-phone" class="form-control form-control-alternative{{ $errors->has('phone') ? ' is-invalid' : '' }}" .." value="{{ old('phone', $provider->phone) }}" required>
                                 @include('alerts.feedback', ['field' => 'phone'])
                             </div>
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-email">Email</label>
-                                <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" value="{{ old('email', $provider->email) }}">
+                                <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email', $provider->email) }}">
                                 @include('alerts.feedback', ['field' => 'email'])
                             </div>
 
 
                             <div class="form-group{{ $errors->has('obs') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-obs">Observaciones</label>
-                                <textarea name="obs" id="input-obs" class="form-control form-control-alternative{{ $errors->has('obs') ? ' is-invalid' : '' }}" placeholder="" value="{{ old('obs', $provider->obs) }}"></textarea>
+                                <textarea name="obs" id="input-obs" class="form-control form-control-alternative{{ $errors->has('obs') ? ' is-invalid' : '' }}" value="{{ old('obs', $provider->obs) }}"></textarea>
                                 @include('alerts.feedback', ['field' => 'obs'])
                             </div>
 

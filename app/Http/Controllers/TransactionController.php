@@ -21,10 +21,10 @@ class TransactionController extends Controller
     public function index()
     {
         $transactionname = [
-            'income' => 'Income',
-            'payment' => 'Payment',
-            'expense' => 'Expense',
-            'transfer' => 'Transfer'
+            'income' => 'Entrada',
+            'payment' => 'Pagamento',
+            'expense' => 'Salida',
+            'transferencia' => 'Transferencia'
         ];
 
         $transactions = Transaction::latest()->paginate(25);
@@ -36,27 +36,27 @@ class TransactionController extends Controller
     {
         Carbon::setWeekStartsAt(Carbon::SUNDAY);
         Carbon::setWeekEndsAt(Carbon::SATURDAY);
-        
+
         $salesperiods = [];
         $transactionsperiods = [];
 
-        $salesperiods['Day'] = Sale::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->get();
-        $transactionsperiods['Day'] = Transaction::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->get();
+        $salesperiods['Día'] = Sale::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->get();
+        $transactionsperiods['Día'] = Transaction::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->get();
 
-        $salesperiods['Yesterday'] = Sale::whereBetween('created_at', [Carbon::now()->subDay(1)->startOfDay(), Carbon::now()->subDay(1)->endOfDay()])->get();
-        $transactionsperiods['Yesterday'] = Transaction::whereBetween('created_at', [Carbon::now()->subDay(1)->startOfDay(), Carbon::now()->subDay(1)->endOfDay()])->get();
+        $salesperiods['Ayer'] = Sale::whereBetween('created_at', [Carbon::now()->subDay(1)->startOfDay(), Carbon::now()->subDay(1)->endOfDay()])->get();
+        $transactionsperiods['Ayer'] = Transaction::whereBetween('created_at', [Carbon::now()->subDay(1)->startOfDay(), Carbon::now()->subDay(1)->endOfDay()])->get();
 
-        $salesperiods['Week'] = Sale::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        $transactionsperiods['Week'] = Transaction::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $salesperiods['Semana'] = Sale::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $transactionsperiods['Semana'] = Transaction::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
 
-        $salesperiods['Month'] = Sale::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
-        $transactionsperiods['Month'] = Transaction::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+        $salesperiods['Mes'] = Sale::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+        $transactionsperiods['Mes'] = Transaction::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
 
-        $salesperiods['Trimester'] = Sale::whereBetween('created_at', [Carbon::now()->startOfQuarter(), Carbon::now()->endOfQuarter()])->get();
-        $transactionsperiods['Trimester'] = Transaction::whereBetween('created_at', [Carbon::now()->startOfQuarter(), Carbon::now()->endOfQuarter()])->get();
+        $salesperiods['Trimestre'] = Sale::whereBetween('created_at', [Carbon::now()->startOfQuarter(), Carbon::now()->endOfQuarter()])->get();
+        $transactionsperiods['Trimestre'] = Transaction::whereBetween('created_at', [Carbon::now()->startOfQuarter(), Carbon::now()->endOfQuarter()])->get();
 
-        $salesperiods['Year'] = Sale::whereYear('created_at', Carbon::now()->year)->get();
-        $transactionsperiods['Year'] = Transaction::whereYear('created_at', Carbon::now()->year)->get();
+        $salesperiods['Año'] = Sale::whereYear('created_at', Carbon::now()->year)->get();
+        $transactionsperiods['Año'] = Transaction::whereYear('created_at', Carbon::now()->year)->get();
 
         return view('transactions.stats', [
             'clients'               => Client::where('balance', '!=', '0.00')->get(),
@@ -118,11 +118,11 @@ class TransactionController extends Controller
         if ($request->get('client_id')) {
             switch ($request->get('type')) {
                 case 'income':
-                    $request->merge(['title' => 'Payment Received from Customer ID: ' . $request->get('client_id')]);
+                    $request->merge(['title' => 'Pagamento recibido por cliente ID: ' . $request->get('client_id')]);
                     break;
 
                 case 'expense':
-                    $request->merge(['title' => 'Customer ID Return Payment: ' . $request->get('client_id')]);
+                    $request->merge(['title' => 'Retorno hecho al cliente ID: ' . $request->get('client_id')]);
 
                     if ($request->get('amount') > 0) {
                         $request->merge(['amount' => (float) $request->get('amount') * (-1)]);
@@ -137,7 +137,7 @@ class TransactionController extends Controller
 
             return redirect()
                 ->route('clients.show', $request->get('client_id'))
-                ->withStatus('Successfully registered transaction.');
+                ->withStatus('Transacción Registrada.');
         }
 
         switch ($request->get('type')) {
@@ -150,7 +150,7 @@ class TransactionController extends Controller
 
                 return redirect()
                     ->route('transactions.type', ['type' => 'expense'])
-                    ->withStatus('Expense recorded successfully.');
+                    ->withStatus('Salida registrada.');
 
             case 'payment':
                 if ($request->get('amount') > 0) {
@@ -161,19 +161,19 @@ class TransactionController extends Controller
 
                 return redirect()
                     ->route('transactions.type', ['type' => 'payment'])
-                    ->withStatus('Payment registered successfully.');
+                    ->withStatus('Pagamento registrado.');
 
             case 'income':
                 $transaction->create($request->all());
 
                 return redirect()
                     ->route('transactions.type', ['type' => 'income'])
-                    ->withStatus('Login successfully registered.');
+                    ->withStatus('Entrada registrada.');
 
             default:
                 return redirect()
                     ->route('transactions.index')
-                    ->withStatus('Successfully registered transaction.');
+                    ->withStatus('Transacción registrada.');
         }
     }
 
@@ -225,7 +225,7 @@ class TransactionController extends Controller
                 }
                 return redirect()
                     ->route('transactions.type', ['type' => 'expense'])
-                    ->withStatus('Expense updated sucessfully.');
+                    ->withStatus('Salida registrada.');
 
             case 'payment':
                 if ($request->get('amount') > 0) {
@@ -234,17 +234,17 @@ class TransactionController extends Controller
 
                 return redirect()
                     ->route('transactions.type', ['type' => 'payment'])
-                    ->withStatus('Payment updated satisfactorily.');
+                    ->withStatus('Pagamento registrado.');
 
             case 'income':
                 return redirect()
                     ->route('transactions.type', ['type' => 'income'])
-                    ->withStatus('Login successfully updated.');
+                    ->withStatus('Entrada registrada.');
 
             default:
                 return redirect()
                     ->route('transactions.index')
-                    ->withStatus('Transaction updated successfully.');
+                    ->withStatus('Transacción registrada.');
         }
     }
 
@@ -262,24 +262,32 @@ class TransactionController extends Controller
         //}
 
         if ($transaction->transfer) {
-            return back()->withStatus('You cannot remove a transaction from a transfer. You must delete the transfer to delete its records.');
+            return back()->withStatus('No puedes remover una transacción de una transferencia.
+            Debes eliminar la transferencia para eliminar sus registros.');
         }
 
         $type = $transaction->type;
+
+        if ($transaction->client_id) {
+            $client = Client::find($transaction->client_id);
+            $client->balance -=  $transaction->amount;
+            $client->update();
+        }
         $transaction->delete();
+
 
         switch ($type) {
             case 'expense':
-                return back()->withStatus('Expenditure successfully removed.');
+                return back()->withStatus('Salida eliminada.');
 
             case 'payment':
-                return back()->withStatus('Payment successfully removed.');
+                return back()->withStatus('Pagamento eliminado.');
 
             case 'income':
-                return back()->withStatus('Entry successfully removed.');
+                return back()->withStatus('Entrada eliminada.');
 
             default:
-                return back()->withStatus('Transaction deleted successfully.');
+                return back()->withStatus('Transacción eliminada.');
         }
     }
 }

@@ -53,16 +53,16 @@
                                 <td>{{ format_money($client->transactions->sum('amount')) }}</td>
                                 <td>{{ ($client->sales->sortByDesc('created_at')->first()) ? date('d-m-y', strtotime($client->sales->sortByDesc('created_at')->first()->created_at)) : 'N/A' }}</td>
                                 <td class="td-actions text-right">
-                                    <a href="{{ route('clients.show', $client) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="More Details">
+                                    <a href="{{ route('clients.show', $client) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Ver">
                                         <i class="tim-icons icon-zoom-split"></i>
                                     </a>
-                                    <a href="{{ route('clients.edit', $client) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Edit Client">
+                                    <a href="{{ route('clients.edit', $client) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Editar">
                                         <i class="tim-icons icon-pencil"></i>
                                     </a>
                                     <form action="{{ route('clients.destroy', $client) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Client" onclick="confirm('Estás seguro que quieres eliminar a este Client? Los registros de sus compras y Transactions no serán eliminados.') ? this.parentElement.submit() : ''">
+                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="confirm('Estás seguro que quieres eliminar a este Client? Los registros de sus compras y Transactions no serán eliminados.') ? this.parentElement.submit() : ''">
                                             <i class="tim-icons icon-simple-remove"></i>
                                         </button>
                                     </form>

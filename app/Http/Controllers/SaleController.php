@@ -23,7 +23,6 @@ class SaleController extends Controller
         $sales = Sale::latest()->paginate(25);
 
         return view('sales.index', compact('sales'));
-
     }
 
     /**
@@ -48,15 +47,15 @@ class SaleController extends Controller
     {
         $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
 
-        if($existent->count()) {
-            return back()->withError('There is already an unfinished sale belonging to this customer. <a href="'.route('sales.show', $existent->first()).'">Click here to go to it</a>');
+        if ($existent->count()) {
+            return back()->withError('There is already an unfinished sale belonging to this customer. <a href="' . route('sales.show', $existent->first()) . '">Click here to go to it</a>');
         }
 
         $sale = $model->create($request->all());
-        
+
         return redirect()
             ->route('sales.show', ['sale' => $sale->id])
-            ->withStatus('Sale registered successfully, you can start registering products and transactions.');
+            ->withStatus('La venta ha sido registrada, pudes empezar a agregar productos y transacciones.');
     }
 
     /**
@@ -92,7 +91,7 @@ class SaleController extends Controller
         foreach ($sale->products as $sold_product) {
             $product_name = $sold_product->product->name;
             $product_stock = $sold_product->product->stock;
-            if($sold_product->qty > $product_stock) return back()->withError("The product '$product_name' does not have enough stock. Only has $product_stock units.");
+            if ($sold_product->qty > $product_stock) return back()->withError("El producto '$product_name' no tiene stock suficiente. Stock: $product_stock unidades.");
         }
 
         foreach ($sale->products as $sold_product) {
@@ -105,7 +104,7 @@ class SaleController extends Controller
         $sale->save();
         $sale->client->save();
 
-        return back()->withStatus('The sale has been successfully completed.');
+        return back()->withStatus('Venta finalizada.');
     }
 
     public function addproduct(Sale $sale)
@@ -123,7 +122,7 @@ class SaleController extends Controller
 
         return redirect()
             ->route('sales.show', ['sale' => $sale])
-            ->withStatus('Product successfully registered.');
+            ->withStatus('Producto agregado.');
     }
 
     public function editproduct(Sale $sale, SoldProduct $soldproduct)
@@ -139,14 +138,14 @@ class SaleController extends Controller
 
         $soldproduct->update($request->all());
 
-        return redirect()->route('sales.show', $sale)->withStatus('Product successfully modified.');
+        return redirect()->route('sales.show', $sale)->withStatus('Producto modificado.');
     }
 
     public function destroyproduct(Sale $sale, SoldProduct $soldproduct)
     {
         $soldproduct->delete();
 
-        return back()->withStatus('The product has been disposed of successfully.');
+        return back()->withStatus('Producto eliminado.');
     }
 
     public function addtransaction(Sale $sale)
@@ -158,16 +157,16 @@ class SaleController extends Controller
 
     public function storetransaction(Request $request, Sale $sale, Transaction $transaction)
     {
-        switch($request->all()['type']) {
+        switch ($request->all()['type']) {
             case 'income':
-                $request->merge(['title' => 'Payment Received from Sale ID: ' . $request->get('sale_id')]);
+                $request->merge(['title' => 'Ingreso recibido de la venta ID: ' . $request->get('sale_id')]);
                 break;
 
             case 'expense':
-                $request->merge(['title' => 'Sale Return Payment ID: ' . $request->all('sale_id')]);
+                $request->merge(['title' => 'Gasto a cliente por venta ID: ' . $request->all('sale_id')]);
 
-                if($request->get('amount') > 0) {
-                    $request->merge(['amount' => (float) $request->get('amount') * (-1) ]);
+                if ($request->get('amount') > 0) {
+                    $request->merge(['amount' => (float) $request->get('amount') * (-1)]);
                 }
                 break;
         }
@@ -176,7 +175,7 @@ class SaleController extends Controller
 
         return redirect()
             ->route('sales.show', compact('sale'))
-            ->withStatus('Successfully registered transaction.');
+            ->withStatus('Transacción registrada.');
     }
 
     public function edittransaction(Sale $sale, Transaction $transaction)
@@ -188,15 +187,15 @@ class SaleController extends Controller
 
     public function updatetransaction(Request $request, Sale $sale, Transaction $transaction)
     {
-        switch($request->get('type')) {
+        switch ($request->get('type')) {
             case 'income':
-                $request->merge(['title' => 'Payment Received from Sale ID: '. $request->get('sale_id')]);
+                $request->merge(['title' => 'Ingreso recibido de la venta ID: ' . $request->get('sale_id')]);
                 break;
 
             case 'expense':
-                $request->merge(['title' => 'Sale Return Payment ID: '. $request->get('sale_id')]);
+                $request->merge(['title' => 'Gasto a cliente por venta ID: ' . $request->get('sale_id')]);
 
-                if($request->get('amount') > 0) {
+                if ($request->get('amount') > 0) {
                     $request->merge(['amount' => (float) $request->get('amount') * (-1)]);
                 }
                 break;
@@ -205,13 +204,13 @@ class SaleController extends Controller
 
         return redirect()
             ->route('sales.show', compact('sale'))
-            ->withStatus('Successfully modified transaction.');
+            ->withStatus('Transacción modificada.');
     }
 
     public function destroytransaction(Sale $sale, Transaction $transaction)
     {
         $transaction->delete();
 
-        return back()->withStatus('Transaction deleted successfully.');
+        return back()->withStatus('Transacción eliminada.');
     }
 }
