@@ -20,14 +20,14 @@
                 <div class="">
                     <table class="table tablesorter table-responsive" " id="">
                         <thead class=" text-primary">
-                            <th scope="col">RUC</th>
-                            <th scope="col">Razón Social</th>
-                            <th scope="col">Nombre Común</th>
-                            <th scope="col">Dirección</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">Observaciones</th>
-                            <th scope="col">Pagos</th>
+                        <th scope="col">RUC</th>
+                        <th scope="col">Razón Social</th>
+                        <th scope="col">Nombre Común</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Observaciones</th>
+                        <th scope="col">Pagos</th>
                         </thead>
                         <tbody>
                             @foreach ($providers as $provider)
@@ -55,7 +55,7 @@
                                     <form action="{{ route('providers.destroy', $provider) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Provider" onclick="confirm('Are you sure you want to delete this provider? Records of payments made to him will not be deleted.') ? this.parentElement.submit() : ''">
+                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Provider" onclick="confirm('Tenes certeza de eliminar este proveedor? Pagos realizados no seran eliminados.') ? this.parentElement.submit() : ''">
                                             <i class="tim-icons icon-simple-remove"></i>
                                         </button>
                                     </form>

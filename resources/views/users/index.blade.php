@@ -45,7 +45,7 @@
                                                 @method('delete')
 
                                                 <a class="dropdown-item" href="{{ route('users.edit', $user) }}">{{ __('Edit') }}</a>
-                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __('Are you sure you want to delete this user?') }}') ? this.parentElement.submit() : ''">
+                                                <button type="button" class="dropdown-item" onclick="confirm('Estas seguro(a) de eliminar este usuario?') ? this.parentElement.submit() : ''">
                                                     {{ __('Delete') }}
                                                 </button>
                                             </form>

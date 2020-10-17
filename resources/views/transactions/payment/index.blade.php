@@ -20,13 +20,13 @@
                 <div class="">
                     <table class="table tablesorter table-responsive" " id="">
                         <thead class=" text-primary">
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Proveedor</th>
-                            <th scope="col">Título</th>
-                            <th scope="col">Método</th>
-                            <th scope="col">Monto</th>
-                            <th scope="col">Referencia</th>
-                            <th scope="col"></th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Método</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Referencia</th>
+                        <th scope="col"></th>
                         </thead>
                         <tbody>
                             @foreach ($transactions as $transaction)
@@ -45,7 +45,7 @@
                                     <form action="{{ route('transactions.destroy', $transaction) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Payment" onclick="confirm('Are you sure you want to delete this payment? There will be no record left.') ? this.parentElement.submit() : ''">
+                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Payment" onclick="confirm('Estas seguro(a) de eliminar este pagamento?') ? this.parentElement.submit() : ''">
                                             <i class="tim-icons icon-simple-remove"></i>
                                         </button>
                                     </form>

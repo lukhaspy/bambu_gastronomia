@@ -28,7 +28,7 @@
         <div class="col-4">
             <div class="form-group{{ $errors->has('price') ? ' has-danger' : '' }}">
                 <label class="form-control-label" for="input-price">Precio</label>
-                {!! Form::number('price', null, ['class' => 'form-control form-control-alternative', 'required', 'step' => 1000]) !!}
+                {!! Form::number('price', null, ['class' => 'form-control form-control-alternative', 'required', 'step' => 100]) !!}
                 @include('alerts.feedback', ['field' => 'price'])
             </div>
         </div>

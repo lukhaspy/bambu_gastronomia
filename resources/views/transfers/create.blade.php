@@ -11,7 +11,7 @@
                     </div>
                     <div class="col-4 text-right">
                         <a href="{{ route('transfer.index') }}" class="btn btn-sm btn-primary">
-                            Back to List
+                            Volver
                         </a>
                     </div>
                 </div>

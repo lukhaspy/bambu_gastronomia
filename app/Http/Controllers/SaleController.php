@@ -48,7 +48,7 @@ class SaleController extends Controller
         $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
 
         if ($existent->count()) {
-            return back()->withError('Existe una operación en abierto con el cliente seleccionado. <a href="' . route('sales.show', $existent->first()) . '">Click here to go to it</a>');
+            return back()->withError('Existe una operación en abierto con el cliente seleccionado. <a href="' . route('sales.show', $existent->first()) . '"> Abrir Venta</a>');
         }
 
         $sale = $model->create($request->all());

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Nuevo Producto', 'pageSlug' => 'receipt', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Agregar Producto', 'pageSlug' => 'receipt', 'section' => 'inventory'])
 
 @section('content')
 <div class="row">
@@ -7,7 +7,7 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-8">
-                        <h3 class="mb-0">Nuevo Producto</h3>
+                        <h3 class="mb-0">Agregar Producto</h3>
                     </div>
                     <div class="col-4 text-right">
                         <a href="{{ route('receipts.show', $receipt) }}" class="btn btn-sm btn-primary">Volver</a>

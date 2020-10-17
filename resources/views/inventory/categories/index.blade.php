@@ -20,12 +20,12 @@
                 <div class="">
                     <table class="table tablesorter table-responsive" " id="">
                         <thead class=" text-primary">
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Productos</th>
-                            <th scope="col">Total Stock</th>
-                            <th scope="col">Precio Promedio</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Productos</th>
+                        <th scope="col">Total Stock</th>
+                        <th scope="col">Precio Promedio</th>
 
-                            <th scope="col"></th>
+                        <th scope="col"></th>
                         </thead>
                         <tbody>
                             @foreach ($categories as $category)
@@ -44,7 +44,7 @@
                                     <form action="{{ route('categories.destroy', $category) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Category" onclick="confirm('Are you sure you want to delete this category? All products belonging to it will be deleted and the records that contain it will not be accurate.') ? this.parentElement.submit() : ''">
+                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Category" onclick="confirm('Tenes certeza de eliminar esa categoria? Todos los productos registrados con la misma seran eliminados.') ? this.parentElement.submit() : ''">
                                             <i class="tim-icons icon-simple-remove"></i>
                                         </button>
                                     </form>

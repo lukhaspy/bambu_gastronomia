@@ -37,13 +37,13 @@
                             <td><a href="{{ route('methods.show', $transfer->sender_method) }}">{{ $transfer->sender_method->name }}</a></td>
                             <td><a href="{{ route('methods.show', $transfer->receiver_method) }}">{{ $transfer->receiver_method->name }}</a></td>
                             <td>{{ $transfer->reference }}</td>
-                            <td>${{ $transfer->sended_amount }}</td>
-                            <td>${{ $transfer->received_amount }}</td>
+                            <td>{{ $transfer->sended_amount }} Gs.</td>
+                            <td>{{ $transfer->received_amount }} Gs.</td>
                             <td class="td-actions text-right">
                                 <form action="{{ route('transfer.destroy', $transfer) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Transfer" onclick="confirm('Are you sure you want to delete this transfer? There will be no record left.') ? this.parentElement.submit() : ''">
+                                    <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Transfer" onclick="confirm('Estas seguro(a) de eliminar esta transferencia?.') ? this.parentElement.submit() : ''">
                                         <i class="tim-icons icon-simple-remove"></i>
                                     </button>
                                 </form>

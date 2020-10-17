@@ -20,11 +20,11 @@
                 <div class="">
                     <table class="table tablesorter table-responsive" " id="">
                         <thead class=" text-primary">
-                            <th scope="col">Método</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Transacciones Mensuales</th>
-                            <th scope="col">Saldo Mensual</th>
-                            <th scope="col"></th>
+                        <th scope="col">Método</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Transacciones Mensuales</th>
+                        <th scope="col">Saldo Mensual</th>
+                        <th scope="col"></th>
                         </thead>
                         <tbody>
                             @foreach ($methods as $method)
@@ -43,7 +43,7 @@
                                     <form action="{{ route('methods.destroy', $method) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Method" onclick="confirm('Are you sure you want to remove this method? The payment records will not be deleted.') ? this.parentElement.submit() : ''">
+                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Method" onclick="confirm('Tenes certeza de eliminar ese metodo? Los datos de pagamento no seran eliminados.') ? this.parentElement.submit() : ''">
                                             <i class="tim-icons icon-simple-remove"></i>
                                         </button>
                                     </form>
