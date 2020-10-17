@@ -1,11 +1,11 @@
-@extends('layouts.app', ['page' => 'Provider Information', 'pageSlug' => 'providers', 'section' => 'providers'])
+@extends('layouts.app', ['page' => 'Info del Proveedor', 'pageSlug' => 'providers', 'section' => 'providers'])
 
 @section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Provider Information</h4>
+                <h4 class="card-title">Info del Proveedor</h4>
             </div>
             <div class="card-body">
                 <table class="table table-responsive">

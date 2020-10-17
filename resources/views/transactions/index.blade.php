@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Transactions', 'pageSlug' => 'transactions', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Transacciones', 'pageSlug' => 'transactions', 'section' => 'transactions'])
 
 @section('content')
 <div class="row">
@@ -7,11 +7,11 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Transactions</h4>
+                        <h4 class="card-title">Transacciones</h4>
                     </div>
                     <div class="col-4 text-right">
                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#transactionModal">
-                            New Transaction
+                            Nueva Transacción
                         </button>
                     </div>
                 </div>
@@ -22,15 +22,15 @@
                 <div class="">
                     <table class="table tablesorter table-responsive" " id="">
                             <thead class=" text-primary">
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Title</th>
-                        <th>Method</th>
-                        <th>Amount</th>
-                        <th>Reference</th>
-                        <th>Client</th>
-                        <th>Provider</th>
-                        <th>Transfer</th>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Título</th>
+                        <th>Método</th>
+                        <th>Monto</th>
+                        <th>Referencia</th>
+                        <th>Cliente</th>
+                        <th>Proveedor</th>
+                        <th>Transferencia</th>
                         <th></th>
                         </thead>
                         <tbody>
@@ -48,21 +48,21 @@
                                     @if ($transaction->client)
                                     <a href="{{ route('clients.show', $transaction->client) }}">{{ $transaction->client->name }}<br>{{ $transaction->client->document_type }}-{{ $transaction->client->document_id }}</a>
                                     @else
-                                    Does not apply
+                                    No Aplica
                                     @endif
                                 </td>
                                 <td>
                                     @if ($transaction->provider)
                                     <a href="{{ route('providers.show', $transaction->provider) }}">{{ $transaction->provider->name }}</a>
                                     @else
-                                    Does not apply
+                                    No Aplica
                                     @endif
                                 </td>
                                 <td>
                                     @if ($transaction->transfer)
                                     <a href="{{ route('transfer.show', $transaction->transfer) }}">ID {{ $transaction->transfer->id }}</a>
                                     @else
-                                    Does not apply
+                                    No Aplica
                                     @endif
                                 </td>
                                 <td class="td-actions text-right">
@@ -105,18 +105,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Transaction</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Nueva Transacción</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('transactions.create', ['type' => 'payment']) }}" class="btn btn-sm btn-primary">Payment</a>
-                    <a href="{{ route('transactions.create', ['type' => 'income']) }}" class="btn btn-sm btn-primary">Income</a>
-                    <a href="{{ route('transactions.create', ['type' => 'expense']) }}" class="btn btn-sm btn-primary">Expense</a>
-                    <a href="{{ route('sales.create') }}" class="btn btn-sm btn-primary">Sale</a>
-                    <a href="{{ route('transfer.create') }}" class="btn btn-sm btn-primary">Transfer</a>
+                    <a href="{{ route('transactions.create', ['type' => 'payment']) }}" class="btn btn-sm btn-primary">Pago</a>
+                    <a href="{{ route('transactions.create', ['type' => 'income']) }}" class="btn btn-sm btn-primary">Entrada</a>
+                    <a href="{{ route('transactions.create', ['type' => 'expense']) }}" class="btn btn-sm btn-primary">Salida</a>
+                    <a href="{{ route('sales.create') }}" class="btn btn-sm btn-primary">Venta</a>
+                    <a href="{{ route('transfer.create') }}" class="btn btn-sm btn-primary">Transferencia</a>
                 </div>
             </div>
         </div>
