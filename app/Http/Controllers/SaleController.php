@@ -48,7 +48,7 @@ class SaleController extends Controller
         $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
 
         if ($existent->count()) {
-            return back()->withError('There is already an unfinished sale belonging to this customer. <a href="' . route('sales.show', $existent->first()) . '">Click here to go to it</a>');
+            return back()->withError('Existe una operación en abierto con el cliente seleccionado. <a href="' . route('sales.show', $existent->first()) . '">Click here to go to it</a>');
         }
 
         $sale = $model->create($request->all());
@@ -81,7 +81,7 @@ class SaleController extends Controller
 
         return redirect()
             ->route('sales.index')
-            ->withStatus('The sale record has been successfully deleted.');
+            ->withStatus('La venta ha sido eliminada.');
     }
 
     public function finalize(Sale $sale)
