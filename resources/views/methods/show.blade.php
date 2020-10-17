@@ -77,7 +77,7 @@
                                 <form action="{{ route('transactions.destroy', $transaction) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Transaction" onclick="confirm('Are you sure you want to delete this transaction? There will be no record left.') ? this.parentElement.submit() : ''">
+                                    <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Transaction" onclick="confirm('Tenes certeza de eliminar esta transaccion?') ? this.parentElement.submit() : ''">
                                         <i class="tim-icons icon-simple-remove"></i>
                                     </button>
                                 </form>
