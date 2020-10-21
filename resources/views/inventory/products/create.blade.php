@@ -17,7 +17,8 @@
                 </div>
                 <div class="card-body">
                     {!! Form::open(['route' => 'products.store','autocomplete' => 'off']) !!}
-                    @include('inventory.products._forms')
+                        {!! Form::hidden('type', 0) !!}
+                        @include('inventory.products._forms')
                     {!! Form::close() !!}
                 </div>
             </div>

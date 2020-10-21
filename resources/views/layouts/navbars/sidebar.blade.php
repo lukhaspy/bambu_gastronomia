@@ -83,6 +83,12 @@
                                 <p>Productos</p>
                             </a>
                         </li>
+                        <li @if ($pageSlug=='materials' ) class="active " @endif>
+                            <a href="{{ route('materials.index') }}">
+                                <i class="tim-icons icon-notes"></i>
+                                <p>Materias Primas</p>
+                            </a>
+                        </li>
                         <li @if ($pageSlug=='categories' ) class="active " @endif>
                             <a href="{{ route('categories.index') }}">
                                 <i class="tim-icons icon-tag"></i>

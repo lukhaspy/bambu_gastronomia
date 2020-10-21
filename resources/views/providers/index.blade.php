@@ -17,8 +17,8 @@
             <div class="card-body">
                 @include('alerts.success')
 
-                <div class="">
-                    <table class="table tablesorter table-responsive" " id="">
+                <div class="table-responsive">
+                    <table class="table tablesorter">
                         <thead class=" text-primary">
                         <th scope="col">RUC</th>
                         <th scope="col">Razón Social</th>

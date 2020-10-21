@@ -31,8 +31,8 @@
                     @endif
                 </div>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table">
                     <thead>
                         <th>ID</th>
                         <th>Fecha</th>
@@ -82,8 +82,8 @@
                     @endif
                 </div>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table">
                     <thead>
                         <th>Categoría</th>
                         <th>Producto</th>

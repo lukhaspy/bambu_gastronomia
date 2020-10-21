@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Editar Producto', 'pageSlug' => 'products', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Editar Materia Prima', 'pageSlug' => 'materials', 'section' => 'inventory'])
 
 @section('content')
     <div class="container-fluid mt--7">
@@ -8,17 +8,17 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Editar Producto</h3>
+                                <h3 class="mb-0">Editar Materia Prima</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('products.index') }}" class="btn btn-sm btn-primary">Volver</a>
+                                <a href="{{ route('materials.index') }}" class="btn btn-sm btn-primary">Volver</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        {!! Form::model($product, ['route' => ['products.update', $product],'autocomplete' => 'off', 'method' => 'put']) !!}
-                            {!! Form::hidden('type', 0) !!}
-                            @include('inventory.products._forms')
+                        {!! Form::model($material, ['route' => ['materials.update', $material],'autocomplete' => 'off', 'method' => 'put']) !!}
+                            {!! Form::hidden('type', 1) !!}
+                            @include('inventory.materials._forms')
                         {!! Form::close() !!}
                     </div>
                 </div>

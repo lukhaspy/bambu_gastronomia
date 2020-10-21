@@ -11,11 +11,11 @@ class CreateProductsTableMigration extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->tinyInteger('type')->default(0);
             $table->string('name');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('product_category_id');

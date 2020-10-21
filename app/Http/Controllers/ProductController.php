@@ -18,7 +18,7 @@ class ProductController extends Controller{
 
     public function index(){
 
-        $products = $this->productModel->paginate(25);
+        $products = $this->productModel->where('type', 0)->paginate(25);
 
         return view('inventory.products.index', compact('products'));
     }
@@ -47,6 +47,7 @@ class ProductController extends Controller{
     }
 
     public function edit(Product $product){
+        // dd($product);
 
         $categories = $this->categoryModel->pluck('name','id');
 
