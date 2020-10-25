@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('inventory/production/materials/{id}', 'ProductionController@tableMaterials');
+Route::get('inventory/production/materials/{id}/delete', 'ProductionController@deleteMaterials');
+
+Route::get('inventory/production/producir/{production}', 'ProductionController@producir')->name('production.producir');
+Route::post('inventory/production/producir/{production}/make', 'ProductionController@make')->name('production.make');
+
+Route::get('inventory/production/inproducir/{production}', 'ProductionController@inproducir')->name('production.inProducir');
+Route::post('inventory/production/producir/{production}/inmake', 'ProductionController@inmake')->name('production.inMake');
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -25,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
         'providers' => 'ProviderController',
         'inventory/products' => 'ProductController',
         'inventory/materials' => 'MaterialController',
+        'inventory/production' => 'ProductionController',
         'clients' => 'ClientController',
         'inventory/categories' => 'ProductCategoryController',
         'transactions/transfer' => 'TransferController',

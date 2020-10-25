@@ -22,6 +22,7 @@
                                 <th scope="col">Producto</th>
                                 <th scope="col">Precio Base</th>
                                 <th scope="col">Stock</th>
+                                <th scope="col">Stock Reservado</th>
                                 <th scope="col">Total Vendidos</th>
                                 <th scope="col"></th>
                             </thead>
@@ -32,16 +33,17 @@
                                         <td>{{ $material->name }}</td>
                                         <td>{{ format_money($material->price) }}</td>
                                         <td>{{ $material->stock }}</td>
+                                        <td>{{ $material->reserved_stock }}</td>
                                         <td>{{ $material->solds->sum('qty') }}</td>
                                         <td class="td-actions text-right">
                                             <a href="{{ route('materials.show', $material) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Más detalles">
                                                 <i class="tim-icons icon-zoom-split"></i>
                                             </a>
-                                            <a href="{{ route('materials.edit', $material) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Editar Producto">
+                                            <a href="{{ route('materials.edit', $material) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Editar materia prima">
                                                 <i class="tim-icons icon-pencil"></i>
                                             </a>
                                             {!! Form::open(['route' => ['materials.destroy', $material], 'method' => 'delete', 'class' => 'd-inline']) !!}
-                                                <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Eliminar Producto" onclick="confirm('Estás seguro de querer eliminar esta materia prima? Los registros seguiran existiendo.') ? this.parentElement.submit() : ''">
+                                                <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Eliminar materia prima" onclick="confirm('Estás seguro de querer eliminar esta materia prima? Los registros seguiran existiendo.') ? this.parentElement.submit() : ''">
                                                     <i class="tim-icons icon-simple-remove"></i>
                                                 </button>
                                             {!! Form::close() !!}

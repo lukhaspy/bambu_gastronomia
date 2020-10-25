@@ -88,6 +88,7 @@
                         <th>Categoría</th>
                         <th>Producto</th>
                         <th>Stock</th>
+                        <th>Medida</th>
                         <th></th>
                     </thead>
                     <tbody>
@@ -96,6 +97,7 @@
                             <td><a href="{{ route('categories.show', $received_product->product->category) }}">{{ $received_product->product->category->name }}</a></td>
                             <td><a href="{{ route('products.show', $received_product->product) }}">{{ $received_product->product->name }}</a></td>
                             <td>{{ $received_product->stock }}</td>
+                            <td>{{ getUnity($received_product->product->unity) }}</td>
                             <td class="td-actions text-right">
                                 @if(!$receipt->finalized_at)
                                 <a href="{{ route('receipts.product.edit', ['receipt' => $receipt, 'receivedproduct' => $received_product]) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Edit Pedido">

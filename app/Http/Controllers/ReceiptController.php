@@ -106,7 +106,7 @@ class ReceiptController extends Controller
      */
     public function addproduct(Receipt $receipt)
     {
-        $products = Product::all();
+        $products = Product::where('type','<>', 2)->get();
 
         return view('inventory.receipts.addproduct', compact('receipt', 'products'));
     }
