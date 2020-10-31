@@ -22,7 +22,7 @@
                                 <p>Estatísticas</p>
                             </a>
                         </li>
-                       <!-- <li @if ($pageSlug=='transactions' ) class="active " @endif>
+                        <!-- <li @if ($pageSlug=='transactions' ) class="active " @endif>
                             <a href="{{ route('transactions.index')  }}">
                                 <i class="tim-icons icon-bullet-list-67"></i>
                                 <p>Todas</p>
@@ -103,6 +103,32 @@
                         </li>
                     </ul>
                 </div>
+            </li>
+            <li>
+                <a data-toggle="collapse" href="#rrhh" {{ $section == 'rrhh' ? 'aria-expanded=true' : '' }}>
+                    <i class="tim-icons icon-badge"></i>
+                    <span class="nav-link-text">RRHH</span>
+                    <b class="caret mt-1"></b>
+                </a>
+
+                <div class="collapse {{ $section == 'rrhh' ? 'show' : '' }}" id="rrhh">
+                    <ul class="nav pl-4">
+                        <li @if ($pageSlug=='employees' ) class="active " @endif>
+                            <a href="{{ route('employees.index') }}">
+                                <i class="tim-icons icon-chart-pie-36"></i>
+                                <p>Funcionarios</p>
+                            </a>
+                        </li>
+                        <li @if ($pageSlug=='salary' ) class="active " @endif>
+                            <a href="{{ route('salary.index') }}">
+                                <i class="tim-icons icon-chart-pie-36"></i>
+                                <p>Pago de Salarios</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+
             </li>
 
             <li @if ($pageSlug=='clients' ) class="active " @endif>
