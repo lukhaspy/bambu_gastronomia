@@ -14,7 +14,9 @@ class Product extends Model{
         'product_category_id',
         'price',
         'stock',
-        'type'
+        'reserved_stock',
+        'type',
+        'unity',
     ];
 
     public function category(){
@@ -27,5 +29,9 @@ class Product extends Model{
 
     public function receiveds(){
         return $this->hasMany('App\ReceivedProduct');
+    }
+
+    public function materials(){
+        return $this->hasMany('App\ProductMaterial');
     }
 }

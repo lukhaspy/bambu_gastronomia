@@ -89,6 +89,12 @@
                                 <p>Materias Primas</p>
                             </a>
                         </li>
+                        <li @if ($pageSlug=='production' ) class="active " @endif>
+                            <a href="{{ route('production.index') }}">
+                                <i class="tim-icons icon-notes"></i>
+                                <p>Producción</p>
+                            </a>
+                        </li>
                         <li @if ($pageSlug=='categories' ) class="active " @endif>
                             <a href="{{ route('categories.index') }}">
                                 <i class="tim-icons icon-tag"></i>

@@ -9,7 +9,7 @@ class SoldProduct extends Model
     protected $fillable = [
         'sale_id', 'product_id', 'price', 'qty', 'total_amount'
     ];
-    
+
     public function product()
     {
         return $this->belongsTo('App\Product');
