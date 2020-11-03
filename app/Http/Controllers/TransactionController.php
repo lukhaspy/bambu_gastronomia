@@ -148,6 +148,11 @@ class TransactionController extends Controller
                 if ($request->get('amount') > 0) {
                     $request->merge(['amount' => ((float) $request->get('amount') * (-1))]);
                 }
+                if(!$request['spendingProfile_id']){
+                    return redirect()
+                    ->back()
+                    ->withInput();
+                }
 
                 $transaction->create($request->all());
 

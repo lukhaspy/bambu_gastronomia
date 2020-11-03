@@ -24,7 +24,7 @@
                         <div class="pl-lg-4">
                             <div class="form-group{{ $errors->has('spendingProfile_id') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-spendingProfile">Perfil Gasto</label>
-                                <select name="spendingProfile_id" id="input-spendingProfile" class="form-select form-control-alternative{{ $errors->has('client') ? ' is-invalid' : '' }}">
+                                <select required name="spendingProfile_id" id="input-spendingProfile" class="form-select form-control-alternative{{ $errors->has('client') ? ' is-invalid' : '' }}">
 
                                     @foreach ($spendingProfiles as $spendingProfile)
                                     @if($spendingProfile['id'] == old('spendingProfile_id') )
