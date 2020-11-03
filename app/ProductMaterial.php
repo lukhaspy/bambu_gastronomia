@@ -3,8 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductMaterial extends Model{
+class ProductMaterial extends Model
+{
+    use SoftDeletes;
 
     protected $fillable = [
         'product_id',
@@ -12,12 +15,13 @@ class ProductMaterial extends Model{
         'quantity',
     ];
 
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo('App\Product');
     }
 
-    public function material(){
+    public function material()
+    {
         return $this->belongsTo('App\Product', 'material_id');
     }
-
 }

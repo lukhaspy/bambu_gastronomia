@@ -42,6 +42,7 @@ class TransferController extends Controller
      */
     public function store(Request $request, Transfer $transfer, Transaction $transaction)
     {
+        $request->merge(['user_id' => Auth::user()->id]);
         $transfer = $transfer->create($request->all());
 
         $transaction->create([

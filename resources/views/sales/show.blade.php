@@ -31,7 +31,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
+            <div class="table-responsive">
+                <table class="table ">
                     <thead>
                         <th>ID</th>
                         <th>Fecha</th>
@@ -51,10 +52,11 @@
                             <td>{{ $sale->products->count() }}</td>
                             <td>{{ $sale->products->sum('qty') }}</td>
                             <td>{{ format_money($sale->products->sum('total_amount')) }}</td>
-                            <td>{!! $sale->finalized_at ? "<span class='text-primary'>Finalizado el <br> " . date('d-m-y', strtotime($sale->finalized_at)) . "</span>" : (($sale->products->count() > 0) ? "<span class='bage badge-success badge-pill'>A FINALIZAR</span>" : "<span class='bage badge-success badge-pill'>EN ABIERTO</span>") !!}</td>
+                            <td>{!! $sale->finalized_at ? "<span class='badge badge-primary badge-pill'>Finalizado el <br> " . date('d-m-y', strtotime($sale->finalized_at)) . "</span>" : (($sale->products->count() > 0) ? "<span class='bage badge-success badge-pill'>A FINALIZAR</span>" : "<span class='bage badge-success badge-pill'>EN ABIERTO</span>") !!}</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
             </div>
 
         </div>
@@ -66,7 +68,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Cantidad: {{ $sale->products->sum('qty') }}</h4>
+                        <h4 class="card-title">Productos: {{ $sale->products->sum('qty') }}</h4>
                     </div>
                     @if (!$sale->finalized_at)
                     <div class="col-4 text-right">
@@ -76,7 +78,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
+            <div class="table-responsive">
+                <table class="table ">
                     <thead>
                         <th>ID</th>
                         <th>Categoría</th>
@@ -113,7 +116,7 @@
                         @endforeach
                     </tbody>
                 </table>
-
+                </div>
             
 
                
@@ -128,7 +131,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                    <h4 class="card-title">Total: {{ format_money($sale->transactions->where('type', 'income')->sum('amount')) }}</h4>
+                    <h4 class="card-title">Transacciones: {{ format_money($sale->transactions->where('type', 'income')->sum('amount')) }}</h4>
                         
                     </div>
                     @if (!$sale->finalized_at)
@@ -139,8 +142,8 @@
                 </div>
             </div>
             <div class="card-body">
-       
-                    <table class="table tablesorter table-responsive" " id="">
+       <div class=" table-responsive">
+                    <table class="table tablesorter " id="">
                         <thead class=" text-primary">
                             <th scope="col">Fecha</th>
                             <th scope="col">Título</th>
@@ -177,7 +180,7 @@
                         </tbody>
                     </table>
 
-
+                    </div>
             
 
                

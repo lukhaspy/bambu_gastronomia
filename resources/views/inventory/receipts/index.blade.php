@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Compras', 'pageSlug' => 'receipts', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Compras', 'pageSlug' => 'receipts', 'section' => 'transactions'])
 
 @section('content')
 @include('alerts.success')
@@ -23,6 +23,7 @@
                         <th>Proveedor</th>
                         <th>Productos</th>
                         <th>Cant. Total</th>
+                        <th>Totales</th>
                         <th>Status</th>
                         <th></th>
                     </thead>
@@ -39,7 +40,8 @@
                                 @endif
                             </td>
                             <td>{{ $receipt->products->count() }}</td>
-                            <td>{{ $receipt->products->sum('stock') }}</td>
+                            <td>{{ $receipt->products->sum('qty') }}</td>
+                            <td><span class="badge badge-pill badge-warning">{{ format_money($receipt->transactions->where('type', 'payment')->sum('amount')) }} / {{ format_money($receipt->products->sum('total_amount')) }}</span></td>
                             <td>
                                 @if($receipt->finalized_at)
                                 <span class="badge badge-pill badge-primary">Finalizado</span>
@@ -56,7 +58,6 @@
                                 <a href="{{ route('receipts.show', ['receipt' => $receipt]) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Edit Receipt">
                                     <i class="tim-icons icon-pencil"></i>
                                 </a>
-                                @endif
                                 <form action="{{ route('receipts.destroy', $receipt) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('delete')
@@ -64,6 +65,9 @@
                                         <i class="tim-icons icon-simple-remove"></i>
                                     </button>
                                 </form>
+                                @endif
+
+
                             </td>
                         </tr>
                         @endforeach

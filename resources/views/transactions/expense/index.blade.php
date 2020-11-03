@@ -17,11 +17,11 @@
             <div class="card-body">
                 @include('alerts.success')
 
-                <div class="">
-                    <table class="table tablesorter table-responsive" " id="">
+                <div class=" table-responsive">
+                    <table class="table tablesorter" " id="">
                         <thead class=" text-primary">
                         <th scope="col">Fecha</th>
-                        <th scope="col">Título</th>
+                        <th scope="col">Gasto</th>
                         <th scope="col">Método</th>
                         <th scope="col">Monto</th>
                         <th scope="col">Referencia</th>
@@ -31,7 +31,7 @@
                             @foreach ($transactions as $transaction)
                             <tr>
                                 <td> {{ date('d-m-y', strtotime($transaction->created_at)) }}</td>
-                                <td> {{ $transaction->title }}</td>
+                                <td> {{ $transaction->spendingProfile->name }}</td>
                                 <td><a href="{{ route('methods.show', $transaction->method) }}">{{ $transaction->method->name }}</a></td>
                                 <td>{{ format_money($transaction->amount) }}</td>
                                 <td>{{ $transaction->reference }}</td>

@@ -12,13 +12,13 @@
                     </div>
                     <div class="col-4 text-right">
                         <a href="{{ route('transfer.create') }}" class="btn btn-sm btn-primary">
-                            Registrar Transferencias
+                            Registrar
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table ">
                     <thead class=" text-primary">
                         <th>Fecha</th>
                         <th>Título</th>

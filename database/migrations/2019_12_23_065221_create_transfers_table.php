@@ -24,6 +24,7 @@ class CreateTransfersTable extends Migration
             $table->string('reference')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

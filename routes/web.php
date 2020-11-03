@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
         'inventory/products' => 'ProductController',
         'inventory/materials' => 'MaterialController',
         'inventory/production' => 'ProductionController',
+        'inventory/spendingProfiles' => 'SpendingProfileController',
+
         'clients' => 'ClientController',
         'inventory/categories' => 'ProductCategoryController',
         'transactions/transfer' => 'TransferController',
@@ -57,6 +59,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('inventory/receipts/{receipt}/product', ['as' => 'receipts.product.store', 'uses' => 'ReceiptController@storeproduct']);
     Route::match(['put', 'patch'], 'inventory/receipts/{receipt}/product/{receivedproduct}', ['as' => 'receipts.product.update', 'uses' => 'ReceiptController@updateproduct']);
     Route::delete('inventory/receipts/{receipt}/product/{receivedproduct}', ['as' => 'receipts.product.destroy', 'uses' => 'ReceiptController@destroyproduct']);
+
+
+
+    Route::get('inventory/receipts/{receipt}/transaction/add', ['as' => 'inventory.receipts.transaction.add', 'uses' => 'ReceiptController@addtransaction']);
+    Route::get('inventory/receipts/{receipt}/transaction/{transaction}/edit', ['as' => 'inventory.receipts.transaction.edit', 'uses' => 'ReceiptController@edittransaction']);
+    Route::post('inventory/receipts/{receipt}/transaction', ['as' => 'inventory.receipts.transaction.store', 'uses' => 'ReceiptController@storetransaction']);
+    Route::match(['put', 'patch'], 'inventory/receipts/{receipt}/transaction/{transaction}', ['as' => 'inventory.receipts.transaction.update', 'uses' => 'ReceiptController@updatetransaction']);
+    Route::delete('inventory/receipts/{receipt}/transaction/{transaction}', ['as' => 'inventory.receipts.transaction.destroy', 'uses' => 'ReceiptController@destroytransaction']);
+
+
 
     Route::resource('sales', 'SaleController')->except(['edit', 'update']);
     Route::get('sales/{sale}/finalize', ['as' => 'sales.finalize', 'uses' => 'SaleController@finalize']);

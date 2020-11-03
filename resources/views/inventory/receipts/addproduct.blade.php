@@ -24,22 +24,31 @@
                             <label class="form-control-label" for="input-product">Producto</label>
                             <select name="product_id" id="input-product" class="form-select form-control-alternative{{ $errors->has('product_id') ? ' is-invalid' : '' }}" required>
                                 @foreach ($products as $product)
-                                    @if($product['id'] == old('product_id'))
-                                        <option value="{{$product['id']}}" selected>[{{ $product->category->name }}] | [{{getUnity($product->unity)}}] {{ $product->name }} - Precio: {{ $product->price }} </option>
-                                    @else
-                                        <option value="{{$product['id']}}">[{{ $product->category->name }}] | [{{getUnity($product->unity)}}] {{ $product->name }} - Precio: {{ $product->price }}</option>
-                                    @endif
+                                @if($product['id'] == old('product_id'))
+                                <option value="{{$product['id']}}" selected>[{{ $product->category->name }}] | [{{getUnity($product->unity)}}] {{ $product->name }} - Costo: </option>
+                                @else
+                                <option value="{{$product['id']}}">[{{ $product->category->name }}] | [{{getUnity($product->unity)}}] {{ $product->name }} - Costo: </option>
+                                @endif
                                 @endforeach
                             </select>
                             @include('alerts.feedback', ['field' => 'product_id'])
                         </div>
-
-                        <div class="form-group{{ $errors->has('stock') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="input-stock">Stock</label>
-                            <input type="number" name="stock" id="input-stock" class="form-control form-control-alternative{{ $errors->has('stock') ? ' is-invalid' : '' }}" value="0" required>
-                            @include('alerts.feedback', ['field' => 'stock'])
+                        <div class="form-group{{ $errors->has('cost') ? ' has-danger' : '' }}">
+                            <label class="form-control-label" for="input-cost">Costo</label>
+                            <input type="number" name="cost" id="input-cost" class="form-control form-control-alternative{{ $errors->has('cost') ? ' is-invalid' : '' }}" value="0" required>
+                            @include('alerts.feedback', ['field' => 'cost'])
                         </div>
 
+                        <div class="form-group{{ $errors->has('qty') ? ' has-danger' : '' }}">
+                            <label class="form-control-label" for="input-qty">Cantidad</label>
+                            <input type="number" name="qty" id="input-qty" class="form-control form-control-alternative{{ $errors->has('qty') ? ' is-invalid' : '' }}" value="0" required>
+                            @include('alerts.feedback', ['field' => 'qty'])
+                        </div>
+                        <div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
+                            <label class="form-control-label" for="input-total">Total</label>
+                            <input type="text" name="total_amount" id="input-total" class="form-control form-control-alternative{{ $errors->has('product_id') ? ' is-invalid' : '' }}" value="0 Gs" readonly>
+                            @include('alerts.feedback', ['field' => 'product_id'])
+                        </div>
 
 
                         <div class="text-center">
@@ -58,5 +67,17 @@
     new SlimSelect({
         select: '.form-select'
     });
+</script>
+
+<script>
+    let input_qty = document.getElementById('input-qty');
+    let input_cost = document.getElementById('input-cost');
+    let input_total = document.getElementById('input-total');
+    input_qty.addEventListener('input', updateTotal);
+    input_cost.addEventListener('input', updateTotal);
+
+    function updateTotal() {
+        input_total.value = (parseInt(input_qty.value) * parseFloat(input_cost.value)) + " Gs";
+    }
 </script>
 @endpush

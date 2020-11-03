@@ -8,7 +8,8 @@
                 <h4 class="card-title">Info de Métodos</h4>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
+            <div class=" table-responsive">
+                <table class="table ">
                     <thead>
                         <th>ID</th>
                         <th>Nombre</th>
@@ -34,10 +35,12 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<!--
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -45,7 +48,8 @@
                 <h4 class="card-title">Transacciones: {{ $transactions->count() }}</h4>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
+            <div class="table-responsive">
+                <table class="table ">
                     <thead>
                         <th>ID</th>
                         <th>Fecha</th>
@@ -87,8 +91,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</div>-->
 @endsection

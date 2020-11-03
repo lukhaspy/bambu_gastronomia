@@ -53,14 +53,14 @@
 
                             <div class="form-group{{ $errors->has('amount') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-amount">Monto</label>
-                                <input type="number" step=".01" name="amount" id="input-amount" class="form-control form-control-alternative" placeholder="Amount" value="{{ old('amount') }}" required>
+                                <input type="number" step=".01" name="amount" id="input-amount" class="form-control form-control-alternative" placeholder="Monto" value="{{ old('amount', $sale->products->sum('total_amount')) }}" required>
                                 @include('alerts.feedback', ['field' => 'amount'])
 
                             </div>
 
                             <div class="form-group{{ $errors->has('reference') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-reference">Referencia</label>
-                                <input type="text" name="reference" id="input-reference" class="form-control form-control-alternative{{ $errors->has('reference') ? ' is-invalid' : '' }}" placeholder="Reference" value="{{ old('reference') }}">
+                                <input type="text" name="reference" id="input-reference" class="form-control form-control-alternative{{ $errors->has('reference') ? ' is-invalid' : '' }}" placeholder="Referencia" value="{{ old('reference') }}">
                                 @include('alerts.feedback', ['field' => 'reference'])
                             </div>
 

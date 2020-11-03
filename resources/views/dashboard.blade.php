@@ -103,7 +103,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table table-responsive">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>
@@ -163,7 +163,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table table-responsive">
+                    <table class="table ">
                         <thead>
                             <tr>
                                 <th>

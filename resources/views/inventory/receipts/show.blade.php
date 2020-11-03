@@ -10,7 +10,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Resumen</h4>
+                        <h4 class="card-title">Resumen | <span class="badge badge-pill badge-warning">{{ format_money($receipt->transactions->where('type', 'payment')->sum('amount')) }} / {{ format_money($receipt->products->sum('total_amount')) }}</span></h4>
                     </div>
                     @if (!$receipt->finalized_at)
                     <div class="col-4 text-right">
@@ -57,8 +57,8 @@
                                 @endif
                             </td>
                             <td>{{ $receipt->products->count() }}</td>
-                            <td>{{ $receipt->products->sum('stock') }}</td>
-                            <td>{!! $receipt->finalized_at ? "<span class='badge badge-pill badge-primary'>FINALIZADO</span>" :"<span class='badge badge-pill badge-success'>En Abierto</span>" !!}</td>
+                            <td>{{ $receipt->products->sum('qty') }}</td>
+                            <td>{!! $receipt->finalized_at ? "<span class='badge badge-primary badge-pill'>Finalizado el <br> " . date('d-m-y', strtotime($receipt->finalized_at)) . "</span>" : (($receipt->products->count() > 0) ? "<span class='bage badge-success badge-pill'>A FINALIZAR</span>" : "<span class='bage badge-success badge-pill'>EN ABIERTO</span>") !!}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -73,7 +73,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Cantidad: {{ $receipt->products->count() }}</h4>
+                        <h4 class="card-title">Productos: {{ $receipt->products->count() }}</h4>
                     </div>
                     @if (!$receipt->finalized_at)
                     <div class="col-4 text-right">
@@ -87,8 +87,9 @@
                     <thead>
                         <th>Categoría</th>
                         <th>Producto</th>
-                        <th>Stock</th>
-                        <th>Medida</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unit.</th>
+                        <th>Total</th>
                         <th></th>
                     </thead>
                     <tbody>
@@ -96,8 +97,9 @@
                         <tr>
                             <td><a href="{{ route('categories.show', $received_product->product->category) }}">{{ $received_product->product->category->name }}</a></td>
                             <td><a href="{{ route('products.show', $received_product->product) }}">{{ $received_product->product->name }}</a></td>
-                            <td>{{ $received_product->stock }}</td>
-                            <td>{{ getUnity($received_product->product->unity) }}</td>
+                            <td>{{ $received_product->qty }}</td>
+                            <td>{{ format_money($received_product->cost) }}</td>
+                            <td>{{ format_money($received_product->total_amount) }}</td>
                             <td class="td-actions text-right">
                                 @if(!$receipt->finalized_at)
                                 <a href="{{ route('receipts.product.edit', ['receipt' => $receipt, 'receivedproduct' => $received_product]) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Edit Pedido">
@@ -116,6 +118,68 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Transacciones: {{ format_money($receipt->transactions->where('type', 'payment')->sum('amount')) }}</h4>
+
+                    </div>
+                    @if (!$receipt->finalized_at)
+                    <div class="col-4 text-right">
+                        <a href="{{ route('inventory.receipts.transaction.add', ['receipt' => $receipt->id]) }}" class="btn btn-sm btn-primary">Agregar </a>
+                        
+                    </div>
+                    @endif
+                </div>
+            </div>
+            <div class="card-body">
+                    <div class="table-responsive">
+                <table class="table tablesorter " id="">
+                        <thead class=" text-primary">
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Método</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Referencia</th>
+                    <th scope="col"></th>
+                    </thead>
+                    <tbody>
+                        @foreach ($receipt->transactions as $transaction)
+                        <tr>
+                            <td> {{ date('d-m-y', strtotime($transaction->created_at)) }}</td>
+                            <td> {{ $transaction->title }}</td>
+                            <td><a href="{{ route('methods.show', $transaction->method) }}">{{ $transaction->method->name }}</a></td>
+                            <td>{{ format_money($transaction->amount) }}</td>
+                            <td>{{ $transaction->reference }}</td>
+                            <td></td>
+                            <td class="td-actions text-right">
+                                @if(!$receipt->finalized_at)
+                                <a href="{{ route('inventory.receipts.transaction.edit', ['receipt' => $receipt, 'transaction' => $transaction]) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Edit Pedido">
+                                    <i class="tim-icons icon-pencil"></i>
+                                </a>
+                                <form action="{{ route('inventory.receipts.transaction.destroy', ['receipt' => $receipt, 'transaction' => $transaction]) }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Pedido" onclick="confirm('Estás seguro que quieres eliminar este pedido de producto/s? Su registro será eliminado de esta venta.') ? this.parentElement.submit() : ''">
+                                        <i class="tim-icons icon-simple-remove"></i>
+                                    </button>
+                                </form>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                </div>
+
+
+
+
+
             </div>
         </div>
     </div>

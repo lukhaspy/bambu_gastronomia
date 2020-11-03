@@ -17,19 +17,19 @@
             <div class="card-body">
                 @include('alerts.success')
 
-                <div class="">
-                    <table class="table tablesorter table-responsive" " id="">
+                <div class="table-responsive">
+                    <table class="table tablesorter " " id="">
                         <thead class=" text-primary">
-                            <th>Nombre y Cédula</th>
+                        <th>Nombre y Cédula</th>
 
-                            <th>Correo / Teléfono</th>
-                            <th>Dirección</th>
+                        <th>Correo / Teléfono</th>
+                        <th>Dirección</th>
 
-                            <th>Saldo</th>
-                            <th>Compras</th>
-                            <th>Pagos Totales</th>
-                            <th>Ult. Compra</th>
-                            <th></th>
+                        <th>Saldo</th>
+                        <th>Compras</th>
+                        <th>Pagos Totales</th>
+                        <th>Ult. Compra</th>
+                        <th></th>
                         </thead>
                         <tbody>
                             @foreach ($clients as $client)

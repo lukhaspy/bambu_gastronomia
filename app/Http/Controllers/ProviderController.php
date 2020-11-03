@@ -66,7 +66,6 @@ class ProviderController extends Controller
     public function show(Provider $provider)
     {
         $transactions = $provider->transactions()->latest()->limit(25)->get();
-
         $receipts = $provider->receipts()->latest()->limit(25)->get();
 
         return view('providers.show', compact('provider', 'transactions', 'receipts'));
@@ -96,7 +95,7 @@ class ProviderController extends Controller
      */
     public function destroy(Provider $provider)
     {
-        $provider->delete();
+        //  $provider->delete();
 
         return redirect()
             ->route('providers.index')

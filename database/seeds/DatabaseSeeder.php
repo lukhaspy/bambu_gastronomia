@@ -1,5 +1,8 @@
 <?php
 
+use App\PaymentMethod;
+use App\ProductCategory;
+use App\Provider;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -29,5 +32,20 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('bambu-gastronomia'),
             'remember_token' => Str::random(10)
         ])->assignRole('super-admin');
+
+        Provider::create([
+            'name' => 'testeprovi',
+            'razon' => 'teste',
+            'ruc' => 123123,
+        ]);
+
+        ProductCategory::create([
+            'name' => 'testecatego',
+
+        ]);
+
+        PaymentMethod::create([
+            'name' => 'gs'
+        ]);
     }
 }

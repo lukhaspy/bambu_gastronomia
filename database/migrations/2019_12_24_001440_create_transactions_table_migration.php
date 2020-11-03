@@ -19,8 +19,10 @@ class CreateTransactionsTableMigration extends Migration
             $table->string('type');
             $table->string('title')->nullable();
             $table->string('reference')->nullable();
+            $table->unsignedBigInteger('spendingProfile_id')->nullable();
             $table->unsignedBigInteger('client_id')->nullable();
             $table->unsignedBigInteger('sale_id')->nullable();
+            $table->unsignedBigInteger('receipt_id')->nullable();
             $table->unsignedBigInteger('provider_id')->nullable();
             $table->unsignedBigInteger('transfer_id')->nullable();
             $table->unsignedBigInteger('payment_method_id');
@@ -28,6 +30,7 @@ class CreateTransactionsTableMigration extends Migration
             $table->unsignedBigInteger('user_id');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

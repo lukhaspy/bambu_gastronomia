@@ -17,8 +17,8 @@
             </div>
             <div class="card-body">
 
-                <div class="">
-                    <table class="table tablesorter table-responsive" " id="">
+                <div class="table-responsive">
+                    <table class="table tablesorter  " id="">
                         <thead class=" text-primary">
                         <th scope="col">Método</th>
                         <th scope="col">Descripción</th>

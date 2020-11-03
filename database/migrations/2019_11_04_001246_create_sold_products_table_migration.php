@@ -23,6 +23,7 @@ class CreateSoldProductsTableMigration extends Migration
             $table->decimal('total_amount', 10, 2);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -7,8 +7,8 @@
             <div class="card-header">
                 <h4 class="card-title">Info del Proveedor</h4>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table ">
                     <thead>
                         <th>ID</th>
                         <th>Nombre</th>
@@ -42,8 +42,8 @@
             <div class="card-header">
                 <h4 class="card-title">Últ. Pagos</h4>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body  table-responsive">
+                <table class="table">
                     <thead>
                         <th>Fecha</th>
                         <th>ID</th>
@@ -75,8 +75,8 @@
             <div class="card-header">
                 <h4 class="card-title">Últ. Compras</h4>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table ">
                     <thead>
                         <th>Fecha</th>
                         <th>ID</th>

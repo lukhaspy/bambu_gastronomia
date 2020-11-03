@@ -17,8 +17,11 @@ class CreateReceivedProductsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('receipt_id');
             $table->unsignedBigInteger('product_id');
-            $table->integer('stock');
+            $table->integer('qty');
+            $table->decimal('cost', 10, 2);
+            $table->decimal('total_amount', 10, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

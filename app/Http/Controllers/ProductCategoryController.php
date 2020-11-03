@@ -94,10 +94,10 @@ class ProductCategoryController extends Controller
      */
     public function destroy(ProductCategory $category)
     {
-        $category->delete();
+        /*  $category->delete();*/
 
         return redirect()
             ->route('categories.index')
-            ->withStatus('Category successfully deleted.');
+            ->withStatus('Categoria eliminada correctamente.');
     }
 }

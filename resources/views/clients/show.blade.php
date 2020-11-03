@@ -9,7 +9,8 @@
                 <h4 class="card-title">Info Cliente</h4>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
+            <div class="table-responsive">
+                <table class="table ">
                     <thead>
                         <th>Nombre y Cédula</th>
 
@@ -40,10 +41,11 @@
                             </td>
                             <td>{{ $client->sales->count() }}</td>
                             <td>{{ format_money($client->transactions->sum('amount')) }}</td>
-                            <td>{{ ($client->sales->sortByDesc('created_at')->first()) ? date('d-m-y', strtotime($client->sales->sortByDesc('created_at')->first()->created_at)) : 'N/A' }}</td>
+                            <td>{{ ($client->sales->sortByDesc('created_at')->first()) ? date('d-m-y h:i', strtotime($client->sales->sortByDesc('created_at')->first()->created_at)) : 'N/A' }}</td>
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>
@@ -63,7 +65,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
+            <div class="table-responsive">
+                <table class="table ">
                     <thead>
                         <th>ID</th>
                         <th>Fecha</th>
@@ -81,6 +84,7 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
             </div>
         </div>
     </div>
@@ -103,7 +107,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
+            <div class="table-responsive">
+                <table class="table ">
                     <thead>
                         <th>ID</th>
                         <th>Fecha</th>
@@ -121,7 +126,7 @@
                             <td>{{ $sale->products->count() }}</td>
                             <td>{{ $sale->products->sum('qty') }}</td>
                             <td>{{ format_money($sale->products->sum('total_amount')) }}</td>
-                            <td>{{ ($sale->finalized_at) ? 'Finalizado' : 'En Espera' }}</td>
+                            <td>{!! ($sale->finalized_at) ? "<span class='badge badge-primary'>Finalizado</span>" : "<span class='badge badge-success'>En Espera</span>" !!}</td>
                             <td class="td-actions text-right">
                                 <a href="{{ route('sales.show', $sale) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="More Details">
                                     <i class="tim-icons icon-zoom-split"></i>
@@ -131,6 +136,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

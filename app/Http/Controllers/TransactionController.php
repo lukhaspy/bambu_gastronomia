@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\SoldProduct;
 use App\Transaction;
 use App\PaymentMethod;
+use App\SpendingProfile;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -92,6 +93,7 @@ class TransactionController extends Controller
             case 'expense':
                 return view('transactions.expense.create', [
                     'payment_methods' => PaymentMethod::all(),
+                    'spendingProfiles' => SpendingProfile::all()
                 ]);
 
             case 'payment':
@@ -141,6 +143,7 @@ class TransactionController extends Controller
         }
 
         switch ($request->get('type')) {
+
             case 'expense':
                 if ($request->get('amount') > 0) {
                     $request->merge(['amount' => ((float) $request->get('amount') * (-1))]);

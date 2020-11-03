@@ -7,8 +7,8 @@
             <div class="card-header">
                 <h4 class="card-title">Info del Producto</h4>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table ">
                     <thead>
                         <th>ID</th>
                         <th>Categoría</th>
@@ -43,8 +43,8 @@
             <div class="card-body">
                 <h4 class="card-title">Últ. Ventas</h4>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body  table-responsive">
+                <table class="table">
                     <thead>
                         <th>Fecha</th>
                         <th>ID</th>
@@ -81,8 +81,8 @@
             <div class="card-body">
                 <h4 class="card-title">Últ. Compras</h4>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table ">
                     <thead>
                         <th>Fecha</th>
                         <th>ID</th>
@@ -94,8 +94,8 @@
                         @foreach ($receiveds as $received)
                         <tr>
                             <td>{{ date('d-m-y', strtotime($received->created_at)) }}</td>
-                            <td><a href="{{ route('receipts.show', $received->receipt) }}">{{ $received->receipt_id }}</a></td>
-                            <td style="max-width:150px;">{{ $received->receipt->title }}</td>
+                            <td><a href="{{ route('receipts.show', $received->receipt ?: '') }}">{{ $received->receipt_id }}</a></td>
+                            <td style="max-width:150px;"></td>
                             <td>{{ $received->stock }}</td>
                             <td class="td-actions text-right">
                                 <a href="{{ route('receipts.show', $received->receipt) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Ver Receipt">

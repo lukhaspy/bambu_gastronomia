@@ -19,19 +19,19 @@
             <div class="card-body">
                 @include('alerts.success')
 
-                <div class="">
-                    <table class="table tablesorter table-responsive" " id="">
-                            <thead class=" text-primary">
-                        <th>Fecha</th>
-                        <th>Tipo</th>
-                        <th>Título</th>
-                        <th>Método</th>
-                        <th>Monto</th>
-                        <th>Referencia</th>
-                        <th>Cliente</th>
-                        <th>Proveedor</th>
-                        <th>Transferencia</th>
-                        <th></th>
+                <div class=" table-responsive">
+                    <table class="table tablesorter" id="">
+                        <thead class=" text-primary">
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Título</th>
+                            <th>Método</th>
+                            <th>Monto</th>
+                            <th>Referencia</th>
+                            <th>Cliente</th>
+                            <th>Proveedor</th>
+                            <th>Transferencia</th>
+                            <th></th>
                         </thead>
                         <tbody>
                             @foreach ($transactions as $transaction)
@@ -74,17 +74,10 @@
                                     <a href="{{ route('transfer.show', $transaction->transfer) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="More details">
                                         <i class="tim-icons icon-zoom-split"></i>
                                     </a>
-                                    @else
-                                    <a href="{{ route('transactions.edit', $transaction) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Edit Transaction">
-                                        <i class="tim-icons icon-pencil"></i>
+                                    @elseif ($transaction->receipt_id)
+                                    <a href="{{ route('receipts.show', $transaction->receipt) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="More details">
+                                        <i class="tim-icons icon-zoom-split"></i>
                                     </a>
-                                    <form action="{{ route('transactions.destroy', $transaction) }}" method="post" class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Delete Transaction" onclick="confirm('Estas seguro(a) de eliminar esta transaccion?') ? this.parentElement.submit() : ''">
-                                            <i class="tim-icons icon-simple-remove"></i>
-                                        </button>
-                                    </form>
                                     @endif
                                 </td>
                             </tr>
@@ -114,7 +107,7 @@
                 <div class="d-flex justify-content-between">
                     <a href="{{ route('transactions.create', ['type' => 'payment']) }}" class="btn btn-sm btn-primary">Pago</a>
                     <a href="{{ route('transactions.create', ['type' => 'income']) }}" class="btn btn-sm btn-primary">Entrada</a>
-                    <a href="{{ route('transactions.create', ['type' => 'expense']) }}" class="btn btn-sm btn-primary">Salida</a>
+                    <a href="{{ route('transactions.create', ['type' => 'expense']) }}" class="btn btn-sm btn-primary">Gasto</a>
                     <a href="{{ route('sales.create') }}" class="btn btn-sm btn-primary">Venta</a>
                     <a href="{{ route('transfer.create') }}" class="btn btn-sm btn-primary">Transferencia</a>
                 </div>

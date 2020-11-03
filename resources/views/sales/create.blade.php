@@ -19,26 +19,32 @@
                 <div class="card-body">
                     <form method="post" action="{{ route('sales.store') }}" autocomplete="off">
                         @csrf
+                        <div class="row">
+                            <div class="pl-lg-4">
+                                <label class="form-control-label" for="input-provider">Fecha</label>
 
-                        <h6 class="heading-small text-muted mb-4">Elija el cliente</h6>
-                        <div class="pl-lg-4">
-                            <div class="form-group{{ $errors->has('client_id') ? ' has-danger' : '' }}">
-                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                                <label class="form-control-label" for="input-name">Cliente</label>
-                                <select name="client_id" id="input-category" class="form-select form-control-alternative{{ $errors->has('client') ? ' is-invalid' : '' }}" required>
-                                    @foreach ($clients as $client)
-                                    @if($client['id'] == old('client'))
-                                    <option value="{{$client['id']}}" selected>{{$client['name']}} - {{$client['document_type'].$client['document_id']}}</option>
-                                    @else
-                                    <option value="{{$client['id']}}">{{$client['name']}} - {{$client['document_type'].$client['document_id']}}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                                @include('alerts.feedback', ['field' => 'client_id'])
+                                <input type="date" class="form-control" value="{{date('Y-m-d')}}" name="date">
                             </div>
+                            <div class="pl-lg-4">
+                                <div class="form-group{{ $errors->has('client_id') ? ' has-danger' : '' }}">
+                                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                    <label class="form-control-label" for="input-name">Cliente</label>
+                                    <select name="client_id" id="input-category" class="form-select form-control-alternative{{ $errors->has('client') ? ' is-invalid' : '' }}" required>
+                                        @foreach ($clients as $client)
+                                        @if($client['id'] == old('client'))
+                                        <option value="{{$client['id']}}" selected>{{$client['name']}} - {{$client['document_type'].$client['document_id']}}</option>
+                                        @else
+                                        <option value="{{$client['id']}}">{{$client['name']}} - {{$client['document_type'].$client['document_id']}}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                    @include('alerts.feedback', ['field' => 'client_id'])
+                                </div>
 
-                            <button type="submit" class="btn btn-success mt-4">Continuar</button>
+                                <button type="submit" class="btn btn-success mt-4">Continuar</button>
+                            </div>
                         </div>
+
                     </form>
                 </div>
             </div>

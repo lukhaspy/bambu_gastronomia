@@ -116,7 +116,7 @@ class MethodController extends Controller
      */
     public function destroy(PaymentMethod $method)
     {
-        $method->delete();
+        /* $method->delete();*/
 
         return back()->withStatus('Método eliminado.');
     }

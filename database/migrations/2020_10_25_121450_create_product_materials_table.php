@@ -4,9 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductMaterialsTable extends Migration{
+class CreateProductMaterialsTable extends Migration
+{
 
-    public function up(){
+    public function up()
+    {
         Schema::create('product_materials', function (Blueprint $table) {
             $table->id();
 
@@ -15,10 +17,12 @@ class CreateProductMaterialsTable extends Migration{
             $table->unsignedTinyInteger('quantity');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
-    public function down(){
+    public function down()
+    {
         Schema::dropIfExists('product_materials');
     }
 }

@@ -17,32 +17,35 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
-                    <thead>
-                        <th>Mes</th>
-                        <th>Cant.</th>
-                        <th>Ingresos</th>
-                        <th>Salidas</th>
-                        <th>Pagamentos</th>
-                        <th>Efectivo</th>
-                        <th>Total</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-                        @foreach ($transactionsperiods as $period => $data)
-                        <tr>
-                            <td>{{ $period }}</td>
-                            <td>{{ $data->count() }}</td>
-                            <td>{{ format_money($data->where('type', 'income')->sum('amount')) }}</td>
-                            <td>{{ format_money($data->where('type', 'expense')->sum('amount')) }}</td>
-                            <td>{{ format_money($data->where('type', 'payment')->sum('amount')) }}</td>
-                            <td>{{ format_money($data->where('payment_method_id', optional($methods->where('name', 'Cash')->first())->id)->sum('amount')) }}</td>
-                            <td>{{ format_money($data->sum('amount')) }}</td>
-                            <td></td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class=" table-responsive">
+                    <table class="table">
+                        <thead>
+                            <th>Mes</th>
+                            <th>Cant.</th>
+                            <th>Ingresos</th>
+                            <th>Salidas</th>
+                            <th>Pagamentos</th>
+                            <th>Efectivo</th>
+                            <th>Total</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            @foreach ($transactionsperiods as $period => $data)
+                            <tr>
+                                <td>{{ $period }}</td>
+                                <td>{{ $data->count() }}</td>
+                                <td><span class="text-primary">{{ format_money($data->where('type', 'income')->sum('amount')) }}</span> <i class="fas fa-arrow-up"></i></td>
+                                <td>{{ format_money($data->where('type', 'expense')->sum('amount')) }}</td>
+                                <td>{{ format_money($data->where('type', 'payment')->sum('amount')) }}</td>
+                                <td>{{ format_money($data->where('payment_method_id', optional($methods->where('name', 'Cash')->first())->id)->sum('amount')) }}</td>
+                                <td>{{ format_money($data->sum('amount')) }}</td>
+                                <td></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
@@ -63,7 +66,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table table-responsive">
+                    <table class="table ">
                         <thead>
                             <th>Cliente</th>
                             <th>Compras</th>
@@ -116,7 +119,7 @@
             </div>
             <div class="card-body">
                 <div class="table-full-width table-responsive">
-                    <table class="table table-responsive">
+                    <table class="table ">
                         <thead>
                             <th>Método</th>
                             <th>Transacciones {{ $date->year }}</th>
@@ -143,7 +146,7 @@
         </div>
     </div>
 </div>
-
+<!--
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -157,8 +160,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <table class="table table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table ">
                     <thead class="bg-light">
                         <th>Periodo</th>
                         <th>Ventas</th>
@@ -185,5 +188,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 @endsection

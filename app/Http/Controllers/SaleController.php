@@ -47,9 +47,9 @@ class SaleController extends Controller
     {
         $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
 
-        if ($existent->count()) {
+       /* if ($existent->count()) {
             return back()->withError('Existe una operación en abierto con el cliente seleccionado. <a href="' . route('sales.show', $existent->first()) . '"> Abrir Venta</a>');
-        }
+        }*/
 
         $sale = $model->create($request->all());
 
@@ -109,7 +109,8 @@ class SaleController extends Controller
 
     public function addproduct(Sale $sale)
     {
-        $products = Product::all();
+
+        $products = Product::where('type', '<>', 1)->get();
 
         return view('sales.addproduct', compact('sale', 'products'));
     }
@@ -163,7 +164,7 @@ class SaleController extends Controller
                 break;
 
             case 'expense':
-                $request->merge(['title' => 'Gasto a cliente por venta ID: ' . $request->all('sale_id')]);
+                $request->merge(['title' => 'Gasto a cliente por venta ID: ' . $request->get('sale_id')]);
 
                 if ($request->get('amount') > 0) {
                     $request->merge(['amount' => (float) $request->get('amount') * (-1)]);

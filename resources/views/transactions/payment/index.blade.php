@@ -17,8 +17,8 @@
             <div class="card-body">
                 @include('alerts.success')
 
-                <div class="">
-                    <table class="table tablesorter table-responsive" " id="">
+                <div class="table-responsive">
+                    <table class="table tablesorter  " id="">
                         <thead class=" text-primary">
                         <th scope="col">Fecha</th>
                         <th scope="col">Proveedor</th>
@@ -37,7 +37,15 @@
                                 <td><a href="{{ route('methods.show', $transaction->method) }}">{{ $transaction->method->name }}</a></td>
                                 <td>{{ format_money($transaction->amount) }}</td>
                                 <td>{{ $transaction->reference }}</td>
-                                <td></td>
+                                @if ($transaction->receipt_id)
+                                <td>
+
+                                    <a href="{{ route('receipts.show', $transaction->receipt_id) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="More Details">
+                                        <i class="tim-icons icon-zoom-split"></i>
+                                    </a>
+                                </td>
+
+                                @else
                                 <td class="td-actions text-right">
                                     <a href="{{ route('transactions.edit', $transaction) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Edit Payment">
                                         <i class="tim-icons icon-pencil"></i>
@@ -50,6 +58,7 @@
                                         </button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

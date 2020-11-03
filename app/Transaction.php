@@ -3,13 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Carbon\Carbon;
 
 class Transaction extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
-        'title', 'reference', 'amount', 'payment_method_id', 'type', 'client_id', 'user_id', 'sale_id', 'provider_id', 'transfer_id'
+        'title', 'spendingProfile_id', 'reference', 'amount', 'payment_method_id', 'type', 'client_id', 'user_id', 'sale_id', 'receipt_id', 'provider_id', 'transfer_id'
     ];
 
     public function method()
@@ -27,6 +29,11 @@ class Transaction extends Model
         return $this->belongsTo('App\Sale');
     }
 
+    public function receipt()
+    {
+        return $this->belongsTo('App\Receipt');
+    }
+
     public function client()
     {
         return $this->belongsTo('App\Client');
@@ -36,7 +43,10 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\Transfer');
     }
-
+    public function spendingProfile()
+    {
+        return $this->belongsTo('App\SpendingProfile', 'spendingProfile_id');
+    }
     public function scopeFindByPaymentMethodId($query, $id)
     {
         return $query->where('payment_method_id', $id);

@@ -19,9 +19,11 @@ class CreateSalesTableMigration extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('client_id');
             $table->decimal('total_amount', 10, 2)->nullable();
+            $table->date('date')->nullable();
 
             $table->timestamp('finalized_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

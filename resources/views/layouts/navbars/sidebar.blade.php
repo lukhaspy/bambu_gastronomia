@@ -28,6 +28,12 @@
                                 <p>Todas</p>
                             </a>
                         </li>-->
+                        <li @if ($pageSlug=='receipts' ) class="active " @endif>
+                            <a href="{{ route('receipts.index') }}">
+                                <i class="tim-icons icon-paper"></i>
+                                <p>Compras</p>
+                            </a>
+                        </li>
                         <li @if ($pageSlug=='sales' ) class="active " @endif>
                             <a href="{{ route('sales.index')  }}">
                                 <i class="tim-icons icon-bag-16"></i>
@@ -101,10 +107,10 @@
                                 <p>Categorías</p>
                             </a>
                         </li>
-                        <li @if ($pageSlug=='receipts' ) class="active " @endif>
-                            <a href="{{ route('receipts.index') }}">
-                                <i class="tim-icons icon-paper"></i>
-                                <p>Compras</p>
+                        <li @if ($pageSlug=='spendingProfiles' ) class="active " @endif>
+                            <a href="{{ route('spendingProfiles.index') }}">
+                                <i class="tim-icons icon-tag"></i>
+                                <p>Perfiles de Gastos</p>
                             </a>
                         </li>
                     </ul>

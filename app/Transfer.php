@@ -3,12 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transfer extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
-        'title', 'sended_amount', 'received_amount', 'sender_method_id', 'receiver_method_id', 'reference'
+        'user_id', 'title', 'sended_amount', 'received_amount', 'sender_method_id', 'receiver_method_id', 'reference'
     ];
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     public function transactions()
     {
