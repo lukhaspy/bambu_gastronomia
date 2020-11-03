@@ -33,19 +33,9 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10)
         ])->assignRole('super-admin');
 
-        Provider::create([
-            'name' => 'testeprovi',
-            'razon' => 'teste',
-            'ruc' => 123123,
-        ]);
-
-        ProductCategory::create([
-            'name' => 'testecatego',
-
-        ]);
 
         PaymentMethod::create([
-            'name' => 'gs'
+            'name' => 'Efectivo'
         ]);
     }
 }
