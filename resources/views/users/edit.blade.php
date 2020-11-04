@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Editar Usuario', 'pageSlug' => 'users', 'section' => 'users'])
+@extends('layouts.app', ['page' => 'Usuario', 'pageSlug' => 'users', 'section' => 'users'])
 
 @section('content')
 <div class="container-fluid mt--7">

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Lista de Funcionarios', 'pageSlug' => 'employees', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Funcionario', 'pageSlug' => 'employees', 'section' => 'inventory'])
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -9,7 +9,7 @@
                         <h4 class="card-title">Funcionarios</h4>
                     </div>
                     <div class="col-4 text-right">
-                        <a href="{{ route('employees.create') }}" class="btn btn-sm btn-primary">Agregar</a>
+                        <a href="{{ route('employees.create') }}" class="btn btn-sm btn-primary">Nuevo</a>
                     </div>
                 </div>
             </div>

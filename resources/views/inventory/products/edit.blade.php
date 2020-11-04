@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Editar Producto', 'pageSlug' => 'products', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Producto', 'pageSlug' => 'products', 'section' => 'inventory'])
 
 @section('content')
     <div class="container-fluid mt--7">
@@ -16,8 +16,12 @@
                         </div>
                     </div>
                     <div class="card-body">
+                    @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @endif
                         {!! Form::model($product, ['route' => ['products.update', $product],'autocomplete' => 'off', 'method' => 'put']) !!}
-                            {!! Form::hidden('type', 0) !!}
                             @include('inventory.products._forms')
                         {!! Form::close() !!}
                     </div>
@@ -31,6 +35,9 @@
     <script>
         new SlimSelect({
             select: '.form-select'
+        })
+        new SlimSelect({
+            select: '.form-select2'
         })
     </script>
 @endpush

@@ -116,7 +116,14 @@ class MethodController extends Controller
      */
     public function destroy(PaymentMethod $method)
     {
-        /* $method->delete();*/
+        if($method->transactions()->count()){
+
+            return redirect()->route('transactions.index')->withStatus('NO ES POSIBLE ELIMINAR EL METODO, YA POSEE TRANSACCIONES.');
+
+        }
+
+       
+         $method->delete();
 
         return back()->withStatus('Método eliminado.');
     }

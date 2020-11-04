@@ -1,4 +1,4 @@
-@extends('layouts.app', ['pageSlug' => 'tstats', 'page' => 'Estatísticas', 'section' => 'transactions'])
+@extends('layouts.app', ['pageSlug' => 'tstats', 'page' => 'Estatística', 'section' => 'transactions'])
 
 @section('content')
 <div class="row">
@@ -57,7 +57,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Ventas Pendientes</h4>
+                        <h4 class="card-title">Clientes</h4>
                     </div>
                     <div class="col-4 text-right">
                         <a href="{{ route('clients.index') }}" class="btn btn-sm btn-primary">Ver Clientes</a>
@@ -130,7 +130,7 @@
                             @foreach($methods as $method)
                             <tr>
                                 <td><a href="{{ route('methods.show', $method) }}">{{ $method->name }}</a></td>
-                                <td>{{ format_money($transactionsperiods['Año']->where('payment_method_id', $method->id)->count()) }}</td>
+                                <td>{{ $transactionsperiods['Año']->where('payment_method_id', $method->id)->count() }}</td>
                                 <td>{{ format_money($transactionsperiods['Año']->where('payment_method_id', $method->id)->sum('amount')) }}</td>
                                 <td>
                                     <a href="{{ route('methods.show', $method) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="See Method">

@@ -10,6 +10,7 @@ use App\SoldProduct;
 use App\Transaction;
 use App\PaymentMethod;
 use Illuminate\Http\Request;
+use App\Http\Requests\SaleRequest;
 
 class SaleController extends Controller
 {
@@ -43,9 +44,9 @@ class SaleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Sale $model)
+    public function store(SaleRequest $request, Sale $model)
     {
-        $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
+       // $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
 
        /* if ($existent->count()) {
             return back()->withError('Existe una operación en abierto con el cliente seleccionado. <a href="' . route('sales.show', $existent->first()) . '"> Abrir Venta</a>');
@@ -76,17 +77,29 @@ class SaleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Sale $sale)
-    {
+    {  if (!$sale->finalized_at) {
+
+        $sale->products()->delete();
+        $sale->transactions()->delete();
         $sale->delete();
 
         return redirect()
             ->route('sales.index')
-            ->withStatus('La venta ha sido eliminada.');
+            ->withStatus('Venta eliminada.');
+    } else {
+        return redirect()
+            ->route('sales.index')
+            ->withErrors('La venta no puede ser eliminada, ya esta finalizada.');
+    }
     }
 
     public function finalize(Sale $sale)
     {
-        $sale->total_amount = $sale->products->sum('total_amount');
+        if(!($sale->transactions->sum('amount') >= $sale->products()->sum('total_amount')) ){
+        return back()->withStatus('Las transacciones no coinciden con el valor de los productos');
+
+        }
+        $sale->total_amount =  $sale->transactions->sum('amount');
 
         foreach ($sale->products as $sold_product) {
             $product_name = $sold_product->product->name;

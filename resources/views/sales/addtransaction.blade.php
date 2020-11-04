@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Nuevo Movimiento', 'pageSlug' => 'sales', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Movimiento', 'pageSlug' => 'sales', 'section' => 'transactions'])
 
 @section('content')
 <div class="container-fluid mt--7">

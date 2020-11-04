@@ -95,7 +95,15 @@ class ProviderController extends Controller
      */
     public function destroy(Provider $provider)
     {
-        //  $provider->delete();
+        if ($product->transactions()->count()) {
+
+            return redirect()->route('providers.index')->withStatus('NO ES POSIBLE ELIMINAR EL PROVEEDOR, YA POSEE TRANSACCIONES.');
+        }        
+        if ($product->receipts()->count()) {
+
+            return redirect()->route('providers.index')->withStatus('NO ES POSIBLE ELIMINAR EL PROVEEDOR, YA POSEE COMPRAS.');
+        }        
+          $provider->delete();
 
         return redirect()
             ->route('providers.index')

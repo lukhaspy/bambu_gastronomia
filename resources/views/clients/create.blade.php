@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Register Client', 'pageSlug' => 'clients', 'section' => 'clients'])
+@extends('layouts.app', ['page' => 'Cliente', 'pageSlug' => 'clients', 'section' => 'clients'])
 
 @section('content')
 
@@ -19,7 +19,11 @@
                     </div>
                 </div>
                 <div class="card-body">
-
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @endif
                     <form method="post" action="{{ route('clients.store') }}" autocomplete="off">
                         @csrf
                         <h6 class="heading-small text-muted mb-4">Datos</h6>

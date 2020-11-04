@@ -37,7 +37,7 @@ class MaterialController extends Controller
 
     public function store(ProductRequest $request)
     {
-
+        $request->merge(['type' => '1']);
         $this->productModel->create($request->all());
 
         return redirect()->route('materials.index')->withStatus('Producto agregado correctamente.');
@@ -63,17 +63,29 @@ class MaterialController extends Controller
 
     public function update(ProductRequest $request, Product $material)
     {
+        $request->merge(['type' => '1']);
 
-        $material->update($request->all());
+        $material->update($request->except('unity'));
 
         return redirect()->route('materials.index')->withStatus('Materia Prima actualizado correctamente.');
     }
 
     public function destroy(Product $material)
     {
+        if ($material->solds()->count()) {
 
-        /* $material->delete();*/
+            return redirect()->route('materials.index')->withStatus('NO ES POSIBLE ELIMINAR EL MATERIAL, YA POSEE VENTAS.');
+        }        
+        if ($material->receiveds()->count()) {
 
-        return redirect()->route('materials.index')->withStatus('Materia Prima eliminado correctamente.');
+            return redirect()->route('materials.index')->withStatus('NO ES POSIBLE ELIMINAR EL MATERIAL, YA POSEE COMPRAS.');
+        }  
+        if ($material->materials()->count()) {
+
+            return redirect()->route('materials.index')->withStatus('NO ES POSIBLE ELIMINAR EL MATERIAL, ESTA RELACIONADO CON MATERIA PRIMA.');
+        }  
+         $material->delete();
+
+        return redirect()->route('materials.index')->withStatus('Materia Prima eliminada correctamente.');
     }
 }

@@ -58,7 +58,7 @@ class Product extends Model
             inner join receipts r on rp.receipt_id = r.id
             inner join providers pro on r.provider_id = pro.id
             Where 1=1 $cmd
-            group by r.provider_id 
+            group by  rp.product_id, r.provider_id
             order by cost asc"
         ));
     }

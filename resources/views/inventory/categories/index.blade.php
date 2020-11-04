@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Lista de Categorías', 'pageSlug' => 'categories', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Categoría', 'pageSlug' => 'categories', 'section' => 'inventory'])
 
 @section('content')
 <div class="row">
@@ -10,7 +10,7 @@
                         <h4 class="card-title">Categorías</h4>
                     </div>
                     <div class="col-4 text-right">
-                        <a href="{{ route('categories.create') }}" class="btn btn-sm btn-primary">Nueva Categoría</a>
+                        <a href="{{ route('categories.create') }}" class="btn btn-sm btn-primary">Nuevo</a>
                     </div>
                 </div>
             </div>

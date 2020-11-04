@@ -36,6 +36,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
+        $request->merge(['type' => '0']);
 
         $this->productModel->create($request->all());
 
@@ -62,16 +63,28 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request, Product $product)
     {
+        $request->merge(['type' => '0']);
 
-        $product->update($request->all());
+        $product->update($request->except('unity'));
 
         return redirect()->route('products.index')->withStatus('Producto actualizado correctamente.');
     }
 
     public function destroy(Product $product)
     {
+        if ($product->solds()->count()) {
 
-        // $product->delete();
+            return redirect()->route('products.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, YA POSEE VENTAS.');
+        }        
+        if ($product->receiveds()->count()) {
+
+            return redirect()->route('products.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, YA POSEE COMPRAS.');
+        }  
+        if ($product->materials()->count()) {
+
+            return redirect()->route('products.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, ESTA RELACIONADO CON MATERIA PRIMA.');
+        }  
+         $product->delete();
 
         return redirect()->route('products.index')->withStatus('Producto eliminado correctamente.');
     }

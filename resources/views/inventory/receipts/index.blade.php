@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Compras', 'pageSlug' => 'receipts', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Compra', 'pageSlug' => 'receipts', 'section' => 'transactions'])
 
 @section('content')
 @include('alerts.success')
@@ -10,7 +10,7 @@
                     <h4 class="card-title">Compras</h4>
                 </div>
                 <div class="col-4 text-right">
-                    <a href="{{ route('receipts.create') }}" class="btn btn-sm btn-primary">Nueva Compra</a>
+                    <a href="{{ route('receipts.create') }}" class="btn btn-sm btn-primary">Nuevo</a>
                 </div>
             </div>
         </div>

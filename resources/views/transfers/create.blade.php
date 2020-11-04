@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Registrar Transferencia', 'pageSlug' => 'transfers', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Transf.', 'pageSlug' => 'transfers', 'section' => 'transactions'])
 
 @section('content')
 <div class="row">
@@ -17,16 +17,21 @@
                 </div>
             </div>
             <div class="card-body">
+            @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @endif
                 <form method="post" action="{{ route('transfer.store') }}" autocomplete="off">
                     @csrf
                     <h6 class="heading-small text-muted mb-4">Info Transferencia</h6>
-                    <div class="pl-lg-4">
-                        <div class="form-group{{ $errors->has('title') ? ' has-danger' : '' }}">
+                    <div class="row">
+                        <div class="form-group{{ $errors->has('title') ? ' has-danger' : '' }} col-md-4">
                             <label class="form-control-label" for="input-title">Título</label>
                             <input type="text" name="title" id="input-title" class="form-control form-control-alternative{{ $errors->has('title') ? ' is-invalid' : '' }}" value="{{ old('title') }}" required autofocus>
                             @include('alerts.feedback', ['field' => 'title'])
                         </div>
-                        <div class="form-group{{ $errors->has('sender_method_id') ? ' has-danger' : '' }}">
+                        <div class="form-group{{ $errors->has('sender_method_id') ? ' has-danger' : '' }} col-md-3">
                             <label class="form-control-label" for="input-method">Método (EMISOR)</label>
                             <select name="sender_method_id" id="input-method" class="form-select form-control-alternative{{ $errors->has('sender_method_id') ? ' is-invalid' : '' }}" required>
                                 @foreach ($methods as $payment_method)
@@ -39,7 +44,7 @@
                             </select>
                             @include('alerts.feedback', ['field' => 'sender_method_id'])
                         </div>
-                        <div class="form-group{{ $errors->has('receiver_method_id') ? ' has-danger' : '' }}">
+                        <div class="form-group{{ $errors->has('receiver_method_id') ? ' has-danger' : '' }} col-md-3">
                             <label class="form-control-label" for="input-method">Método (RECEPTOR)</label>
                             <select name="receiver_method_id" id="input-method" class="form-select2 form-control-alternative{{ $errors->has('receiver_method_id') ? ' is-invalid' : '' }}" required>
                                 @foreach ($methods as $payment_method)
@@ -52,25 +57,25 @@
                             </select>
                             @include('alerts.feedback', ['field' => 'receiver_method_id'])
                         </div>
-                        <div class="form-group{{ $errors->has('sended_amount') ? ' has-danger' : '' }}">
+                        <div class="form-group{{ $errors->has('sended_amount') ? ' has-danger' : '' }} col-md-3">
                             <label class="form-control-label" for="input-sended_amount">Monto Enviado</label>
                             <input type="number" step=".01" name="sended_amount" id="input-sended_amount" class="form-control form-control-alternative" placeholder="" value="{{ old('sended_amount') }}" min="0" required>
                             @include('alerts.feedback', ['field' => 'amount'])
                         </div>
-                        <div class="form-group{{ $errors->has('received_amount') ? ' has-danger' : '' }}">
+                        <div class="form-group{{ $errors->has('received_amount') ? ' has-danger' : '' }} col-md-3">
                             <label class="form-control-label" for="input-received_amount">Monto Recibido</label>
                             <input type="number" step=".01" name="received_amount" id="input-received_amount" class="form-control form-control-alternative" placeholder="" value="{{ old('received_amount') }}" min="0" required>
                             @include('alerts.feedback', ['field' => 'received_amount'])
                         </div>
-                        <div class="form-group{{ $errors->has('reference') ? ' has-danger' : '' }}">
+                        <div class="form-group{{ $errors->has('reference') ? ' has-danger' : '' }} col-md-5">
                             <label class="form-control-label" for="input-reference">Referencia</label>
                             <input type="text" name="reference" id="input-reference" class="form-control form-control-alternative{{ $errors->has('reference') ? ' is-invalid' : '' }}" value="{{ old('reference') }}">
                             @include('alerts.feedback', ['field' => 'reference'])
                         </div>
+                    </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4">Guardar</button>
                         </div>
-                    </div>
                 </form>
             </div>
         </div>

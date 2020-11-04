@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Editar Producto', 'pageSlug' => 'receipts', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Producto', 'pageSlug' => 'receipts', 'section' => 'inventory'])
 
 @section('content')
 <div class="row">
@@ -15,6 +15,11 @@
                 </div>
             </div>
             <div class="card-body">
+            @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @endif
                 <form method="post" action="{{ route('receipts.product.update', ['receipt' => $receipt, 'receivedproduct' => $receivedproduct]) }}" autocomplete="off">
                     @csrf
                     @method('put')

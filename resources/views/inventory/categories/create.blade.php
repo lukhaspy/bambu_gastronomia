@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Nueva Categoría', 'pageSlug' => 'categories', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Categoría', 'pageSlug' => 'categories', 'section' => 'inventory'])
 
 @section('content')
 <div class="container-fluid mt--7">
@@ -16,6 +16,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @endif
                     <form method="post" action="{{ route('categories.store') }}" autocomplete="off">
                         @csrf
 

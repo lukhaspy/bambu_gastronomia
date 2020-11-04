@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Pagos', 'pageSlug' => 'payments', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Pago', 'pageSlug' => 'payments', 'section' => 'transactions'])
 
 @section('content')
 <div class="row">
@@ -10,7 +10,7 @@
                         <h4 class="card-title">Pagos</h4>
                     </div>
                     <div class="col-4 text-right">
-                        <a href="{{ route('transactions.create', ['type' => 'payment']) }}" class="btn btn-sm btn-primary">Nuevo Pago</a>
+                        <a href="{{ route('transactions.create', ['type' => 'payment']) }}" class="btn btn-sm btn-primary">Nuevo</a>
                     </div>
                 </div>
             </div>

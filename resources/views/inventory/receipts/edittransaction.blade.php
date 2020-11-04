@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Editar Movimiento', 'pageSlug' => 'receipts', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Movimiento', 'pageSlug' => 'receipts', 'section' => 'transactions'])
 
 @section('content')
 <div class="container-fluid mt--7">
@@ -16,6 +16,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @endif
                     <form method="post" action="{{ route('inventory.receipts.transaction.update', ['receipt' => $receipt, 'transaction' => $transaction]) }}" autocomplete="off">
                         @csrf
                         @method('put')

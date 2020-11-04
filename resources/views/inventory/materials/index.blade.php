@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Lista de Materias Primas', 'pageSlug' => 'materials', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Materia Prima', 'pageSlug' => 'materials', 'section' => 'inventory'])
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -9,7 +9,7 @@
                             <h4 class="card-title">Materias Primas</h4>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('materials.create') }}" class="btn btn-sm btn-primary">Agregar Materia Prima</a>
+                            <a href="{{ route('materials.create') }}" class="btn btn-sm btn-primary">Nuevo</a>
                         </div>
                     </div>
                 </div>

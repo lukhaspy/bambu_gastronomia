@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Verificar Compra', 'pageSlug' => 'receipts', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Compra', 'pageSlug' => 'receipts', 'section' => 'transactions'])
 
 
 @section('content')
@@ -14,7 +14,7 @@
                     </div>
                     @if (!$receipt->finalized_at)
                     <div class="col-4 text-right">
-                        @if ($receipt->products->count() === 0)
+                        @if ($receipt->products->count() === 0 || $receipt->transactions->count() === 0)
                         <form action="{{ route('receipts.destroy', $receipt) }}" method="post" class="d-inline">
                             @csrf
                             @method('delete')
@@ -77,7 +77,7 @@
                     </div>
                     @if (!$receipt->finalized_at)
                     <div class="col-4 text-right">
-                        <a href="{{ route('receipts.product.add', ['receipt' => $receipt]) }}" class="btn btn-sm btn-primary">Agregar</a>
+                        <a href="{{ route('receipts.product.add', ['receipt' => $receipt]) }}" class="btn btn-sm btn-primary">Nuevo</a>
                     </div>
                     @endif
                 </div>
@@ -130,7 +130,7 @@
                     </div>
                     @if (!$receipt->finalized_at)
                     <div class="col-4 text-right">
-                        <a href="{{ route('inventory.receipts.transaction.add', ['receipt' => $receipt->id]) }}" class="btn btn-sm btn-primary">Agregar </a>
+                        <a href="{{ route('inventory.receipts.transaction.add', ['receipt' => $receipt->id]) }}" class="btn btn-sm btn-primary">Nuevo </a>
                         
                     </div>
                     @endif

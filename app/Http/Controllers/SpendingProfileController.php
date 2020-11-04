@@ -61,11 +61,11 @@ class SpendingProfileController extends Controller
 
     public function destroy(SpendingProfile $spendingProfile)
     {
-        /* if ($spendingProfile->transactions()) {
+         if ($spendingProfile->transactions()->count()) {
             return redirect()->route('spendingProfiles.index')->withStatus('NO ES POSIBLE ELIMINAR EL PERFIL, YA POSEE GASTOS.');
         }
 
-        $spendingProfile->delete();*/
+        $spendingProfile->delete();
 
 
         return redirect()->route('spendingProfiles.index')->withStatus('Perfil de Gasto eliminado correctamente.');

@@ -43,6 +43,7 @@ class ProductionController extends Controller
 
     public function store(ProductRequest $request)
     {
+        $request->merge(['type' => '2']);
 
         $input = $request->all();
         $materials = [];
@@ -79,8 +80,9 @@ class ProductionController extends Controller
 
     public function update(ProductRequest $request, Product $production)
     {
+        $request->merge(['type' => '2']);
 
-        $input = $request->all();
+        $input = $request->except('unity');
         $materials = [];
         if (isset($input['materials'])) {
             $materials = $input['materials'];
@@ -88,7 +90,6 @@ class ProductionController extends Controller
         }
 
         $production->update($input);
-
         foreach ($materials as $mat) {
             if ($mat['id'] == 'new') {
                 $production->materials()->create($mat);
@@ -97,15 +98,23 @@ class ProductionController extends Controller
             }
         }
 
-        return redirect()->route('production.index')->withStatus('Producción actualizado correctamente.');
+        return redirect()->route('production.index')->withStatus('Producción actualizada correctamente.');
     }
 
     public function destroy(Product $production)
     {
+        if ($production->solds()->count()) {
 
-        // $production->delete();
+            return redirect()->route('production.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, YA POSEE VENTAS.');
+        }        
+        if ($production->receiveds()->count()) {
 
-        return redirect()->route('production.index')->withStatus('Producción eliminado correctamente.');
+            return redirect()->route('production.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, YA POSEE COMPRAS.');
+        }  
+        
+         $production->delete();
+
+        return redirect()->route('production.index')->withStatus('Producción eliminada correctamente.');
     }
 
     public function tableMaterials($id)

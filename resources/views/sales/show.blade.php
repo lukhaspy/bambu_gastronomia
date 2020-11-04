@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Verificar Venta', 'pageSlug' => 'sales', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Venta', 'pageSlug' => 'sales', 'section' => 'transactions'])
 
 @section('content')
 @include('alerts.success')
@@ -13,7 +13,7 @@
                     </div>
                     @if (!$sale->finalized_at)
                     <div class="col-4 text-right">
-                        @if ($sale->products->count() == 0)
+                        @if ($sale->products->count() == 0 || $sale->transactions->count() === 0)
                         <form action="{{ route('sales.destroy', $sale) }}" method="post" class="d-inline">
                             @csrf
                             @method('delete')
@@ -72,7 +72,7 @@
                     </div>
                     @if (!$sale->finalized_at)
                     <div class="col-4 text-right">
-                        <a href="{{ route('sales.product.add', ['sale' => $sale->id]) }}" class="btn btn-sm btn-primary">Agregar </a>
+                        <a href="{{ route('sales.product.add', ['sale' => $sale->id]) }}" class="btn btn-sm btn-primary">Nuevo </a>
                     </div>
                     @endif
                 </div>
@@ -136,7 +136,7 @@
                     </div>
                     @if (!$sale->finalized_at)
                     <div class="col-4 text-right">
-                        <a href="{{ route('sales.transaction.add', ['sale' => $sale->id]) }}" class="btn btn-sm btn-primary">Agregar </a>
+                        <a href="{{ route('sales.transaction.add', ['sale' => $sale->id]) }}" class="btn btn-sm btn-primary">Nuevo </a>
                     </div>
                     @endif
                 </div>

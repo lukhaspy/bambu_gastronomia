@@ -94,7 +94,12 @@ class ProductCategoryController extends Controller
      */
     public function destroy(ProductCategory $category)
     {
-        /*  $category->delete();*/
+        if($method->products()->count()){
+
+            return redirect()->route('categories.index')->withStatus('NO ES POSIBLE ELIMINAR LA CATEGORIA, YA POSEE PRODUCTOS.');
+
+        }
+          $category->delete();
 
         return redirect()
             ->route('categories.index')

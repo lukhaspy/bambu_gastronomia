@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Gastos', 'pageSlug' => 'expenses', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Gasto', 'pageSlug' => 'expenses', 'section' => 'transactions'])
 
 @section('content')
 <div class="row">
@@ -10,7 +10,7 @@
                         <h4 class="card-title">Gastos</h4>
                     </div>
                     <div class="col-4 text-right">
-                        <a href="{{ route('transactions.create', ['type' => 'expense']) }}" class="btn btn-sm btn-primary">Registrar Gasto</a>
+                        <a href="{{ route('transactions.create', ['type' => 'expense']) }}" class="btn btn-sm btn-primary">Nuevo</a>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                     <table class="table tablesorter" " id="">
                         <thead class=" text-primary">
                         <th scope="col">Fecha</th>
-                        <th scope="col">Gasto</th>
+                        <th scope="col">Perfil</th>
                         <th scope="col">Método</th>
                         <th scope="col">Monto</th>
                         <th scope="col">Referencia</th>
@@ -31,7 +31,7 @@
                             @foreach ($transactions as $transaction)
                             <tr>
                                 <td> {{ date('d-m-y', strtotime($transaction->created_at)) }}</td>
-                                <td> {{ $transaction->spendingProfile->name }}</td>
+                                <td> {{ ($transaction->spendingProfile) ? $transaction->spendingProfile->name : '' }}</td>
                                 <td><a href="{{ route('methods.show', $transaction->method) }}">{{ $transaction->method->name }}</a></td>
                                 <td>{{ format_money($transaction->amount) }}</td>
                                 <td>{{ $transaction->reference }}</td>

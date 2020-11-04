@@ -6,6 +6,7 @@ use App\PaymentMethod;
 use App\Receipt;
 use App\Provider;
 use App\Product;
+use App\Http\Requests\ReceiptRequest;
 
 use Carbon\Carbon;
 use App\ReceivedProduct;
@@ -46,13 +47,14 @@ class ReceiptController extends Controller
      * @param  Receipt  $receipt
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Receipt $receipt)
-    {
+    public function store(ReceiptRequest $request, Receipt $receipt)
+    {   
+            
         $receipt = $receipt->create($request->all());
 
         return redirect()
             ->route('receipts.show', $receipt)
-            ->withStatus('Compra registrada, ahora puedes agregar productos.');
+            ->withStatus('Compra registrada, ahora puedes agregar productos y  transacciones.');
     }
 
     /**
@@ -75,6 +77,9 @@ class ReceiptController extends Controller
     public function destroy(Receipt $receipt)
     {
         if (!$receipt->finalized_at) {
+
+            $receipt->products()->delete();
+            $receipt->transactions()->delete();
             $receipt->delete();
 
             return redirect()
@@ -95,6 +100,10 @@ class ReceiptController extends Controller
      */
     public function finalize(Receipt $receipt)
     {
+        if(!($receipt->transactions->sum('amount') >= $receipt->products()->sum('total_amount')) ){
+            return back()->withStatus('Las transacciones no coinciden con el valor de los productos');
+    
+            }
         $receipt->finalized_at = Carbon::now()->toDateTimeString();
         $receipt->save();
 

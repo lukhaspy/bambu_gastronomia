@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Agregar Producto', 'pageSlug' => 'receipt', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Producto', 'pageSlug' => 'receipt', 'section' => 'inventory'])
 
 @section('content')
 <div class="row">

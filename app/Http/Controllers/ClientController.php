@@ -92,7 +92,16 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        /* $client->delete();*/
+        if ($client->sales()->count()) {
+
+            return redirect()->route('clients.index')->withStatus('NO ES POSIBLE ELIMINAR EL CLIENTE, ESTA RELACIONADO CON ALGUNA VENTA.');
+        }  
+        if ($client->transactions()->count()) {
+
+            return redirect()->route('clients.index')->withStatus('NO ES POSIBLE ELIMINAR EL CLIENTE, ESTA RELACIONADO CON ALGUNA TRANSACCION.');
+        }  
+
+        $client->delete();
 
         return redirect()
             ->route('clients.index')

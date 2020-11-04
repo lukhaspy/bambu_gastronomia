@@ -19,37 +19,36 @@
                 <div class="card-body">
                     {!! Form::model($production, ['route' => ['production.make', $production],'autocomplete' => 'off', 'method' => 'post']) !!}
                     <h6 class="heading-small text-muted mb-4">Información del Producto</h6>
-                    <div class="pl-lg-4">
-                        <div class="form-group">
-                            <label class="form-control-label" for="input-name">Name</label>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" for="input-name">Nombre</label>
                             {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'readonly']) !!}
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-md-5">
                             <label class="form-control-label" for="input-description">Descripción</label>
                             {!! Form::text('description', null, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Descripción', 'readonly']) !!}
                         </div>
-                        <div class="row">
-                            <div class="col-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-unity">Medida</label>
                                     {!! Form::select('unity', getUnities(), null, ['class' => 'form-select form-control-alternative', 'disabled']) !!}
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-stock">Stock</label>
-                                    {!! Form::number('stock', null, ['class' => 'form-control form-control-alternative', 'required', 'min' => 1]) !!}
-                                    @include('alerts.feedback', ['field' => 'stock'])
-                                </div>
-                            </div>
-                            <div class="col-4">
+                           
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-price">Precio</label>
                                     {!! Form::number('price', null, ['class' => 'form-control form-control-alternative', 'readOnly']) !!}
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-stock">Stock (Cantidad a sumar)</label>
+                                    {!! Form::number('stock', null, ['class' => 'form-control form-control-alternative', 'required', 'min' => 1]) !!}
+                                    @include('alerts.feedback', ['field' => 'stock'])
+                                </div>
+                            </div>
                     </div>
 
                     <h6 class="heading-small text-muted mb-4">Ingredientes</h6>
@@ -72,7 +71,7 @@
                                 <tr>
                                     <td class="text-center numeracion">{{$key + 1}}</td>
                                     <td class="ingrediente">{{$mat->material->name}}</td>
-                                    <td><span>Gs </span><span class="price">{{$mat->material->price}}</span></td>
+                                    <td><span class="price">{{format_money($mat->material->price, 0)}}</span></td>
                                     <td class="stock">{{$mat->material->stock}}</td>
                                     <td><span class="reserved text-success">0</span></td>
                                     <td><span class="qty">{{$mat->quantity}}</span></td>

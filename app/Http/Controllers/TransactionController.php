@@ -151,6 +151,7 @@ class TransactionController extends Controller
                 if(!$request['spendingProfile_id']){
                     return redirect()
                     ->back()
+                    ->withErrors('Debes seleccionar un perfil')
                     ->withInput();
                 }
 
@@ -164,7 +165,12 @@ class TransactionController extends Controller
                 if ($request->get('amount') > 0) {
                     $request->merge(['amount' => ((float) $request->get('amount') * (-1))]);
                 }
-
+                if(!$request['provider_id']){
+                    return redirect()
+                    ->back()
+                    ->withErrors('Debes seleccionar un proveedor')
+                    ->withInput();
+                }
                 $transaction->create($request->all());
 
                 return redirect()
@@ -172,6 +178,7 @@ class TransactionController extends Controller
                     ->withStatus('Pagamento registrado.');
 
             case 'income':
+                
                 $transaction->create($request->all());
 
                 return redirect()
@@ -197,7 +204,9 @@ class TransactionController extends Controller
             case 'expense':
                 return view('transactions.expense.edit', [
                     'transaction' => $transaction,
-                    'payment_methods' => PaymentMethod::all()
+                    'payment_methods' => PaymentMethod::all(),
+                    'spendingProfiles' => SpendingProfile::all(),
+
                 ]);
 
             case 'payment':

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Transferencias', 'pageSlug' => 'transfers', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Transf.', 'pageSlug' => 'transfers', 'section' => 'transactions'])
 
 @section('content')
 @include('alerts.success')
@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-4 text-right">
                         <a href="{{ route('transfer.create') }}" class="btn btn-sm btn-primary">
-                            Registrar
+                            Nuevo
                         </a>
                     </div>
                 </div>

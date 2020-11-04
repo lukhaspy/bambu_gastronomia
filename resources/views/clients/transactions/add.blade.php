@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Nueva Transacción', 'pageSlug' => 'clients', 'section' => 'transactions'])
+@extends('layouts.app', ['page' => 'Transacción', 'pageSlug' => 'clients', 'section' => 'transactions'])
 
 @section('content')
 <div class="container-fluid mt--7">
@@ -26,7 +26,7 @@
                             <div class="form-group{{ $errors->has('type') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-method">Tipo</label>
                                 <select name="type" id="input-method" class="form-control form-control-alternative{{ $errors->has('type') ? ' is-invalid' : '' }}" required>
-                                    @foreach (['income' => 'Entrada', 'expense' => 'Salida'] as $type => $title)
+                                    @foreach (['income' => 'Entrada'] as $type => $title)
                                     @if($type == old('type'))
                                     <option value="{{$type}}" selected>{{ $title }}</option>
                                     @else

@@ -78,9 +78,10 @@ class TransferController extends Controller
      */
     public function destroy(Transfer $transfer)
     {
+         
         $transfer->delete();
 
         return back()
-            ->withStatus('The transfer and its associated transactions have been successfully removed.');
+            ->withStatus('La transferencia ha sido eliminada correctamente.');
     }
 }

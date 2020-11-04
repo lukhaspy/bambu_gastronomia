@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Nueva Materia Prima', 'pageSlug' => 'materials', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Materia Prima', 'pageSlug' => 'materials', 'section' => 'inventory'])
 
 @section('content')
     <div class="container-fluid mt--7">
@@ -16,8 +16,12 @@
                         </div>
                     </div>
                     <div class="card-body">
+                    @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @endif
                         {!! Form::open(['route' => 'materials.store','autocomplete' => 'off']) !!}
-                            {!! Form::hidden('type', 1) !!}
                             @include('inventory.materials._forms')
                         {!! Form::close() !!}
                     </div>
@@ -32,5 +36,8 @@
         new SlimSelect({
             select: '.form-select'
         })
+        new SlimSelect({
+        select: '.form-select2'
+    })
     </script>
 @endpush

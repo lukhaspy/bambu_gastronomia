@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Métodos', 'pageSlug' => 'methods', 'section' => 'methods'])
+@extends('layouts.app', ['page' => 'Método', 'pageSlug' => 'methods', 'section' => 'methods'])
 
 @section('content')
 @include('alerts.success')

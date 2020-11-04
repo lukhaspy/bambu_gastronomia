@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Info Cliente', 'pageSlug' => 'clients', 'section' => 'clients'])
+@extends('layouts.app', ['page' => 'Cliente', 'pageSlug' => 'clients', 'section' => 'clients'])
 
 @section('content')
 @include('alerts.error')
@@ -99,6 +99,8 @@
                     <div class="col-4 text-right">
                         <form method="post" action="{{ route('sales.store') }}">
                             @csrf
+                            <input type="hidden" name="date" value="{{ date('Y-m-d') }}">
+
                             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                             <input type="hidden" name="client_id" value="{{ $client->id }}">
                             <button type="submit" class="btn btn-sm btn-primary">Nueva Venta</button>

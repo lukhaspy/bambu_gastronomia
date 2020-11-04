@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Estat. Inventario', 'pageSlug' => 'istats', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Inventario', 'pageSlug' => 'istats', 'section' => 'inventory'])
 
 @section('content')
 

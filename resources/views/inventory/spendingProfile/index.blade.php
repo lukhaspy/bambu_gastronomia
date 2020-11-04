@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => 'Lista de Perfiles de Producción', 'pageSlug' => 'spendingProfiles', 'section' => 'inventory'])
+@extends('layouts.app', ['page' => 'Perfil de Gasto', 'pageSlug' => 'spendingProfiles', 'section' => 'inventory'])
 
 @section('content')
 <div class="row">
@@ -7,7 +7,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Perfiles de Producción</h4>
+                        <h4 class="card-title">Perfiles de Gastos</h4>
                     </div>
                     <div class="col-4 text-right">
                         <a href="{{ route('spendingProfiles.create') }}" class="btn btn-sm btn-primary">Nuevo</a>
