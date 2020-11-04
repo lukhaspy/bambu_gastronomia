@@ -100,7 +100,7 @@ class ReceiptController extends Controller
      */
     public function finalize(Receipt $receipt)
     {
-        if(!($receipt->transactions->sum('amount') >= $receipt->products()->sum('total_amount')) ){
+        if(!($receipt->transactions->sum('amount') * (-1) >= $receipt->products()->sum('total_amount')) ){
             return back()->withStatus('Las transacciones no coinciden con el valor de los productos');
     
             }
