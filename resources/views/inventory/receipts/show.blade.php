@@ -98,7 +98,7 @@
                             <td><a href="{{ route('categories.show', $received_product->product->category) }}">{{ $received_product->product->category->name }}</a></td>
                             <td><a href="{{ route('products.show', $received_product->product) }}">{{ $received_product->product->name }}</a></td>
                             <td>{{ $received_product->qty }}</td>
-                            <td>{{ format_money($received_product->cost) }}</td>
+                            <td>Gs {{ $received_product->cost }}</td>
                             <td>{{ format_money($received_product->total_amount) }}</td>
                             <td class="td-actions text-right">
                                 @if(!$receipt->finalized_at)

@@ -89,10 +89,9 @@
                             <td>{{ $tmp->id }}</td>
                             <td>{{ $tmp->category }}</td>
                             <td>{{ $tmp->name }}</td>
-                            <td>{{ format_money($tmp->costMin, 0)  }}</td>
-                            <td>{{ format_money($tmp->costMax, 0)  }}</td>
-
-                            <td>{{ format_money($tmp->cost, 0) }}</td>
+                            <td>{{ ($tmp->unity == 1) ? format_money($tmp->costMin * 1000, 0) . ' (1 kg)' : format_money($tmp->costMin, 0)  }}</td>
+                            <td>{{ ($tmp->unity == 1) ? format_money($tmp->costMax * 1000, 0) . ' (1 kg)' : format_money($tmp->costMax, 0)  }}</td>
+                            <td>{{ ($tmp->unity == 1) ? format_money($tmp->cost * 1000, 0) . ' (1 kg)' : format_money($tmp->cost, 0)  }}</td>
                             <td>{{ $tmp->provider }}</td>
 
                         </tr>

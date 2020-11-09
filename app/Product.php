@@ -49,10 +49,10 @@ class Product extends Model
              avg(rp.cost) as cost,
              min(rp.cost) as costMin,
              max(rp.cost) as costMax,
-
-              c.name as category,
-              pro.name as provider
-               from products p
+             p.unity,
+             c.name as category,
+             pro.name as provider
+            from products p
             inner join product_categories c on p.product_category_id = c.id
             inner join received_products rp on p.id = rp.product_id
             inner join receipts r on rp.receipt_id = r.id

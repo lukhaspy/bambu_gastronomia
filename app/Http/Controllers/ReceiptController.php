@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\ReceivedProduct;
 use App\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReceiptController extends Controller
 {
@@ -48,8 +49,8 @@ class ReceiptController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ReceiptRequest $request, Receipt $receipt)
-    {   
-            
+    {
+
         $receipt = $receipt->create($request->all());
 
         return redirect()
@@ -100,10 +101,9 @@ class ReceiptController extends Controller
      */
     public function finalize(Receipt $receipt)
     {
-        if(!($receipt->transactions->sum('amount') * (-1) >= $receipt->products()->sum('total_amount')) ){
+        if (!($receipt->transactions->sum('amount') * (-1) >= $receipt->products()->sum('total_amount'))) {
             return back()->withStatus('Las transacciones no coinciden con el valor de los productos');
-    
-            }
+        }
         $receipt->finalized_at = Carbon::now()->toDateTimeString();
         $receipt->save();
 
@@ -124,7 +124,23 @@ class ReceiptController extends Controller
     public function addproduct(Receipt $receipt)
     {
         $products = Product::where('type', '<>', 2)->with('receiveds.receipt')->get();
-        $providerReceipts = Receipt::where('provider_id', $receipt->provider_id)->get();
+
+        $productIds = [];
+        foreach ($products as $p) {
+            $productIds[] = $p->id;
+        }
+
+        $providerReceipts = Receipt::select(DB::raw('avg(received_products.cost) as avg,
+         max(received_products.cost) as max,
+          min(received_products.cost) as min,
+            received_products.product_id,
+            products.unity'))
+            ->join('received_products', 'receipts.id', '=', 'received_products.receipt_id')
+            ->join('products', 'received_products.product_id', '=', 'products.id')
+            ->where('receipts.provider_id', $receipt->provider_id)
+            ->whereIn('received_products.product_id', $productIds)
+            ->groupBy('received_products.product_id')
+            ->get();
         return view('inventory.receipts.addproduct', compact('receipt', 'products', 'providerReceipts'));
     }
 
@@ -220,9 +236,25 @@ class ReceiptController extends Controller
      */
     public function editproduct(Receipt $receipt, ReceivedProduct $receivedproduct)
     {
-        $products = Product::all();
+        $products = Product::where('type', '<>', 2)->with('receiveds.receipt')->get();
 
-        return view('inventory.receipts.editproduct', compact('receipt', 'receivedproduct', 'products'));
+        $productIds = [];
+        foreach ($products as $p) {
+            $productIds[] = $p->id;
+        }
+
+        $providerReceipts = Receipt::select(DB::raw('avg(received_products.cost) as avg,
+         max(received_products.cost) as max,
+          min(received_products.cost) as min,
+            received_products.product_id,
+            products.unity'))
+            ->join('received_products', 'receipts.id', '=', 'received_products.receipt_id')
+            ->join('products', 'received_products.product_id', '=', 'products.id')
+            ->where('receipts.provider_id', $receipt->provider_id)
+            ->whereIn('received_products.product_id', $productIds)
+            ->groupBy('received_products.product_id')
+            ->get();
+        return view('inventory.receipts.editproduct', compact('receipt', 'providerReceipts', 'receivedproduct', 'products'));
     }
 
     /**

@@ -1,11 +1,11 @@
 <?php
 
-function format_money($money){
+function format_money($money, $decimals = 0){
     if (!$money) {
         return "Gs 0.00";
     }
 
-    $money = number_format($money, 0, '', '.');
+    $money = number_format($money, $decimals, '', '.');
 
     if (strpos($money, '-') !== false) {
         $formatted = explode('-', $money);
