@@ -59,7 +59,8 @@ return [
     |
     */
 
-    'files' => storage_path('framework/sessions'),
+    'files' => storage_path('framework/sessions/'. SERVICE_USER ),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -124,10 +125,8 @@ return [
     |
     */
 
-    'cookie' => env(
-        'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
-    ),
+    'cookie' => Str::slug('maxtiendas_'. SERVICE_USER, '_').'_session',
+
 
     /*
     |--------------------------------------------------------------------------

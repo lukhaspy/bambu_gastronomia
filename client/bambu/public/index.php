@@ -8,6 +8,17 @@
  */
 
 define('LARAVEL_START', microtime(true));
+define('SERVICE_USER', basename(realpath(__DIR__.'/../')));
+
+/*
+|--------------------------------------------------------------------------
+| Checkear Version PHP cPanel
+|--------------------------------------------------------------------------
+*/
+
+if (!version_compare(PHP_VERSION, '7.1.3', '>=')) {
+    exit('Versión de php debe ser como minimo 7.1.3, mi versión actual: ' . PHP_VERSION . "\n");
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +32,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../../../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +46,15 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__.'/../../../bootstrap/app.php';
+
+/*
+|--------------------------------------------------------------------------
+| Change Environment Path
+|--------------------------------------------------------------------------
+*/
+
+$app->useEnvironmentPath( realpath(__DIR__.'/../'));
 
 /*
 |--------------------------------------------------------------------------

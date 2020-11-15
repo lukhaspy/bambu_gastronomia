@@ -43,6 +43,11 @@ return [
 
     'disks' => [
 
+        'client' => [
+            'driver' => 'local',
+            'root' => base_path('client/'.SERVICE_USER.'/public'),
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -50,8 +55,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => public_path(),
+            'url' => config('app.url'),
             'visibility' => 'public',
         ],
 

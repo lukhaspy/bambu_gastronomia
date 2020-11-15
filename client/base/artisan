@@ -2,7 +2,7 @@
 <?php
 
 define('LARAVEL_START', microtime(true));
-define('SERVICE_USER', 'public');
+define('SERVICE_USER', basename(__DIR__));
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +16,17 @@ define('SERVICE_USER', 'public');
 |
 */
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/../../vendor/autoload.php';
 
-$app = require_once __DIR__.'/bootstrap/app.php';
+$app = require_once __DIR__.'/../../bootstrap/app.php';
+
+/*
+|--------------------------------------------------------------------------
+| Change Environment Path
+|--------------------------------------------------------------------------
+*/
+
+$app->useEnvironmentPath(__DIR__);
 
 /*
 |--------------------------------------------------------------------------
