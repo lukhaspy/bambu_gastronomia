@@ -117,9 +117,9 @@
                     </tbody>
                 </table>
                 </div>
-            
 
-               
+
+
                 </div>
             </div>
 
@@ -132,7 +132,7 @@
                 <div class="row">
                     <div class="col-8">
                     <h4 class="card-title">Transacciones: {{ format_money($sale->transactions->where('type', 'income')->sum('amount')) }}</h4>
-                        
+
                     </div>
                     @if (!$sale->finalized_at)
                     <div class="col-4 text-right">
@@ -181,14 +181,14 @@
                     </table>
 
                     </div>
-            
 
-               
+
+
                 </div>
             </div>
 
 
-           
+
 
 
 
@@ -198,5 +198,5 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('assets') }}/js/sweetalerts2.js"></script>
+<script src="{{config('app.url')}}/assets/js/sweetalerts2.js"></script>
 @endpush

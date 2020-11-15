@@ -245,8 +245,8 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
-    
+    <script src="{{config('app.url')}}/assets/js/plugins/chartjs.min.js"></script>
+
     <script>
         var lastmonths = [];
 

@@ -7,7 +7,7 @@
 
             <div class="card card-login card-white">
                 <div class="card-header ">
-                    <img src="{{ asset('assets') }}/img/header.png" class="ml-4"   alt="">
+                    <img src="{{config('app.url')}}/assets/img/header.png" class="ml-4"   alt="">
                     <p class="card-title mb-5"></p>
                 </div>
                 <div class="card-body">

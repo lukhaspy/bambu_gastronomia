@@ -131,7 +131,7 @@
                     @if (!$receipt->finalized_at)
                     <div class="col-4 text-right">
                         <a href="{{ route('inventory.receipts.transaction.add', ['receipt' => $receipt->id]) }}" class="btn btn-sm btn-primary">Nuevo </a>
-                        
+
                     </div>
                     @endif
                 </div>
@@ -187,5 +187,5 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('assets') }}/js/sweetalerts2.js"></script>
+<script src="{{config('app.url')}}/assets/js/sweetalerts2.js"></script>
 @endpush
