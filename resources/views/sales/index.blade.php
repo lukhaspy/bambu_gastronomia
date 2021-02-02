@@ -16,6 +16,60 @@
                 </div>
             </div>
             <div class="card-body">
+                <form action="{{route('sales.index')}}">
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                            <label class="form-control-label" for="input-name">Cliente - Todos <input type="checkbox" name="todos_clientes" @isset($_GET['todos_clientes']) {{'checked'}} @endisset></label>
+                            <select name="cliente" id="input-category" class="form-select form-control-alternative{{ $errors->has('client') ? ' is-invalid' : '' }}">
+                                @foreach ($clients as $client)
+                                @if(isset($_GET['cliente']))
+                                @if($client['id'] == $_GET['cliente'])
+                                <option value="{{$client['id']}}" selected>{{$client['name']}} - {{$client['document_type'].$client['document_id']}}</option>
+                                @endif
+                                @endif
+
+                                <option value="{{$client['id']}}">{{$client['name']}} - {{$client['document_type'].$client['document_id']}}</option>
+
+
+                                @endforeach
+                            </select>
+                            @include('alerts.feedback', ['field' => 'cliente'])
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Desde</label>
+                            <input type="date" name="desde" value="{{(isset($_GET['desde'])) ? $_GET['desde'] : date('Y-m-d', strtotime('-7 days'))}}" class="form-control">
+
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Hasta</label>
+                            <input type="date" name="hasta" value="{{(isset($_GET['hasta'])) ? $_GET['hasta'] :date('Y-m-d')}}" class="form-control">
+
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Ordenar</label>
+                            <select name="orden" class="form-control" id="orden">
+                                <option value="fecha_desc" {{(isset($_GET['orden']) && $_GET['orden'] == 'fecha_desc') ? 'selected' : '' }}>Fecha (Ult - Prim)</option>
+                                <option value="fecha_asc" {{(isset($_GET['orden']) && $_GET['orden'] == 'fecha_asc') ? 'selected' : '' }}>Fecha (Prim - Ult)</option>
+                                <option value="cliente_asc" {{(isset($_GET['orden']) && $_GET['orden'] == 'cliente_asc') ? 'selected' : '' }}>Cliente (A - Z)</option>
+                                <option value="cliente_desc" {{(isset($_GET['orden']) && $_GET['orden'] == 'cliente_desc') ? 'selected' : '' }}>Cliente (Z - A)</option>
+                                <option value="total_asc" {{(isset($_GET['orden']) && $_GET['orden'] == 'total_asc') ? 'selected' : '' }}>Total (Mayor - Menor)</option>
+                                <option value="total_desc" {{(isset($_GET['orden']) && $_GET['orden'] == 'total_desc') ? 'selected' : '' }}>Total (Menor - Mayor)</option>
+                            </select>
+
+
+
+
+
+                        </div>
+                        <div class="col-md-2">
+                            <label for="" class="control-label">Buscar</label> <br>
+                            <button type="submit" class="btn btn-primary"><i class="tim-icons icon-lock-circle"></i></button>
+                        </div>
+
+                    </div>
+                </form>
                 <div class="table-responsive"">
                     <table class=" table ">
                         <thead>
@@ -31,7 +85,7 @@
                         <tbody>
                             @foreach ($sales as $sale)
                             <tr>
-                                <td>{{ date('d-m-y', strtotime($sale->created_at)) }}</td>
+                                <td>{{ date('d-m-y', strtotime($sale->date)) }}</td>
                                 <td><a href=" {{ route('clients.show', $sale->client) }}">{{ $sale->client->name }}<br>{{ $sale->client->document_type }}-{{ $sale->client->document_id }}</a></td>
                     <td>{{ $sale->user->name }}</td>
                     <td>{{ $sale->products->count() }}</td>
@@ -78,3 +132,10 @@
     </div>
 </div>
 @endsection
+@push('js')
+<script>
+    new SlimSelect({
+        select: '.form-select'
+    })
+</script>
+@endpush

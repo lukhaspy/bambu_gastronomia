@@ -3,6 +3,7 @@
 use App\PaymentMethod;
 use App\ProductCategory;
 use App\Provider;
+use App\Sale;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -15,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
 
 
-        Role::create(['name' => 'super-admin']);
+        /*    Role::create(['name' => 'super-admin']);
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'normal']);
 
@@ -36,6 +37,14 @@ class DatabaseSeeder extends Seeder
 
         PaymentMethod::create([
             'name' => 'Efectivo'
-        ]);
+        ]);*/
+
+        for ($i = 0; $i < 55; $i++) {
+            Sale::create([
+                'user_id' => 1,
+                'client_id' => 1,
+                'date' => date('Y-m-d', strtotime('+ ' . $i . ' days'))
+            ]);
+        }
     }
 }

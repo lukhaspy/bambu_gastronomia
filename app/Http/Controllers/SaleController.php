@@ -19,11 +19,33 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sales = Sale::latest()->paginate(25);
 
-        return view('sales.index', compact('sales'));
+        $sales = Sale::latest();
+        $clients = Client::all();
+
+        if ($request->filled('desde') && $request->filled('hasta')) {
+            $sales->whereBetween('date', [$request['desde'], $request['hasta']]);
+        }
+        if ($request->filled('cliente') && !$request->filled('todos_clientes')) {
+            $sales->where('client_id', $request['cliente']);
+        }
+        if ($request->filled('orden')) {
+            switch ($request['orden']) {
+                case 'fecha_asc':
+                    $sales->orderBy('date', 'asc');
+                    break;
+                case 'fecha_desc':
+                    $sales->orderBy('date', 'desc');
+                    break;
+            }
+        }
+
+
+
+        $sales = $sales->paginate(10);
+        return view('sales.index', compact('sales', 'clients'));
     }
 
     /**
@@ -46,9 +68,9 @@ class SaleController extends Controller
      */
     public function store(SaleRequest $request, Sale $model)
     {
-       // $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
+        // $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
 
-       /* if ($existent->count()) {
+        /* if ($existent->count()) {
             return back()->withError('Existe una operación en abierto con el cliente seleccionado. <a href="' . route('sales.show', $existent->first()) . '"> Abrir Venta</a>');
         }*/
 
@@ -77,27 +99,27 @@ class SaleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Sale $sale)
-    {  if (!$sale->finalized_at) {
+    {
+        if (!$sale->finalized_at) {
 
-        $sale->products()->delete();
-        $sale->transactions()->delete();
-        $sale->delete();
+            $sale->products()->delete();
+            $sale->transactions()->delete();
+            $sale->delete();
 
-        return redirect()
-            ->route('sales.index')
-            ->withStatus('Venta eliminada.');
-    } else {
-        return redirect()
-            ->route('sales.index')
-            ->withErrors('La venta no puede ser eliminada, ya esta finalizada.');
-    }
+            return redirect()
+                ->route('sales.index')
+                ->withStatus('Venta eliminada.');
+        } else {
+            return redirect()
+                ->route('sales.index')
+                ->withErrors('La venta no puede ser eliminada, ya esta finalizada.');
+        }
     }
 
     public function finalize(Sale $sale)
     {
-        if(!($sale->transactions->sum('amount') >= $sale->products()->sum('total_amount')) ){
-        return back()->withStatus('Las transacciones no coinciden con el valor de los productos');
-
+        if (!($sale->transactions->sum('amount') >= $sale->products()->sum('total_amount'))) {
+            return back()->withStatus('Las transacciones no coinciden con el valor de los productos');
         }
         $sale->total_amount =  $sale->transactions->sum('amount');
 
