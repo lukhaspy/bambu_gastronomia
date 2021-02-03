@@ -51,4 +51,13 @@ class BranchController extends Controller{
 
         return redirect()->route('branches.index')->withStatus('Sucursal eliminado correctamente.');
     }
+
+    public function changeSucursal($id){
+
+        $user = auth()->user();
+        $user->update(['default_branch' => $id]);
+        session()->put('dBranch', $id);
+
+        return redirect()->route('home');
+    }
 }

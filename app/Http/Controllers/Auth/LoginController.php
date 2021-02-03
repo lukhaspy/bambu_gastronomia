@@ -19,9 +19,9 @@ class LoginController extends Controller{
 
     protected function authenticated(Request $request, $user){
 
-        $branch = Branch::all();
+        $branches = $user->branches()->get();
         $request->session()->put('dBranch', $user->default_branch);
-        $request->session()->put('dataBranch', $branch->pluck('name','id'));
+        $request->session()->put('dataBranch', $branches->pluck('name','id'));
 
     }
 }

@@ -62,11 +62,15 @@ class UserController extends Controller{
         $input = $request->all();
 
         if($input['password'] != null){
-            $input['password'] = Hash::make($request->get('password'));
+            $input['password'] = Hash::make($input['password']);
+        } else {
+            unset($input['password']);
+            unset($input['password_confirmation']);
         }
 
+
         $input['default_branch'] = $input['branches'][0];
-        $user->update($request->all());
+        $user->update($input);
         $user->branches()->sync($input['branches']);
 
         return redirect()->route('users.index')->withStatus('User successfully updated.');
