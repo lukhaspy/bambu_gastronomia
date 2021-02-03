@@ -19,6 +19,7 @@ class CreateReceiptsTable extends Migration
             $table->unsignedBigInteger('provider_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->date('date')->nullable();
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamp('finalized_at')->nullable();
             $table->timestamps();

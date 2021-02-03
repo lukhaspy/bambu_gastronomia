@@ -18,6 +18,7 @@ class CreateProductsTableMigration extends Migration{
             $table->unsignedInteger('stock')->default(0);
             $table->unsignedInteger('reserved_stock')->default(0);
             $table->unsignedInteger('unity')->default(0);
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamps();
             $table->softDeletes();

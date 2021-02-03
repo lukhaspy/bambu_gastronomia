@@ -17,9 +17,9 @@
                     </div>
                     <div class="card-body">
                     @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                    <div class="alert alert-danger">{{$error}}</div>
-                    @endforeach
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger">{{$error}}</div>
+                        @endforeach
                     @endif
                         {!! Form::model($product, ['route' => ['products.update', $product],'autocomplete' => 'off', 'method' => 'put']) !!}
                             @include('inventory.products._forms')

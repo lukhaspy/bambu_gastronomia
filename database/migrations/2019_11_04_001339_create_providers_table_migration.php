@@ -23,6 +23,7 @@ class CreateProvidersTableMigration extends Migration
             $table->string('address')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamps();
             $table->softDeletes();

@@ -17,6 +17,7 @@ class CreateProductsCategoriesTableMigration extends Migration
             $table->bigIncrements('id');
 
             $table->string('name');
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamps();
             $table->softDeletes();

@@ -1,11 +1,11 @@
 @php
-$unities = [
-'0' => 'Unidad',
-'1' => 'Gramos',
-'2' => 'Kilogramos',
-'3' => 'Mililitros',
-'4' => 'Litros',
-]
+    $unities = [
+        '0' => 'Unidad',
+        '1' => 'Gramos',
+        '2' => 'Kilogramos',
+        '3' => 'Mililitros',
+        '4' => 'Litros',
+    ]
 @endphp
 <h6 class="heading-small text-muted mb-4">Información del Producto</h6>
 <div class="col-12">

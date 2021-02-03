@@ -22,6 +22,8 @@ class CreateTransfersTable extends Migration
             $table->decimal('sended_amount', 10, 2);
             $table->decimal('received_amount', 10, 2);
             $table->string('reference')->nullable();
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
+
             $table->timestamps();
             $table->softDeletes();
         });

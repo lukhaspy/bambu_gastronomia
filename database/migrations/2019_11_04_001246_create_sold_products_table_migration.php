@@ -21,6 +21,7 @@ class CreateSoldProductsTableMigration extends Migration
             $table->integer('qty');
             $table->decimal('price', 10, 2);
             $table->decimal('total_amount', 10, 2);
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamps();
             $table->softDeletes();

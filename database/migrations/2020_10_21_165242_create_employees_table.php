@@ -23,6 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->char('genre', 1)->default(1);
             $table->string('phone');
             $table->decimal('salary');
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamps();
             $table->softDeletes();

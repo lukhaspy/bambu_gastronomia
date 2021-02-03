@@ -18,6 +18,7 @@ class CreatePaymentMethodsTableMigration extends Migration
 
             $table->string('name');
             $table->text('description')->nullable();
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamps();
             $table->softDeletes();

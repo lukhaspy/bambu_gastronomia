@@ -198,21 +198,21 @@
                     <span class="nav-link-text">Usuarios</span>
                     <b class="caret mt-1"></b>
                 </a>
-                <div class="collapse {{ $section == 'users' ? 'aria-expanded=true' : '' }}" id="users">
+                <div class="collapse {{ $section == 'users' ? 'show' : '' }}" id="users">
                     <ul class="nav pl-4">
-                        <li @if ($pageSlug=='profile' ) class="active " @endif>
+                        <li @if ($pageSlug=='profile') class="active" @endif>
                             <a href="{{ route('profile.edit')  }}">
                                 <i class="tim-icons icon-badge"></i>
                                 <p>Mi Perfil</p>
                             </a>
                         </li>
-                        <li @if ($pageSlug=='users-list' ) class="active " @endif>
+                        <li @if ($pageSlug=='users') class="active" @endif>
                             <a href="{{ route('users.index')  }}">
                                 <i class="tim-icons icon-notes"></i>
                                 <p>Admin. Usuarios</p>
                             </a>
                         </li>
-                        <li @if ($pageSlug=='users-create' ) class="active " @endif>
+                        <li @if ($pageSlug=='users-create') class="active" @endif>
                             <a href="{{ route('users.create')  }}">
                                 <i class="tim-icons icon-simple-add"></i>
                                 <p>Nuevo Usuario</p>

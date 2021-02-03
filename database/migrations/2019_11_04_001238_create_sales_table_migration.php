@@ -20,6 +20,7 @@ class CreateSalesTableMigration extends Migration
             $table->unsignedBigInteger('client_id');
             $table->decimal('total_amount', 10, 2)->nullable();
             $table->date('date')->nullable();
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamp('finalized_at')->nullable();
             $table->timestamps();

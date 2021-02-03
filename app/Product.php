@@ -2,12 +2,13 @@
 
 namespace App;
 
+use App\Scopes\BranchScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
-class Product extends Model
-{
+class Product extends Model{
+
     use SoftDeletes;
 
     protected $fillable = [
@@ -19,30 +20,30 @@ class Product extends Model
         'reserved_stock',
         'type',
         'unity',
+        'branch_id'
     ];
 
-    public function category()
-    {
+    protected static function booted(){
+        static::addGlobalScope(new BranchScope);
+    }
+
+    public function category(){
         return $this->belongsTo('App\ProductCategory', 'product_category_id')->withTrashed();
     }
 
-    public function solds()
-    {
+    public function solds(){
         return $this->hasMany('App\SoldProduct');
     }
 
-    public function receiveds()
-    {
+    public function receiveds(){
         return $this->hasMany('App\ReceivedProduct');
     }
 
-    public function materials()
-    {
+    public function materials(){
         return $this->hasMany('App\ProductMaterial');
     }
 
-    public static function getProductsByProvider($cmd = '')
-    {
+    public static function getProductsByProvider($cmd = ''){
 
         return DB::select(DB::raw(
             "SELECT p.*,

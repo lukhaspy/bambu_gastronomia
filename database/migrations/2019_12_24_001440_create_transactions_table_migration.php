@@ -28,6 +28,7 @@ class CreateTransactionsTableMigration extends Migration
             $table->unsignedBigInteger('payment_method_id');
             $table->decimal('amount', 10, 2);
             $table->unsignedBigInteger('user_id');
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamps();
             $table->softDeletes();

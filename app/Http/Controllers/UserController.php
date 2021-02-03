@@ -2,93 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Branch;
 use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Builder;
 
-class UserController extends Controller
-{
-    /**
-     * Display a listing of the users
-     *
-     * @param  \App\User  $model
-     * @return \Illuminate\View\View
-     */
-    public function index(User $model)
-    {
-        $users = User::paginate(25);
+class UserController extends Controller{
+
+    private $userModel;
+    private $branchModel;
+
+    public function __construct(User $userModel, Branch $branchModel){
+        $this->userModel = $userModel;
+        $this->branchModel = $branchModel;
+    }
+
+    public function index(User $model){
+
+        $users = $this->userModel->where('id', '<>', 1)
+                ->whereHas('branches', function (Builder $query) {
+                    $query->where('id', session('dBranch'));
+                })
+                ->paginate(25);
 
         return view('users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new user
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('users.create');
+    public function create(){
+
+        $branches = $this->branchModel->pluck('name', 'id');
+
+        return view('users.create', compact('branches'));
     }
 
-    /**
-     * Store a newly created user in storage
-     *
-     * @param  \App\Http\Requests\UserRequest  $request
-     * @param  \App\User  $model
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(UserRequest $request)
-    {
-        $request->merge(['password' => Hash::make($request->get('password'))]);
+    public function store(UserRequest $request){
 
-        User::create($request->all());
+        $input = $request->all();
+
+        $input['password'] = Hash::make($input['password']);
+        $input['default_branch'] = $input['branches'][0];
+
+        $user = $this->userModel->create($input);
+        $user->branches()->attach($input['branches']);
 
         return redirect()->route('users.index')->withStatus('User successfully created.');
     }
 
-    /**
-     * Show the form for editing the specified user
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\View\View
-     */
-    public function edit(User $user)
-    {
-        return view('users.edit', compact('user'));
+    public function edit(User $user){
+
+        $user->branches = $user->branches()->pluck('id')->toArray();
+        $branches = $this->branchModel->pluck('name', 'id');
+
+        return view('users.edit', compact('user', 'branches'));
     }
 
-    /**
-     * Update the specified user in storage
-     *
-     * @param  \App\Http\Requests\UserRequest  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(UserRequest $request, User $user)
-    {
-        $hasPassword = $request->get('password');
+    public function update(UserRequest $request, User $user){
 
-        $request->merge(['password' => Hash::make($request->get('password'))]);
+        $input = $request->all();
 
-        $request->except([$hasPassword ? '' : 'password']);
+        if($input['password'] != null){
+            $input['password'] = Hash::make($request->get('password'));
+        }
 
+        $input['default_branch'] = $input['branches'][0];
         $user->update($request->all());
+        $user->branches()->sync($input['branches']);
 
         return redirect()->route('users.index')->withStatus('User successfully updated.');
     }
 
-    /**
-     * Remove the specified user from storage
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(User  $user)
-    {
-            
+    public function destroy(User $user){
 
-         $user->delete();
+        $user->delete();
 
         return redirect()->route('users.index')->withStatus('Usuario eliminado correctamente.');
     }

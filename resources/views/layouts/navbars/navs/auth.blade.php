@@ -49,7 +49,7 @@
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <div class="photo">
-                            <img src="{{config('app.url')}}/assets/img/bambu-logo.jpg'" alt="{{ __('Profile Photo') }}">
+                            <img src="/assets/img/bambu-logo.jpg" alt="{{ __('Profile Photo') }}">
                         </div>
                         <b class="caret d-none d-lg-block d-xl-block"></b>
                         <p class="d-lg-none">{{ __('Log out') }}</p>

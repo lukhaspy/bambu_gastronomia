@@ -27,6 +27,7 @@ class CreateClientsTableMigration extends Migration
             $table->timestamp('last_purchase')->nullable();
             $table->unsignedInteger('total_purchases')->default(0);
             $table->unsignedDecimal('total_paid')->default(0.00);
+            $table->tinyInteger('branch_id')->unsigned()->default(1);
 
             $table->timestamps();
             $table->softDeletes();
