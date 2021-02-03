@@ -29,6 +29,7 @@ Route::post('inventory/production/producir/{production}/inmake', 'ProductionCont
 Route::group(['middleware' => 'auth'], function () {
 
     Route::resources([
+        'branches' => 'BranchController',
         'users' => 'UserController',
         'providers' => 'ProviderController',
         'inventory/products' => 'ProductController',

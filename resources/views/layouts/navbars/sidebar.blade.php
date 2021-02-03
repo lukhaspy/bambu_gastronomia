@@ -164,38 +164,18 @@
                 </a>
             </li>
 
-
-            <!-- <li>
-                <a data-toggle="collapse" href="#clients">
-                    <i class="tim-icons icon-single-02" ></i>
-                    <span class="nav-link-text">Clients</span>
-                    <b class="caret mt-1"></b>
+            <li @if ($pageSlug=='branches') class="active" @endif>
+                <a href="{{ route('branches.index') }}">
+                    <i class="tim-icons icon-wallet-43"></i>
+                    <p>Sucursales</p>
                 </a>
-
-                <div class="collapse" id="clients">
-                    <ul class="nav pl-4">
-                        <li @if ($pageSlug == 'clients-list') class="active " @endif>
-                            <a href="{{ route('clients.index')  }}">
-                                <i class="tim-icons icon-notes"></i>
-                                <p>Administrar Clients</p>
-                            </a>
-                        </li>
-                        <li @if ($pageSlug == 'clients-create') class="active " @endif>
-                            <a href="{{ route('clients.create')  }}">
-                                <i class="tim-icons icon-simple-add"></i>
-                                <p>New Client</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li> -->
-
+            </li>
 
             @can('users.list')
             <li>
                 <a data-toggle="collapse" href="#users" {{ $section == 'users' ? 'aria-expanded=true' : '' }}>
                     <i class="tim-icons icon-badge"></i>
-                    <span class="nav-link-text">Usuarios</span>
+                    <span class="nav-link-text">Admin</span>
                     <b class="caret mt-1"></b>
                 </a>
                 <div class="collapse {{ $section == 'users' ? 'show' : '' }}" id="users">
