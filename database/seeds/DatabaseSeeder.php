@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder{
 
     public function run(){
 
-        /*    Role::create(['name' => 'super-admin']);
+        Role::create(['name' => 'super-admin']);
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'normal']);
 
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder{
 
         PaymentMethod::create([
             'name' => 'Efectivo'
-        ]);*/
+        ]);
 
         for ($i = 0; $i < 55; $i++) {
             Sale::create([
