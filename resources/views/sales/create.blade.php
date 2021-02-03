@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                @if ($errors->any())
+                    @if ($errors->any())
                     @foreach ($errors->all() as $error)
                     <div class="alert alert-danger">{{$error}}</div>
                     @endforeach
@@ -35,7 +35,7 @@
                                 <div class="form-group{{ $errors->has('client_id') ? ' has-danger' : '' }}">
                                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                     <label class="form-control-label" for="input-name">Cliente</label>
-                                    <select name="client_id" id="input-category" class="form-select form-control-alternative{{ $errors->has('client') ? ' is-invalid' : '' }}" >
+                                    <select name="client_id" id="input-category" class="form-select form-control-alternative{{ $errors->has('client') ? ' is-invalid' : '' }}">
                                         @foreach ($clients as $client)
                                         @if($client['id'] == old('client'))
                                         <option value="{{$client['id']}}" selected>{{$client['name']}} - {{$client['document_type'].$client['document_id']}}</option>
@@ -46,10 +46,10 @@
                                     </select>
                                     @include('alerts.feedback', ['field' => 'client_id'])
                                 </div>
-<div class="text-center">
-                                <button type="submit" class="btn btn-success mt-4">Continuar</button>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success mt-4">Continuar</button>
 
-</div>
+                                </div>
                             </div>
                         </div>
 
@@ -66,6 +66,5 @@
     new SlimSelect({
         select: '.form-select'
     })
-   
 </script>
 @endpush
