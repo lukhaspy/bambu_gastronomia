@@ -41,6 +41,7 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request, Client $client)
     {
+        $request->merge(['branch_id' => session('dBranch')]);
         $client->create($request->all());
 
         return redirect()->route('clients.index')->withStatus('Cliente Agregado Correctamente');
@@ -95,11 +96,11 @@ class ClientController extends Controller
         if ($client->sales()->count()) {
 
             return redirect()->route('clients.index')->withStatus('NO ES POSIBLE ELIMINAR EL CLIENTE, ESTA RELACIONADO CON ALGUNA VENTA.');
-        }  
+        }
         if ($client->transactions()->count()) {
 
             return redirect()->route('clients.index')->withStatus('NO ES POSIBLE ELIMINAR EL CLIENTE, ESTA RELACIONADO CON ALGUNA TRANSACCION.');
-        }  
+        }
 
         $client->delete();
 

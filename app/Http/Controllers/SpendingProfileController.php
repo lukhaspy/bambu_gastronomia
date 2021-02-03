@@ -33,7 +33,7 @@ class SpendingProfileController extends Controller
 
     public function store(SpendingProfileRequest $request)
     {
-
+        $request->merge(['branch_id' => session('dBranch')]);
         $this->spendingProfileModel->create($request->all());
 
         return redirect()->route('spendingProfiles.index')->withStatus('Perfil agregado correctamente.');

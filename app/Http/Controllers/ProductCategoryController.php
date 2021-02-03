@@ -38,6 +38,7 @@ class ProductCategoryController extends Controller
      */
     public function store(ProductCategoryRequest $request, ProductCategory $category)
     {
+        $request->merge(['branch_id' => session('dBranch')]);
         $category->create($request->all());
 
         return redirect()

@@ -37,7 +37,7 @@ class MaterialController extends Controller
 
     public function store(ProductRequest $request)
     {
-        $request->merge(['type' => '1']);
+        $request->merge(['type' => '1', 'branch_id' => session('dBranch')]);
         $this->productModel->create($request->all());
 
         return redirect()->route('materials.index')->withStatus('Producto agregado correctamente.');
@@ -75,15 +75,15 @@ class MaterialController extends Controller
         if ($material->solds()->count()) {
 
             return redirect()->route('materials.index')->withStatus('NO ES POSIBLE ELIMINAR EL MATERIAL, YA POSEE VENTAS.');
-        }        
+        }
         if ($material->receiveds()->count()) {
 
             return redirect()->route('materials.index')->withStatus('NO ES POSIBLE ELIMINAR EL MATERIAL, YA POSEE COMPRAS.');
-        }  
+        }
         if ($material->materials()->count()) {
 
             return redirect()->route('materials.index')->withStatus('NO ES POSIBLE ELIMINAR EL MATERIAL, ESTA RELACIONADO CON MATERIA PRIMA.');
-        }  
+        }
          $material->delete();
 
         return redirect()->route('materials.index')->withStatus('Materia Prima eliminada correctamente.');

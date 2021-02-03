@@ -38,6 +38,7 @@ class ProviderController extends Controller
      */
     public function store(ProviderRequest $request, Provider $provider)
     {
+        $request->merge(['branch_id' => session('dBranch')]);
         $provider->create($request->all());
 
         return redirect()
@@ -98,11 +99,11 @@ class ProviderController extends Controller
         if ($product->transactions()->count()) {
 
             return redirect()->route('providers.index')->withStatus('NO ES POSIBLE ELIMINAR EL PROVEEDOR, YA POSEE TRANSACCIONES.');
-        }        
+        }
         if ($product->receipts()->count()) {
 
             return redirect()->route('providers.index')->withStatus('NO ES POSIBLE ELIMINAR EL PROVEEDOR, YA POSEE COMPRAS.');
-        }        
+        }
           $provider->delete();
 
         return redirect()

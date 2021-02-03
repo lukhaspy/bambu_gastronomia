@@ -42,7 +42,7 @@ class TransferController extends Controller
      */
     public function store(Request $request, Transfer $transfer, Transaction $transaction)
     {
-        $request->merge(['user_id' => Auth::user()->id]);
+        $request->merge(['user_id' => Auth::user()->id, 'branch_id' => session('dBranch')]);
         $transfer = $transfer->create($request->all());
 
         $transaction->create([
@@ -78,7 +78,7 @@ class TransferController extends Controller
      */
     public function destroy(Transfer $transfer)
     {
-         
+
         $transfer->delete();
 
         return back()

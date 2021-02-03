@@ -40,6 +40,7 @@ class MethodController extends Controller
      */
     public function store(Request $request, PaymentMethod $method)
     {
+        $request->merge(['branch_id' => session('dBranch')]);
         $method->create($request->all());
 
         return redirect()
@@ -122,7 +123,7 @@ class MethodController extends Controller
 
         }
 
-       
+
          $method->delete();
 
         return back()->withStatus('Método eliminado.');

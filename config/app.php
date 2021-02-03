@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', env('APP_ENV') == 'local' ? 'http://bambu.test' : 'https://www2.sitiospy.com'),
+    'url' => env('APP_URL', env('APP_ENV') == 'local' ? 'http://bambu_gastronomia.me' : 'https://www2.sitiospy.com'),
 
     'asset_url' => env('ASSET_URL', null),
 

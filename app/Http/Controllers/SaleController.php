@@ -74,6 +74,7 @@ class SaleController extends Controller
             return back()->withError('Existe una operación en abierto con el cliente seleccionado. <a href="' . route('sales.show', $existent->first()) . '"> Abrir Venta</a>');
         }*/
 
+        $request->merge(['branch_id' => session('dBranch')]);
         $sale = $model->create($request->all());
 
         return redirect()

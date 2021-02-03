@@ -43,7 +43,7 @@ class ProductionController extends Controller
 
     public function store(ProductRequest $request)
     {
-        $request->merge(['type' => '2']);
+        $request->merge(['type' => '2', 'branch_id' => session('dBranch')]);
 
         $input = $request->all();
         $materials = [];
@@ -106,12 +106,12 @@ class ProductionController extends Controller
         if ($production->solds()->count()) {
 
             return redirect()->route('production.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, YA POSEE VENTAS.');
-        }        
+        }
         if ($production->receiveds()->count()) {
 
             return redirect()->route('production.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, YA POSEE COMPRAS.');
-        }  
-        
+        }
+
          $production->delete();
 
         return redirect()->route('production.index')->withStatus('Producción eliminada correctamente.');

@@ -32,7 +32,7 @@ class EmployeeController extends Controller
 
     public function store(EmployeeRequest $request)
     {
-
+        $request->merge(['branch_id' => session('dBranch')]);
         $this->employeeModel->create($request->all());
 
         return redirect()->route('employees.index')->withStatus('Funcionario agregado correctamente.');

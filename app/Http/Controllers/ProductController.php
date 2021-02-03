@@ -36,7 +36,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        $request->merge(['type' => '0']);
+        $request->merge(['type' => '0','branch_id' => session('dBranch')]);
 
         $this->productModel->create($request->all());
 
@@ -75,15 +75,15 @@ class ProductController extends Controller
         if ($product->solds()->count()) {
 
             return redirect()->route('products.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, YA POSEE VENTAS.');
-        }        
+        }
         if ($product->receiveds()->count()) {
 
             return redirect()->route('products.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, YA POSEE COMPRAS.');
-        }  
+        }
         if ($product->materials()->count()) {
 
             return redirect()->route('products.index')->withStatus('NO ES POSIBLE ELIMINAR EL PRODUCTO, ESTA RELACIONADO CON MATERIA PRIMA.');
-        }  
+        }
          $product->delete();
 
         return redirect()->route('products.index')->withStatus('Producto eliminado correctamente.');

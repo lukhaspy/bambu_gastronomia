@@ -50,7 +50,7 @@ class ReceiptController extends Controller
      */
     public function store(ReceiptRequest $request, Receipt $receipt)
     {
-
+        $request->merge(['branch_id' => session('dBranch')]);
         $receipt = $receipt->create($request->all());
 
         return redirect()

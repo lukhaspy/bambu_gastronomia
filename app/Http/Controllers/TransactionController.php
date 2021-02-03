@@ -132,6 +132,7 @@ class TransactionController extends Controller
                     break;
             }
 
+            $request->merge(['branch_id' => session('dBranch')]);
             $transaction->create($request->all());
             $client = Client::find($request->get('client_id'));
             $client->balance += $request->get('amount');
@@ -178,7 +179,7 @@ class TransactionController extends Controller
                     ->withStatus('Pagamento registrado.');
 
             case 'income':
-                
+
                 $transaction->create($request->all());
 
                 return redirect()
@@ -192,7 +193,7 @@ class TransactionController extends Controller
         }
     }
 
-    /** 
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
