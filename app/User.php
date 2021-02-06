@@ -17,6 +17,7 @@ class User extends Authenticatable{
         'name',
         'email',
         'password',
+        'default_branch',
         'branch_id'
     ];
 

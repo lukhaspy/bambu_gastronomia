@@ -28,6 +28,7 @@ Route::post('inventory/production/producir/{production}/inmake', 'ProductionCont
 
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/changeSucursal/{id}', 'BranchController@changeSucursal')->name('branch.change');
     Route::resources([
         'branches' => 'BranchController',
         'users' => 'UserController',

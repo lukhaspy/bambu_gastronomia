@@ -32,14 +32,15 @@
                         <li class="nav-link">
                             <a href="{{ route('logout') }}" class="nav-item dropdown-item" onclick="event.preventDefault();  document.getElementById('logout-form').submit();">Salir</a>
                         </li>
+                        @if(count(session('dataBranch')) > 1)
                         <div class="dropdown-divider"></div>
                         <h6 class="dropdown-header">Sucursales</h6>
-                        @foreach (session('dataBranch') as $key => $branch)
+                        @foreach(session('dataBranch') as $key => $branch)
                         <li class="nav-link">
-                            <a href="#" class="nav-item dropdown-item"> {{$branch}}</a>
+                            <a href="{{route('branch.change', $key)}}" class="nav-item dropdown-item"> {{$branch}}</a>
                         </li>
-
                         @endforeach
+                        @endif
                     </ul>
                 </li>
             </ul>
