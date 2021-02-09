@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'local'),
+    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', true),
+    'debug' => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', env('APP_ENV') == 'local' ? 'http://bambu.test' : 'https://www2.sitiospy.com'),
+    'url' => env('APP_URL', env('APP_ENV') == 'local' ? 'http://bambu.test' : 'https://ww2.sitiospy.com'),
 
     'asset_url' => env('ASSET_URL', null),
 

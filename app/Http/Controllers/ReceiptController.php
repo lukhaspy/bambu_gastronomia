@@ -138,9 +138,11 @@ class ReceiptController extends Controller
             ->join('received_products', 'receipts.id', '=', 'received_products.receipt_id')
             ->join('products', 'received_products.product_id', '=', 'products.id')
             ->where('receipts.provider_id', $receipt->provider_id)
+            ->where('receipts.branch_id', $receipt->branch_id)
             ->whereIn('received_products.product_id', $productIds)
-            ->groupBy('received_products.product_id')
             ->get();
+
+        dd($products);
         return view('inventory.receipts.addproduct', compact('receipt', 'products', 'providerReceipts'));
     }
 
