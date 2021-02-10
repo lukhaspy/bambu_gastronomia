@@ -6,8 +6,7 @@ use App\Scopes\BranchScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Receipt extends Model
-{
+class Receipt extends Model{
 
     use SoftDeletes;
 
@@ -19,25 +18,23 @@ class Receipt extends Model
         'branch_id'
     ];
 
+    protected static function booted(){
+        static::addGlobalScope(new BranchScope);
+    }
 
-
-    public function provider()
-    {
+    public function provider(){
         return $this->belongsTo('App\Provider');
     }
 
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo('App\User');
     }
 
-    public function products()
-    {
+    public function products(){
         return $this->hasMany('App\ReceivedProduct');
     }
 
-    public function transactions()
-    {
+    public function transactions(){
         return $this->hasMany('App\Transaction');
     }
 }

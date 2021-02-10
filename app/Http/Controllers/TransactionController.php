@@ -117,6 +117,8 @@ class TransactionController extends Controller
      */
     public function store(Request $request, Transaction $transaction)
     {
+        $request->merge(['branch_id' => session('dBranch')]);
+
         if ($request->get('client_id')) {
             switch ($request->get('type')) {
                 case 'income':
@@ -132,7 +134,6 @@ class TransactionController extends Controller
                     break;
             }
 
-            $request->merge(['branch_id' => session('dBranch')]);
             $transaction->create($request->all());
             $client = Client::find($request->get('client_id'));
             $client->balance += $request->get('amount');
@@ -149,11 +150,11 @@ class TransactionController extends Controller
                 if ($request->get('amount') > 0) {
                     $request->merge(['amount' => ((float) $request->get('amount') * (-1))]);
                 }
-                if(!$request['spendingProfile_id']){
+                if (!$request['spendingProfile_id']) {
                     return redirect()
-                    ->back()
-                    ->withErrors('Debes seleccionar un perfil')
-                    ->withInput();
+                        ->back()
+                        ->withErrors('Debes seleccionar un perfil')
+                        ->withInput();
                 }
 
                 $transaction->create($request->all());
@@ -166,11 +167,11 @@ class TransactionController extends Controller
                 if ($request->get('amount') > 0) {
                     $request->merge(['amount' => ((float) $request->get('amount') * (-1))]);
                 }
-                if(!$request['provider_id']){
+                if (!$request['provider_id']) {
                     return redirect()
-                    ->back()
-                    ->withErrors('Debes seleccionar un proveedor')
-                    ->withInput();
+                        ->back()
+                        ->withErrors('Debes seleccionar un proveedor')
+                        ->withInput();
                 }
                 $transaction->create($request->all());
 

@@ -25,7 +25,7 @@
                             <select name="product_id" id="input-product" class="form-select form-control-alternative{{ $errors->has('product_id') ? ' is-invalid' : '' }}" required>
                                 @foreach ($products as $product)
                                 @if($product['id'] == old('product_id'))
-                                <option value="{{$product['id']}}" selected>[{{ $product->category->name }}] | [{{getUnity($product->unity)}}] {{ $product->name }} -
+                                <option value="{{$product['id']}}" selected>[{{ $product->category->name }}] | [{{getUnity($product->unity)}}] {{ $product->name }} - (Precio: {{format_money($product->price)}})
                                     @foreach($providerReceipts as $tmp)
 
 
@@ -41,7 +41,7 @@
                                 </option>
 
                                 @else
-                                <option value="{{$product['id']}}">[{{ $product->category->name }}] | [{{getUnity($product->unity)}}] {{ $product->name }} -
+                                <option value="{{$product['id']}}">[{{ $product->category->name }}] | [{{getUnity($product->unity)}}] {{ $product->name }} - (Precio: {{format_money($product->price)}})
 
                                     @foreach($providerReceipts as $tmp)
                                     @if($tmp->product_id == $product['id'])
