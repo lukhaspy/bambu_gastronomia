@@ -26,7 +26,7 @@ class HomeController extends Controller
         $anualsales = $this->getAnnualSales();
         $anualclients = $this->getAnnualClients();
         $anualinventories = $this->getAnnualInventories();
-        
+
         return view('dashboard', [
             'monthlybalance'            => $monthlyBalance,
             'monthlybalancebymethod'    => $monthlyBalanceByMethod,
@@ -92,7 +92,7 @@ class HomeController extends Controller
 
             array_push($inventories, $monthinventories);
         }
-        
+
 
         return "[" . implode(',', $inventories) . "]";
     }
@@ -144,11 +144,18 @@ class HomeController extends Controller
                avg_cost * (old_quantity - new_quantity) * -1)   as sumAvg
                 ');
             }])->orderBy('id', 'desc')->latest()->first();
-            $lastinventory['id'] = $inventory->id;
 
-            $lastinventory['min'] = $inventory->details->sum('sumMin');
-            $lastinventory['avg'] = $inventory->details->sum('sumAvg');
-            $lastinventory['max'] = $inventory->details->sum('sumMax');
+            if ($inventory) {
+                $lastinventory['id'] = $inventory->id;
+                $lastinventory['min'] = $inventory->details->sum('sumMin');
+                $lastinventory['avg'] = $inventory->details->sum('sumAvg');
+                $lastinventory['max'] = $inventory->details->sum('sumMax');
+            } else {
+                $lastinventory['id'] = 0;
+                $lastinventory['min'] = 0;
+                $lastinventory['avg'] = 0;
+                $lastinventory['max'] = 0;
+            }
 
             $actualmonth->subMonth(1);
         }

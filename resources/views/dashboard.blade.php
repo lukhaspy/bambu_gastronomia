@@ -87,6 +87,7 @@
         </div>
     </div>
 
+                @isset($lastinventory)
 <div class="row">
    
     
@@ -96,9 +97,7 @@
                 <h5 class="card-category"><i class="tim-icons icon-paper text-success"></i> Ult. Inventario</h5>
                 <h6 class="display-5"> Ingreso / Egreso: <br>
                   </h6>
-                  <a type="button" href="{{route('inventory.inventory.show', $lastinventory['id'])}}" class="btn btn-sm btn-primary">
-                            Abrir Inventario
-                        </a>
+                
 
             </div>
             <div class="card-body">
@@ -129,10 +128,11 @@ Maximo:
 <span class="badge badge-danger">{{ number_format($lastinventory['max'], 0 , '', '.' ) }} Gs.</span> 
                   </div>
 </div>
+
             </div>
         </div>
     </div>
-
+@endisset
 <div class="col-lg-6 col-md-6">
         <div class="card card-tasks">
             <div class="card-header">
