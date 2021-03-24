@@ -57,7 +57,7 @@ class BranchController extends Controller{
         $user = auth()->user();
         $user->update(['default_branch' => $id]);
         session()->put('dBranch', $id);
-
+        
         return redirect()->route('home');
     }
 }

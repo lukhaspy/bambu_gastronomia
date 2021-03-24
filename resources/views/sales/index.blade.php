@@ -8,10 +8,10 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Ventas</h4>
+                        <h3 class="display-5">Ventas</h3>
                     </div>
                     <div class="col-4 text-right">
-                        <a href="{{ route('sales.create') }}" class="btn btn-sm btn-primary">Nuevo</a>
+                        <a href="{{ route('sales.create') }}" class="btn  btn-primary">Nuevo</a>
                     </div>
                 </div>
             </div>
@@ -65,60 +65,76 @@
                         </div>
                         <div class="col-md-2">
                             <label for="" class="control-label">Buscar</label> <br>
-                            <button type="submit" class="btn btn-primary"><i class="tim-icons icon-lock-circle"></i></button>
+                            <button type="submit" class="btn btn-primary btn-block"><i class="tim-icons icon-lock-circle"></i></button>
                         </div>
 
                     </div>
                 </form>
                 <div class="table-responsive"">
-                    <table class=" table ">
+                    <table class=" table table-hover ">
                         <thead>
-                            <th>Fecha</th>
-                            <th>Cliente</th>
-                            <th>Usuario</th>
-                            <th>Cant. Productos</th>
-                            <th>Cantidad</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            @foreach ($sales as $sale)
-                            <tr>
-                                <td>{{ date('d-m-y', strtotime($sale->date)) }}</td>
-                                <td><a href=" {{ route('clients.show', $sale->client) }}">{{ $sale->client->name }}<br>{{ $sale->client->document_type }}-{{ $sale->client->document_id }}</a></td>
-                    <td>{{ $sale->user->name }}</td>
-                    <td>{{ $sale->products->count() }}</td>
-                    <td>{{ $sale->products->sum('qty') }}</td>
-                    <td><span class="badge badge-pill badge-warning">{{ format_money($sale->transactions->where('type', 'income')->sum('amount')) }} / {{ format_money($sale->products->sum('total_amount')) }}</span></td>
-                    <td>
-                        @if($sale->finalized_at)
-                        <span class="badge badge-pill badge-primary">Finalizado</span>
-                        @else
-                        <span class="badge badge-pill badge-success">En Abierto</span>
-                        @endif
-                    </td>
-                    <td class="td-actions text-right">
-                        @if (!$sale->finalized_at)
-                        <a href="{{ route('sales.show', ['sale' => $sale]) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Editar">
-                            <i class="tim-icons icon-pencil"></i>
-                        </a>
-                        <form action="{{ route('sales.destroy', $sale) }}" method="post" class="d-inline">
-                            @csrf
-                            @method('delete')
-                            <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="confirm('Deseas realmente eliminar esta venta?') ? this.parentElement.submit() : ''">
-                                <i class="tim-icons icon-simple-remove"></i>
-                            </button>
-                        </form>
-                        @else
-                        <a href="{{ route('sales.show', ['sale' => $sale]) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Ver">
-                            <i class="tim-icons icon-zoom-split"></i>
-                        </a>
-                        @endif
+                            <th width=" 100">Fecha</th>
+                    <th width=" 300">Cliente</th>
+                    <th>Usuario</th>
+                    <th>Cant. Productos</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach ($sales as $sale)
+                        <tr>
+                            <td>{{ date('d-m-y', strtotime($sale->date)) }}</td>
+                            <td><a href=" {{ route('clients.show', $sale->client) }}">{{ $sale->client->name }}<br>{{ $sale->client->document_type }}-{{ $sale->client->document_id }}</a></td>
+                            <td>{{ $sale->user->name }}</td>
+                            <td>{{ $sale->products->count() }}</td>
+                            <td>{{ $sale->products->sum('qty') }}</td>
+                            <td><span class="badge badge-pill badge-secondary">{{ format_money($sale->transactions->where('type', 'income')->sum('amount')) }} / {{ format_money($sale->products->sum('total_amount')) }}</span>
 
-                    </td>
-                    </tr>
-                    @endforeach
+                                <br>
+                                @if($sale->finalized_at)
+                                <span class="badge badge-pill badge-primary">Finalizado</span>
+                                @endif
+
+                                @if($sale->preparing_at)
+                                <span class="badge badge-pill badge-warning">Preparando: {{date('d/m/Y H:i', strtotime($sale->preparing_at))}}</span>
+
+                                @endif
+
+                                @if($sale->prepared_at)
+                                <br>
+                                <span class="badge badge-pill badge-primary">Preparado: {{date('d/m/Y H:i', strtotime($sale->prepared_at))}}</span>
+
+                                @endif
+                            </td>
+
+                            <td class="td-actions text-right">
+
+
+                                <a href="{{ route('sales.print-receipt', ['sale' => $sale]) }}" target="_blank" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                                    <i class="tim-icons icon-components"></i>
+                                </a>
+                                @if (!$sale->finalized_at)
+                                <a href="{{ route('sales.show', ['sale' => $sale]) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                                    <i class="tim-icons icon-pencil"></i>
+                                </a>
+
+                                <form action="{{ route('sales.destroy', $sale) }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="confirm('Deseas realmente eliminar esta venta?') ? this.parentElement.submit() : ''">
+                                        <i class="tim-icons icon-simple-remove"></i>
+                                    </button>
+                                </form>
+                                @else
+                                <a href="{{ route('sales.show', ['sale' => $sale]) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Ver">
+                                    <i class="tim-icons icon-zoom-split"></i>
+                                </a>
+                                @endif
+
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                     </table>
                 </div>

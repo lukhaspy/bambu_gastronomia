@@ -14,7 +14,7 @@
                         <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
                             <label class="btn btn-sm btn-primary btn-simple active" id="0">
                                 <input type="radio" name="options" checked>
-                                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Productos</span>
+                                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Inventarios</span>
                                 <span class="d-block d-sm-none">
                                     <i class="tim-icons icon-single-02"></i>
                                 </span>
@@ -86,55 +86,54 @@
             </div>
         </div>
     </div>
-</div>
 
 <div class="row">
-    <div class="col-lg-6 col-md-12">
-        <div class="card card-tasks">
+   
+    
+    <div class="col-md-6">
+        <div class="card col-12">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-8">
-                        <h4 class="card-title">Ventas Pendientes</h4>
-                    </div>
-                    <div class="col-4 text-right">
-                        <a href="{{ route('sales.create') }}" class="btn btn-sm btn-primary">Nueva Venta</a>
-                    </div>
-                </div>
+                <h5 class="card-category"><i class="tim-icons icon-paper text-success"></i> Ult. Inventario</h5>
+                <h6 class="display-5"> Ingreso / Egreso: <br>
+                  </h6>
+                  <a type="button" href="{{route('inventory.inventory.show', $lastinventory['id'])}}" class="btn btn-sm btn-primary">
+                            Abrir Inventario
+                        </a>
+
             </div>
             <div class="card-body">
-                <div class="table-full-width table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Fecha
-                                </th>
-                                <th>
-                                    Cliente
-                                </th>
-                                <th>
-                                    Productos
-                                </th>
-                                <th>
-                                    Pagado
-                                </th>
-                                <th>
-                                    Total
-                                </th>
-                                <th>
+            <div class="row">
+<div class="col-6 card-category">
+Minimo: 
+</div>
+<div class="col-6">
 
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           
-                        </tbody>
-                    </table>
-                </div>
+                  <span class="badge badge-primary" align="right">{{ number_format($lastinventory['min'], 0 , '', '.' ) }} Gs.</span> 
+                  </div>
+</div>
+<div class="row">
+<div class="col-6 card-category">
+Promedio: 
+</div>
+<div class="col-6">
+
+<span class="badge badge-warning">{{ number_format($lastinventory['avg'], 0 , '', '.' ) }} Gs.</span> 
+                  </div>
+</div>
+<div class="row">
+<div class="col-6 card-category">
+Maximo: 
+</div>
+<div class="col-6">
+
+<span class="badge badge-danger">{{ number_format($lastinventory['max'], 0 , '', '.' ) }} Gs.</span> 
+                  </div>
+</div>
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-12">
+
+<div class="col-lg-6 col-md-6">
         <div class="card card-tasks">
             <div class="card-header">
                 <div class="row">
@@ -143,7 +142,7 @@
                     </div>
                     <div class="col-5 text-right">
                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#transactionModal">
-                            Nuevas Transacciones
+                            Nueva Operación
                         </button>
                     </div>
                 </div>
@@ -208,6 +207,8 @@
     </div>
 </div>
 
+
+
 <div class="modal fade" id="transactionModal" tabindex="-1" role="dialog" aria-labelledby="transactionModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -245,7 +246,7 @@
         var lastexpenses = {{ $lastexpenses }};
         var anualsales = {{ $anualsales }};
         var anualclients = {{ $anualclients }};
-        var anualproducts = {{ $anualproducts }};
+        var anualinventories = {{ $anualinventories }};
         var methods = [];
         var methods_stats = [];
 

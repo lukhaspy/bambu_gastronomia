@@ -21,7 +21,8 @@ class CreateSalesTableMigration extends Migration
             $table->decimal('total_amount', 10, 2)->nullable();
             $table->date('date')->nullable();
             $table->tinyInteger('branch_id')->unsigned()->default(1);
-
+            $table->timestamp('preparing_at')->nullable();
+            $table->timestamp('prepared_at')->nullable();
             $table->timestamp('finalized_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Sale;
+use App\Inventory;
+
 use Carbon\Carbon;
 use App\SoldProduct;
 use App\Transaction;
@@ -23,8 +25,8 @@ class HomeController extends Controller
 
         $anualsales = $this->getAnnualSales();
         $anualclients = $this->getAnnualClients();
-        $anualproducts = $this->getAnnualProducts();
-
+        $anualinventories = $this->getAnnualInventories();
+        
         return view('dashboard', [
             'monthlybalance'            => $monthlyBalance,
             'monthlybalancebymethod'    => $monthlyBalanceByMethod,
@@ -32,12 +34,14 @@ class HomeController extends Controller
             'unfinishedsales'           => Sale::where('finalized_at', null)->get(),
             'anualsales'                => $anualsales,
             'anualclients'              => $anualclients,
-            'anualproducts'             => $anualproducts,
+            'anualinventories'              => $anualinventories,
+
             'lastmonths'                => array_reverse($this->getMonthlyTransactions()->get('lastmonths')),
             'lastincomes'               => $this->getMonthlyTransactions()->get('lastincomes'),
             'lastexpenses'              => $this->getMonthlyTransactions()->get('lastexpenses'),
             'semesterexpenses'          => $this->getMonthlyTransactions()->get('semesterexpenses'),
-            'semesterincomes'           => $this->getMonthlyTransactions()->get('semesterincomes')
+            'semesterincomes'           => $this->getMonthlyTransactions()->get('semesterincomes'),
+            'lastinventory'             => $this->getMonthlyTransactions()->get('lastinventory')
         ]);
     }
 
@@ -80,15 +84,17 @@ class HomeController extends Controller
         return "[" . implode(',', $clients) . "]";
     }
 
-    public function getAnnualProducts()
+    public function getAnnualInventories()
     {
-        $products = [];
+        $inventories = [];
         foreach (range(1, 12) as $i) {
-            $monthproducts = SoldProduct::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', $i)->sum('qty');
+            $monthinventories = Inventory::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', $i)->count();
 
-            array_push($products, $monthproducts);
+            array_push($inventories, $monthinventories);
         }
-        return "[" . implode(',', $products) . "]";
+        
+
+        return "[" . implode(',', $inventories) . "]";
     }
 
     public function getMonthlyTransactions()
@@ -101,6 +107,7 @@ class HomeController extends Controller
         $semesterincomes = 0;
         $semesterexpenses = 0;
 
+        $lastinventory = [];
         foreach (range(1, 6) as $i) {
             array_push($lastmonths, $actualmonth->shortMonthName);
 
@@ -120,12 +127,35 @@ class HomeController extends Controller
             $semesterexpenses += $expenses;
             $lastexpenses = round($expenses) . ',' . $lastexpenses;
 
+
+            $inventory =  Inventory::with(['details' => function ($q) {
+                $q->selectRaw('
+                inventory_id,
+               if(new_quantity > old_quantity,
+               min_cost * (new_quantity - old_quantity),
+               min_cost * (old_quantity - new_quantity) * -1)   as sumMin,
+    
+               if(new_quantity > old_quantity,
+               max_cost * (new_quantity - old_quantity),
+               max_cost * (old_quantity - new_quantity) * -1)   as sumMax,
+    
+               if(new_quantity > old_quantity,
+               avg_cost * (new_quantity - old_quantity),
+               avg_cost * (old_quantity - new_quantity) * -1)   as sumAvg
+                ');
+            }])->orderBy('id', 'desc')->latest()->first();
+            $lastinventory['id'] = $inventory->id;
+
+            $lastinventory['min'] = $inventory->details->sum('sumMin');
+            $lastinventory['avg'] = $inventory->details->sum('sumAvg');
+            $lastinventory['max'] = $inventory->details->sum('sumMax');
+
             $actualmonth->subMonth(1);
         }
 
         $lastincomes = '[' . $lastincomes . ']';
         $lastexpenses = '[' . $lastexpenses . ']';
 
-        return collect(compact('lastmonths', 'lastincomes', 'lastexpenses', 'semesterincomes', 'semesterexpenses'));
+        return collect(compact('lastmonths', 'lastincomes', 'lastexpenses', 'semesterincomes', 'semesterexpenses', 'lastinventory'));
     }
 }

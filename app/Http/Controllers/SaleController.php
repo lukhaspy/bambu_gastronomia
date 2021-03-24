@@ -11,6 +11,7 @@ use App\Transaction;
 use App\PaymentMethod;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaleRequest;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class SaleController extends Controller
 {
@@ -48,6 +49,57 @@ class SaleController extends Controller
         return view('sales.index', compact('sales', 'clients'));
     }
 
+
+
+    public function orderIndex(Request $request)
+    {
+
+
+        $sales = Sale::where(function ($q) {
+            $q->where('preparing_at', '<>', NULL)
+                ->where('prepared_at', NULL);
+        })->get();
+
+
+
+
+
+        return view('sales.orders.index', compact('sales'));
+    }
+
+
+    public function orderPrepare(Sale $sale)
+    {
+        if (!Sale::find($sale->id)) {
+            return back();
+        }
+
+        if ($sale->finalized_at || $sale->preparing_at) {
+            return back()->withStatus('La venta ya fue procesada o ya esta en preparacion');
+        }
+
+        $sale->preparing_at = Carbon::now()->toDateTimeString();
+        $sale->save();
+
+        return back()->withStatus('Pedido en estado de preparo.');
+    }
+
+    public function orderPrepared(Sale $sale)
+    {
+        if (!Sale::find($sale->id)) {
+            return back();
+        }
+
+        if ($sale->finalized_at || !$sale->preparing_at) {
+            return back()->withStatus('El pedido debe estar en estado de preparo y no finalizado');
+        }
+
+        $sale->prepared_at = Carbon::now()->toDateTimeString();
+        $sale->save();
+
+        return back()->withStatus('Pedido preparado!');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -56,8 +108,8 @@ class SaleController extends Controller
     public function create()
     {
         $clients = Client::all();
-
-        return view('sales.create', compact('clients'));
+        $products = Product::where('type', '<>', 1)->get();
+        return view('sales.create', compact('clients', 'products'));
     }
 
     /**
@@ -68,14 +120,31 @@ class SaleController extends Controller
      */
     public function store(SaleRequest $request, Sale $model)
     {
+
+
+        $request->merge(['branch_id' => session('dBranch')]);
+
+        $input = $request->all();
+        $products = [];
+        if (isset($input['products'])) {
+            $products = $input['products'];
+            unset($input['products']);
+        }
+
+        foreach ($products as $key => $value) {
+            $products[$key]['total_amount'] = $value['qty'] * $value['price'];
+        }
+
+
         // $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
 
         /* if ($existent->count()) {
             return back()->withError('Existe una operación en abierto con el cliente seleccionado. <a href="' . route('sales.show', $existent->first()) . '"> Abrir Venta</a>');
         }*/
 
-        $request->merge(['branch_id' => session('dBranch')]);
         $sale = $model->create($request->all());
+        $sale->products()->createMany($products);
+
 
         return redirect()
             ->route('sales.show', ['sale' => $sale->id])
@@ -194,6 +263,8 @@ class SaleController extends Controller
 
     public function storetransaction(Request $request, Sale $sale, Transaction $transaction)
     {
+        $request->merge(['branch_id' => session('dBranch')]);
+
         switch ($request->all()['type']) {
             case 'income':
                 $request->merge(['title' => 'Ingreso recibido de la venta ID: ' . $request->get('sale_id')]);
@@ -249,5 +320,13 @@ class SaleController extends Controller
         $transaction->delete();
 
         return back()->withStatus('Transacción eliminada.');
+    }
+
+    public function printReceipt(Sale $sale)
+    {
+        $customPaper = array(0, 0, 300.00, 500);
+
+        $pdf = PDF::loadView('prints.sales.comprobante-comun', compact('sale'))->setPaper($customPaper);
+        return $pdf->stream();
     }
 }

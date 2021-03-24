@@ -83,6 +83,12 @@
                                 <p>Estatísticas</p>
                             </a>
                         </li>
+                        <li @if ($pageSlug=='inventories' ) class="active " @endif>
+                            <a href="{{ route('inventory.inventory.index') }}">
+                                <i class="tim-icons icon-notes"></i>
+                                <p>Inventarios</p>
+                            </a>
+                        </li>
                         <li @if ($pageSlug=='products' ) class="active " @endif>
                             <a href="{{ route('products.index') }}">
                                 <i class="tim-icons icon-notes"></i>

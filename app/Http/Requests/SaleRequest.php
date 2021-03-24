@@ -29,7 +29,11 @@ class SaleRequest extends FormRequest
             ],
             'client_id' => [
                 'required', 'exists:clients,id'
-            ]        
+            ] ,
+            'products.*.product_id' => 'required|exists:products,id',     
+            'products.*.qty' => 'required|min:1|gt:0',     
+            'products.*.price' => 'required|numeric',     
+
         ];
     }
 }

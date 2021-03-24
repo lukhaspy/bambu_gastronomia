@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('inventory/production/materials/{id}', 'ProductionController@tableMaterials');
-Route::get('inventory/production/materials/{id}/delete', 'ProductionController@deleteMaterials');
+
+Route::get('inventory/product/table/{id}', 'ProductController@tableProducts');
+
 
 Route::get('inventory/production/producir/{production}', 'ProductionController@producir')->name('production.producir');
 Route::post('inventory/production/producir/{production}/make', 'ProductionController@make')->name('production.make');
@@ -27,6 +28,12 @@ Route::get('inventory/production/inproducir/{production}', 'ProductionController
 Route::post('inventory/production/producir/{production}/inmake', 'ProductionController@inmake')->name('production.inMake');
 
 Route::group(['middleware' => 'auth'], function () {
+
+
+    Route::any('inventory/search', 'InventoryController@search')->name('inventory.inventory.search');
+    Route::resource('inventory/inventory', 'InventoryController')->names('inventory.inventory');
+
+
 
     Route::get('/changeSucursal/{id}', 'BranchController@changeSucursal')->name('branch.change');
     Route::resources([
@@ -70,7 +77,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::match(['put', 'patch'], 'inventory/receipts/{receipt}/transaction/{transaction}', ['as' => 'inventory.receipts.transaction.update', 'uses' => 'ReceiptController@updatetransaction']);
     Route::delete('inventory/receipts/{receipt}/transaction/{transaction}', ['as' => 'inventory.receipts.transaction.destroy', 'uses' => 'ReceiptController@destroytransaction']);
 
+    Route::get('sales/orders/api', 'Api\SaleApiController@getOrders');
 
+    Route::get('sales/orders/prepared/{sale}', ['as' => 'sales.orders.prepared', 'uses' => 'SaleController@orderPrepared']);
+    Route::get('sales/orders/prepare/{sale}', ['as' => 'sales.orders.prepare', 'uses' => 'SaleController@orderPrepare']);
+    Route::get('sales/orders', ['as' => 'sales.orders.index', 'uses' => 'SaleController@orderIndex']);
+
+    Route::get('sales/{sale}/print-receipt', ['as' => 'sales.print-receipt', 'uses' => 'SaleController@printReceipt']);
 
     Route::resource('sales', 'SaleController')->except(['edit', 'update']);
     Route::get('sales/{sale}/finalize', ['as' => 'sales.finalize', 'uses' => 'SaleController@finalize']);

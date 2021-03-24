@@ -32,24 +32,26 @@
                             </select>
                             @include('alerts.feedback', ['field' => 'product_id'])
                         </div>
+                        <div class="row">
+                            <div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }} col-md-3">
+                                <label class="form-control-label" for="input-price">Precio Unidad</label>
+                                <input type="number" name="price" id="input-price" step=".01" class="form-control form-control-alternative{{ $errors->has('product_id') ? ' is-invalid' : '' }}" value="" autofocus required>
+                                @include('alerts.feedback', ['field' => 'product_id'])
+                            </div>
 
-                        <div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="input-price">Precio Unidad</label>
-                            <input type="number" name="price" id="input-price" step=".01" class="form-control form-control-alternative{{ $errors->has('product_id') ? ' is-invalid' : '' }}" value="0" required>
-                            @include('alerts.feedback', ['field' => 'product_id'])
+                            <div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }} col-md-2">
+                                <label class="form-control-label" for="input-qty">Cantidad</label>
+                                <input type="number" name="qty" id="input-qty" class="form-control form-control-alternative{{ $errors->has('product_id') ? ' is-invalid' : '' }}" value="1" required>
+                                @include('alerts.feedback', ['field' => 'product_id'])
+                            </div>
+
+                            <div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }} col-md-3">
+                                <label class="form-control-label" for="input-total">Total</label>
+                                <input type="text" name="total_amount" id="input-total" class="form-control form-control-alternative{{ $errors->has('product_id') ? ' is-invalid' : '' }}" value="0 Gs" disabled>
+                                @include('alerts.feedback', ['field' => 'product_id'])
+                            </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="input-qty">Cantidad</label>
-                            <input type="number" name="qty" id="input-qty" class="form-control form-control-alternative{{ $errors->has('product_id') ? ' is-invalid' : '' }}" value="0" required>
-                            @include('alerts.feedback', ['field' => 'product_id'])
-                        </div>
-
-                        <div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="input-total">Total</label>
-                            <input type="text" name="total_amount" id="input-total" class="form-control form-control-alternative{{ $errors->has('product_id') ? ' is-invalid' : '' }}" value="0 Gs" disabled>
-                            @include('alerts.feedback', ['field' => 'product_id'])
-                        </div>
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4">Continuar</button>

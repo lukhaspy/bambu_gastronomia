@@ -43,7 +43,7 @@ class ProductCategoryController extends Controller
 
         return redirect()
             ->route('categories.index')
-            ->withStatus('Category successfully created.');
+            ->withStatus('Categoria creada correctamente.');
     }
 
     /**
@@ -95,12 +95,11 @@ class ProductCategoryController extends Controller
      */
     public function destroy(ProductCategory $category)
     {
-        if($method->products()->count()){
+        if ($method->products()->count()) {
 
             return redirect()->route('categories.index')->withStatus('NO ES POSIBLE ELIMINAR LA CATEGORIA, YA POSEE PRODUCTOS.');
-
         }
-          $category->delete();
+        $category->delete();
 
         return redirect()
             ->route('categories.index')

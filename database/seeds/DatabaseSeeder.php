@@ -10,9 +10,11 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
-class DatabaseSeeder extends Seeder{
+class DatabaseSeeder extends Seeder
+{
 
-    public function run(){
+    public function run()
+    {
 
         Role::create(['name' => 'super-admin']);
         Role::create(['name' => 'admin']);
@@ -41,12 +43,12 @@ class DatabaseSeeder extends Seeder{
             'name' => 'Efectivo'
         ]);
 
-        for ($i = 0; $i < 55; $i++) {
+        /*for ($i = 0; $i < 55; $i++) {
             Sale::create([
                 'user_id' => 1,
                 'client_id' => 1,
                 'date' => date('Y-m-d', strtotime('+ ' . $i . ' days'))
             ]);
-        }
+        }*/
     }
 }

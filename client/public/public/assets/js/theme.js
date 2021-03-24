@@ -214,7 +214,7 @@ demo = {
         });
 
         // Anual Performance Chart
-        var chart_labels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+        var chart_labels = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
         var ctx = document.getElementById("chartBig1").getContext('2d');
 
         var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
@@ -240,20 +240,22 @@ demo = {
                     pointBorderWidth: 20,
                     pointHoverRadius: 4,
                     pointHoverBorderWidth: 15,
-                    pointRadius: 4,
-                    data: anualproducts,
+                    pointRadius: 8,
+                    data: anualinventories,
                 }]
             },
             options: gradientChartOptionsConfigurationWithTooltipPurple
         };
-        
+
         var myChartData = new Chart(ctx, config);
         $("#0").click(function () {
-            var chart_data = anualproducts;
+            console.log('entra')
+            var chart_data = anualinventories;
             var data = myChartData.config.data;
             data.datasets[0].data = chart_data;
             data.labels = chart_labels;
             myChartData.update();
+
         });
         $("#1").click(function () {
             var chart_data = anualsales;

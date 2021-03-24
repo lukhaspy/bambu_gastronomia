@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
-class Product extends Model{
+class Product extends Model
+{
 
     use SoftDeletes;
 
@@ -23,27 +24,40 @@ class Product extends Model{
         'branch_id'
     ];
 
-    protected static function booted(){
+    protected static function booted()
+    {
         static::addGlobalScope(new BranchScope);
     }
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo('App\ProductCategory', 'product_category_id')->withTrashed();
     }
 
-    public function solds(){
+    public function solds()
+    {
         return $this->hasMany('App\SoldProduct');
     }
 
-    public function receiveds(){
+    public function receiveds()
+    {
         return $this->hasMany('App\ReceivedProduct');
     }
 
-    public function materials(){
+
+
+    public function materials()
+    {
         return $this->hasMany('App\ProductMaterial');
     }
 
-    public static function getProductsByProvider($cmd = ''){
+    public function inventoryDetails()
+    {
+        return $this->hasMany(InventoryDetail::class);
+    }
+
+    public static function getProductsByProvider($cmd = '')
+    {
 
         return DB::select(DB::raw(
             "SELECT p.*,
@@ -62,5 +76,24 @@ class Product extends Model{
             group by  rp.product_id, r.provider_id
             order by cost asc"
         ));
+    }
+
+    public function lastPurchases($filterDesde = null)
+    {
+        return $this->where('type', 1)->with(['receiveds' => function ($q) use ($filterDesde) {
+            $q->select('product_id')
+                ->selectRaw(
+                    'avg(cost) as avg, 
+                max(cost) as max, 
+                min(cost) as min'
+                );
+            if ($filterDesde) {
+                $q->whereBetween('created_at', [
+                    $filterDesde->created_at->format('Y-m-d'),
+                    now()->format('Y-m-d')
+                ]);
+            }
+            $q->groupBy('product_id');
+        }])->get();
     }
 }
